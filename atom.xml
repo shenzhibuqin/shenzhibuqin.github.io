@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-28T15:08:55.561Z</updated>
+  <updated>2020-11-29T03:08:04.069Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git的奇技淫巧</title>
+    <link href="http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/"/>
+    <id>http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/</id>
+    <published>2020-11-29T03:06:35.000Z</published>
+    <updated>2020-11-29T03:08:04.069Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Git的奇技淫巧-see-no-evil&quot;&gt;&lt;a href=&quot;#Git的奇技淫巧-see-no-evil&quot; class=&quot;headerlink&quot; title=&quot;Git的奇技淫巧:see_no_evil:&quot;&gt;&lt;/a&gt;Git的奇技淫巧&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="基础" scheme="http://example.com/categories/%E5%9F%BA%E7%A1%80/"/>
+    
+    
+    <category term="Git" scheme="http://example.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux命令备忘录</title>
