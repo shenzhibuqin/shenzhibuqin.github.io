@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>流氓ap及用法</title>
+      <link href="2020/12/07/liu-mang-ap-ji-yong-fa/"/>
+      <url>2020/12/07/liu-mang-ap-ji-yong-fa/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>流氓ap（rogue ap），也叫邪恶双子星（evil twin），老外起名字就是nb。原理非常简单，你有一台可以上网的设备，然后你伪造一个ap，让人们连接你的ap，让流量通过伪造的ap再通过你设备上网，这样你就实现了一个中间人攻击，可以监听流量，甚至可以劫持篡改。</p><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>首先，把网卡导入虚拟机，先用airmon-ng命令关闭可能会影响攻击的进程<br><img src="1.png" alt="airmon-ng命令"><br>用airbase-ng命令开启伪造ap，–essid参数是要伪造的ap名，-c是信道，如果要伪造mac地址的话可以跟上-a加mac地址，该命令会自动增加一块网卡at0，接下来需要把这块网卡和上网的网卡桥接<br><img src="2.png" alt="airbase-ng命令"><br>桥接网卡需要用到bridge-utils工具，kali默认是不自带的，需要用apt安装一下</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">apt install bridge-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>使用brctl这个命令，先创建一个网桥，再添加桥接网卡</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">brctl addbr br添加名叫br的网桥<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">brctl addif br eth0给网桥添加网卡，eth0是连接网络的网卡brctl addif br at0at0是ap自动生成的网卡<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>接下来把两张网卡的IP设为零，也就是没有IP，这里有一点要注意，设为零之前先记住eth0的IP，之后需要给网桥用</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">ifconfig eth0 0.0.0.0 upifconfig at0 0.0.0.0 up<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>设置网桥IP为原有线网卡eth0的IP,假设是192.168.1.111</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">ifconfig br 192.168.1.111 up<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>改完网卡后ifconfig查看应该是这样的<br><img src="3.png" alt="网卡状态"><br>添加网关，把网关设为路由器地址，不然不能上网</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.168.1.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>启动IP转发,这个文件直接vi修改是没有权限的，0代表关闭，1代表开启</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">echo 1 &gt; /proc/sys/net/ipv4/ip_forward<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这个时候应该是能ping通网关能上网的<br><img src="4.png" alt="ping网关"><br>这个时候再用手机连开的wifi应该就能上网了，IP是由路由器分配的，如果路由器有查看连接设备的功能的话，在路由器的管理界面应该可以查看到这个设备<br><img src="5.png" alt="ipad连接"><br>也可以把这些命令写成一个shell脚本，不用每次一条条命令敲<br><img src="10.png" alt="脚本"></p><h2 id="监听流量"><a href="#监听流量" class="headerlink" title="监听流量"></a>监听流量</h2><p>打开wireshark，可以在接口列表看见我们创建的网桥<br><img src="6.png" alt="接口列表"><br>监听网卡，我们就能看见设备的明文流量，我的移动设备分到的IP是192.168.1.114<br><img src="7.png" alt="流量"><br>添加显示筛选器就可以看见设备所有的流量，实战中就可以读取其中的敏感信息，登录凭证等<br><img src="8.png" alt="流量"></p><h2 id="dns劫持"><a href="#dns劫持" class="headerlink" title="dns劫持"></a>dns劫持</h2><p>劫持需要用到的工具是dnsspoof，这个工具包含于dsniff套件中，kali默认也不自带，需要用apt安装<br><img src="9.png" alt="安装dsniff"><br>需要写一个文件，把要欺骗的域名和目的IP用类似hosts文件的格式写在文件里<br><img src="11.png" alt="欺骗的文件"><br>dnsspoof命令需要两个参数，-i指定网卡，-f指定文件</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dnsspoof -i wlan0mon -f 1.hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>这时再在手机上访问nbbs.top就会被重定向到网关</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> WiFi </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WiFi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用JDBC的时候发现的一点小意外</title>
+      <link href="2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/"/>
+      <url>2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/</url>
+      
+        <content type="html"><![CDATA[<p>根据JDBC规范Java在连接数据库的时候需要导入对应数据库驱动，最近在写jsp的时候发现了一件很神奇的事，我用的是idea，正常导入jar包驱动的时候是File-&gt;project structure-&gt;modules-&gt;dependencies，也就是下面这个位置<br><img src="1.png" alt="1"><br>但是一跑起来在class.forname注册驱动的时候就出异常，找不到驱动包，为了验证我还特地新建了一个命令行的项目来测试数据库连接代码，代码没问题，导入jar包也没问题，结果能正常出，但是一到jsp的项目里就不好使，我又新建了一个新的jsp项目，也找不到驱动包。<br>网上也没找到一样的情况，最后试出了解决办法，jsp在引入jar包的时候引入上层的文件夹而不是直接导入jar包，如下图所示<br><img src="2.png" alt="2"><br>我估计可能是环境哪没配置对或者是我没遵循什么规范，还是太菜了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JDBC </tag>
+            
+            <tag> java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git的奇技淫巧</title>
       <link href="2020/11/29/git-de-qi-ji-yin-qiao/"/>
       <url>2020/11/29/git-de-qi-ji-yin-qiao/</url>

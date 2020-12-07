@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-11-29T03:08:04.069Z</updated>
+  <updated>2020-12-07T09:54:23.840Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>流氓ap及用法</title>
+    <link href="http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/"/>
+    <id>http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/</id>
+    <published>2020-12-07T07:39:37.000Z</published>
+    <updated>2020-12-07T09:54:23.840Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;流氓ap（rogue ap），也叫邪恶双子星（evil</summary>
+        
+      
+    
+    
+    
+    <category term="WiFi" scheme="http://example.com/categories/WiFi/"/>
+    
+    
+    <category term="WiFi" scheme="http://example.com/tags/WiFi/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用JDBC的时候发现的一点小意外</title>
+    <link href="http://example.com/2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/"/>
+    <id>http://example.com/2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/</id>
+    <published>2020-12-04T05:20:30.000Z</published>
+    <updated>2020-12-04T06:16:10.041Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;根据JDBC规范Java在连接数据库的时候需要导入对应数据库驱动，最近在写jsp的时候发现了一件很神奇的事，我用的是idea，正常导入jar包驱动的时候是File-&amp;gt;project</summary>
+        
+      
+    
+    
+    
+    <category term="java" scheme="http://example.com/categories/java/"/>
+    
+    
+    <category term="JDBC" scheme="http://example.com/tags/JDBC/"/>
+    
+    <category term="java" scheme="http://example.com/tags/java/"/>
+    
+  </entry>
   
   <entry>
     <title>Git的奇技淫巧</title>
