@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="wpa破解, Nbb&#39;s Blog">
+    <meta name="keywords" content="域名相关信息搜集, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>wpa破解 | Nbb&#39;s Blog</title>
+    <title>域名相关信息搜集 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -209,7 +209,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">wpa破解</h1>
+                    <h1 class="description center-align post-title">域名相关信息搜集</h1>
                 </div>
             </div>
         </div>
@@ -326,8 +326,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/wifi/">
-                                <span class="chip bg-color">wifi</span>
+                            <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                                <span class="chip bg-color">信息搜集</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%9F%9F%E5%90%8D/">
+                                <span class="chip bg-color">域名</span>
                             </a>
                         
                     </div>
@@ -338,8 +342,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/WiFi/" class="post-category">
-                                WiFi
+                            <a href="/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="post-category">
+                                信息搜集
                             </a>
                         
                     </div>
@@ -351,7 +355,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-12-07
+                    2020-12-30
                 </div>
                 
 
@@ -367,94 +371,68 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>wpa协议的安全性相较wep和wps来说是比较高的，到现在为止没有发现能从协议层破解密码的严重漏洞，前几年公布了krack攻击，可以解密监听数据，但也跟密码没关系，对于获取密码最常用的法子还是爆破，所以WiFi字典一般都不会小</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>wpa认证有一个四步握手的过程，我觉得下图比较形象的说明了这四步握手<br><img src="1.png" alt="四步握手"><br>STA是客户端（station），AP是就是无线接入点（access point），开始前还有一步，由于正常情况下双方都知道密钥，他们会先各自由密钥生成相同的PMK，这个PMK是起点，一共需要五个要素生成最终的凭证</p>
-<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>AP先向STA发一个包，其中包含一个随机数ANONCE</p>
-<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>STA接到随机数后会自己生成第二个随机数SNONCE，同时AP的包里会有AP的MAC地址，至此五个要素就起了，分别是PMK，ANONCE，SNONCE，AP的MAC，STA的MAC，STA会用这五个要素生成PTK，并计算校验值MIC，然后会将SNONCE和MIC一起发给AP，注意，PMK和PTK自始至终都不会进行传输，传输的是MIC</p>
-<h3 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h3><p>AP接到包后也就凑齐了五要素，计算出了PTK，也就可以算出MIC，对比STA发的MIC，如果一样就是通过了认证，接着发送数据包让STA安装组密钥</p>
-<h3 id="第四步"><a href="#第四步" class="headerlink" title="第四步"></a>第四步</h3><p>STA发送确认包</p>
-<h3 id="利用点"><a href="#利用点" class="headerlink" title="利用点"></a>利用点</h3><p>看完这四步我们会发现认证主要在前两部，几个要素除了PMK在前两步都出现了，其实甚至可以不用AP，有的骚思路直接伪造ap，随机数我们可以产生，MAC也可以伪造，完全可以通过前两步套出所有要素。回到破解，我们拿到这几个要素后我们就有了验证对错的MIC和计算的所有要素，只有PMK我们没有，而PMK由密钥和essid计算产生，所以我们就可以用字典进行爆破，用字典的密钥计算出PMK，再计算出PTK,计算出MIC，就可以知到密钥的对错</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>实际操作其实很简单，由原理可以看出其实就抓握手包和爆破两步</p>
-<h3 id="准备网卡"><a href="#准备网卡" class="headerlink" title="准备网卡"></a>准备网卡</h3><p>网卡接入虚拟机，airmon-ng命令准备环境</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airmon-ng check kill
-杀掉可能有影响的进程
-airmon-ng start wlan0
-把网卡调至monitor模式<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+                <h2 id="域名是什么"><a href="#域名是什么" class="headerlink" title="域名是什么"></a>域名是什么</h2><p>机器在网络层互通用的是IP，但是纯数字的IP难以记忆，为了方便使用，前辈们创造出了域名这个东西，用一串字符串代替IP地址，方便人们记忆和使用<br>sina.com<br>这就是域名<br><a target="_blank" rel="noopener" href="http://www.sina.com/">www.sina.com</a><br>这是完全限定域名，也叫FQDN，那个www是主机名</p>
+<h3 id="解析过程"><a href="#解析过程" class="headerlink" title="解析过程"></a>解析过程</h3><p>但是这东西是要代替IP用的，所以前辈又整了个dns出来，也就是域名解析，把域名转换为对应IP<br><img src="1.jpg" alt="dns解析过程"><br>以普通家庭网为例，上图就是一个对新浪域名sina.com的完整dns解析的过程，pc在解析一个域名时会向dns服务器发出请求，一般pc的dns服务器就是家里的路由器，接下来会由路由器完成解析并返回结果给pc<br>路由器首先会向根域名服务器请求（全球有十三台IPv4根域名服务器，这十三台服务器的地址是所有dns服务器都自带的），根域名服务器并不知道sina.com的地址，但是他会返回com域名服务器的地址，让路由器去com域名服务器上查询，com域名服务器会返回sina.com的域名服务器，最后路由器会在sina.com域名服务器上查到地址并返回给pc<br>pc向他的dns服务器也就是路由器查询称为递归查询，dns服务器从根域名开始查询称为迭代查询</p>
+<h3 id="域名记录种类"><a href="#域名记录种类" class="headerlink" title="域名记录种类"></a>域名记录种类</h3><p>A：主机地址<br>AAAA：IPv6下的主机IP地址<br>CNAME：别名，指向其他主机名，A记录优先级高于CNAME<br>MX：邮件记录，将该域名结尾的邮件指向对应的邮件服务器，记录可以是域名或IP<br>NS：指定子域名的解析服务器，由哪台主机来解析该子域名<br>ptr：由IP反向解析出域名<br>spf：IP反查域名，用于排查垃圾邮件</p>
+<h2 id="相关工具"><a href="#相关工具" class="headerlink" title="相关工具"></a>相关工具</h2><h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><p>kali不自带，apt instal dnsutils安装<br>交互模式</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">nslookup进入
+或者
+nslookup - 114.114.114.114可以指定dns服务器进入
+进入交互模式后每输入一个域名就解析一个
+set type=mx设置参数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>非交互模式</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">类似ping
+nslookup -type=mx A B
+-type=mx 参数（可选）
+A 域名
+B 域名服务器（可选）<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="抓包"><a href="#抓包" class="headerlink" title="抓包"></a>抓包</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airodump-ng -c 11 -w test -d AA:AA:AA:AA:AA:AA wlan0mon
--c 指定信道，调至目标信道监听效果会更好，不然会进行轮询
--w 指定保存的文件名，会保存多个文件
--d 目标的bssid，就是AP的MAC地址
-wlan0mon 网卡，有的无线网卡用airmon-ng改成monitor会改名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="dig"><a href="#dig" class="headerlink" title="dig"></a>dig</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dig +noall +answer sina.com any @8.8.8.8
++noall 不显示所有结果
++answer 显示查询结果
+sina.com 域名
+any 查询类型
+@8.8.8.8 域名服务器<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dig -x 1.1.1.1
+反向查询，ptr记录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dig txt chaos VERSION.BIND @ns3.dnsv4.com
+查询dns服务器bind软件版本<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>dig +trace sina.com<br>这个命令会从根域名服务器开始进行完整的迭代，干了本来dns服务器干的事，wireshark抓包可以清晰地看见dns的解析过程<br><img src="2.jpg" alt="解析根域名"></p>
+<p>可以看见第一步先解析了跟域名服务器，dns服务器返回了十三台根域名服务器，然后客户端开始解析十三台根域名服务器</p>
+<p><img src="3.jpg" alt="解析com域名服务器"></p>
+<p>然后dig会挑一台根域名服务器去解析，根域名服务器会返回com域名服务器，dig会接着解析com域名服务器</p>
+<p><img src="4.jpg" alt="解析sina.com域名服务器"></p>
+<p>解析完com域名服务器后会再随机挑一台解析sina.com，会得到sina.com的域名解析服务器</p>
+<p><img src="5.jpg" alt="解析sina.com"></p>
+<p>最后向新浪的域名服务器请求得到解析结果</p>
+<h3 id="域传送"><a href="#域传送" class="headerlink" title="域传送"></a>域传送</h3><p>dns服务器之间同步记录会相互发送全部的dns记录，可以尝试dns服务器设置是否严格，能否请求到dns记录<br>查询dns记录使用udp53端口，域传送使用tcp53端口</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">dig @ns1.example.com example.com axfr
+host -T -l sina.com @ns2.sina.com
+向域名服务器请求域传送<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p>抓到包后右上角会有提示<br><img src="2.png" alt="握手包"><br>这些test开头的都是抓到的文件<br><img src="3.png" alt="抓到的文件"><br>这里有一个问题就是握手包是连接的时候才会有的，那没人连的时候就抓不到了，这时候就要打断已有连接，让他们重连一下，抓取握手包</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">direplay-ng -0 1 -a ap的mac -c 客户端mac wlan0mon
--0 会发送断开连接的包，让STA和AP断开连接，1是次数，可以随意指定，感觉不稳定可以多发几个包，0会一直发包
--a ap的mac 
--c 客户端mac，不加-c参数会广播给所有sta，但是有的客户端可能会拒绝广播的攻击
-wlan0mon 指定网卡<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h2><p>搜索引擎其实就是提前爬取了全网的数据存在数据库里，在你搜索的时候直接从数据库里找数据，google，bing主要是web爬取，shodan和fofa会注重banner，地址，IP，指纹等，这些搜索引擎都有专门的搜索语法来精确搜索我们需要的结果，也都有api用于程序的调用</p>
+<h3 id="www-shodan-io"><a href="#www-shodan-io" class="headerlink" title="www.shodan.io"></a><a target="_blank" rel="noopener" href="http://www.shodan.io/">www.shodan.io</a></h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">{
+    "data": "Moxa Nport Device
+            Status: Authentication disabled
+            Name: NP5232I_4728
+            MAC: 00:90:e8:47:10:2d",
+    "ip_str": "46.252.132.235",
+    "port": 4800,
+    "org": "Starhub Mobile",
+    "location": {
+        "country_code": "SG"
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
+<p>shodan会爬取全网的banner信息并保存在数据库中，按照官方的文档应该是以这样的jason格式存储的，我们的搜索会默认在data中匹配，要匹配别的部分就需要用关键字，注意冒号要用英文冒号，关键字与值之间没有空格<br>比如要搜索192.168.1.0这个c段<br>net:192.168.1.0/24<br>只要国内的<br>country:CN<br>多指令并列搜索<br>net:192.168.1.1/24 country:CN city:beijing</p>
+<p>官方给出的过滤器列表</p>
+<p><img src="6.png" alt="过滤器"></p>
+<h3 id="fofa-so"><a href="#fofa-so" class="headerlink" title="fofa.so"></a>fofa.so</h3><p>也是爬取全网的搜索引擎，会分析web页面，cms指纹，应用版本，设备类型等<br>帮助文档<a target="_blank" rel="noopener" href="https://fofa.so/help">https://fofa.so/help</a><br>语法<br>采用关键字和值的方式<br>title=”abc” 从标题中搜索abc<br>可以采用括号等符号<br>&amp;&amp; 逻辑与<br>|| 逻辑或<br>= 包含<br>!= 不包含</p>
+<h3 id="Google-hacking"><a href="#Google-hacking" class="headerlink" title="Google hacking"></a>Google hacking</h3><p>特性<br>所有符号皆采用英文符号，操作符与关键字之间无空格<br>英文符号无法成为关键字<br>对英文大小写不敏感<br>关键字带空格必须加英文引号<br>可以用通配符，inurl:”<a target="_blank" rel="noopener" href="http://www.ba*u.com&quot;/">www.ba*u.com"</a><br>语法<br>+代表逻辑与，可以省略，如：易筋经 +吸星大法，等同于：易筋经 吸星大法<br>-代表逻辑非，如：易筋经 -吸星大法，搜索易筋经但是不要吸星大法<br>OR代表逻辑或，如：易筋经 OR 吸星大法，搜索有其中任意一项的网站<br>    “+”和“-”的作用有的时候是相同的，都是为了缩小搜索结果的范围，提高查询结果命中率。<br>    例：查阅天龙八部具体是哪八部。<br>    分析：如果光用“天龙八部”做关键字，搜索结果有26,500项，而且排前列的主要与金庸的小说《天龙八部》相关，很难找到所需要的资讯。可以用两个方法减少无关结果。<br>    1，如果你知道八部中的某一部，比如阿修罗，增加“阿修罗”关键字，搜索结果就只有995项，可以直接找到全部八部，“天龙八部 阿修罗”。<br>    2，如果你不知道八部中的任何一部，但知道这与佛教相关，可以排除与金庸小说相关的记录，查询结果为1,010项，可以迅速找到需要的资料，“天龙八部 佛教 -金庸”。<br>site：限定域名<br>inurl：在url中<br>allinurl：全部在url中<br>intitle：在标题中<br>allintitle：全在标题中<br>intext：在内容中<br>alliintext：全在内容中<br>filetype：文件类型<br>cache：Google保存的网页快照<br>related：类似网页</p>
+<h3 id="theHarvester"><a href="#theHarvester" class="headerlink" title="theHarvester"></a>theHarvester</h3><p>调用搜索引擎自动搜集邮箱和子域名的工具<br>-d 目标域名<br>-l 搜索请求数量限制<br>-b 搜索引擎，会调用国外的服务器，可能需要翻墙，搜索量过大会被搜索引擎屏蔽</p>
+<h3 id="metagoofil"><a href="#metagoofil" class="headerlink" title="metagoofil"></a>metagoofil</h3><p>利用Google自动搜索域名下的特定类型文件的工具，还可以可以自动下载文件</p>
+<h3 id="maltego"><a href="#maltego" class="headerlink" title="maltego"></a>maltego</h3><p>信息搜集的商业图形化工具，可以自动搜集信息，图形化的显示出细节关系等</p>
 
-<h3 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h3><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">aircrack-ng -w 1.txt test.cap
--w 指定字典
-test.cap 抓到的流量文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>破解成功结果，我用的是一个三十万的小字典，把密码加在了最后，可以看出速度是一秒五千，而且不是顺序的，我把密码加在了最后而字典跑了五万就把最后一个拿去跑了，说明他不是严格按顺序跑的，如果跑大字典就可以发现他只是大概按顺序跑<br><img src="4.png" alt="破解结果"></p>
-<h2 id="加速破解"><a href="#加速破解" class="headerlink" title="加速破解"></a>加速破解</h2><p>从之前的破解可以看出，这东西是个挺慢的事，四五千每秒不慢，但是字典动不动百万千万就扛不住了，所以需要加快。<br>从原理上看我们要算PMK，PTK，MIC，而PMK我们可以提前算，只要知道密钥和wifi名就行，而这恰巧是计算量最大的一步，所以我们可以提前把字典算成彩虹表，这样实际破解的时候速度就会加快不少。</p>
-<h3 id="airolib"><a href="#airolib" class="headerlink" title="airolib"></a>airolib</h3><p>这是aircrack套件的一部分，会维护一个数据库，算出彩虹表后会存在数据库里，aircrack可以直接从数据库里读取<br>计算PMK</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">echo ap的essid &gt; essid.txt
-airolib-ng db --import essid essid.txt
-创建数据库，导入essid
-
-airolib-ng db --import passwd 字典
-导入字典，自动去除不符合格式的密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airolib-ng db --stats
-查看数据库状态<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">airolib-ng db --batch
-生成pmk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>执行破解</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">aircrack-ng -r db test.cap
-用数据库中的哈希表进行破解
--r 使用数据库
-test.cap 破解文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="cowpatty"><a href="#cowpatty" class="headerlink" title="cowpatty"></a>cowpatty</h3><p>这是一个单独的wpa爆破工具，可以生成彩虹表和wpa爆破<br>使用密码字典爆破</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">cowpatty r wpa.cap -f password.lst -s essid
--r 流量文件
--f 字典文件
--s essid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>彩虹表爆破</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">genpmk -f password.lst -d 生成的hash文件 -s essid
-生成彩虹表
--f 字典
--s essid
--d 生成的彩虹表文件名
-cowpatty -r wpa.cap -d 生成的hash文件 -s essid
--r 流量文件
--d 彩虹表
--s essid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="pyrit"><a href="#pyrit" class="headerlink" title="pyrit"></a>pyrit</h3><p>该工具特殊的地方在于它能调用GPU算力来算彩虹表，别的工具只能用cpu，但是使用条件比较苛刻，他要用显卡，而虚拟机装显卡驱动特别麻烦，要用的话基本得本机装kali，而且kali也不自带这个工具</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">可以自己抓取数据包，不用airodump-ng
-pyrit -r wlan0mon -o wpa.cap sriplive
-抓包保存为wpa.cap，只保留握手包
-pyrit -r wpa.cap analyze
-分析数据包
-pyrit -r wpa.cap -o wpapyrit.cap strip
-读取airodump抓的包，转换成pyrit格式，并去除其他包只保留握手<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">用密码直接破解
-pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">彩虹表模式破解
-  默认使用基于文件的数据库，支持连接sql数据库，将计算的pmk存  数据库
-  查看默认数据库状态
-  pyrit eval
-  导入密码字典（自动剔除不合规密码）
-  pyrit -I password.lst import_passwords
-  指定essid
-  pyrit -e essid create_essid
-  计算pmk，发挥gpu算力
-  pyrit batch
-  破解密码
-  pyrit -r wpa.cap -b ap的mac attack_db<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
             </div>
             <hr/>
 
@@ -479,7 +457,7 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2020/12/07/wpa-po-jie/">http://example.com/2020/12/07/wpa-po-jie/</a>
+                    <a href="http://example.com/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/">http://example.com/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -517,8 +495,12 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/wifi/">
-                                    <span class="chip bg-color">wifi</span>
+                                <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                                    <span class="chip bg-color">信息搜集</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%9F%9F%E5%90%8D/">
+                                    <span class="chip bg-color">域名</span>
                                 </a>
                             
                         </div>
@@ -560,9 +542,10 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/">
                     <div class="card-image">
@@ -580,9 +563,9 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -595,6 +578,7 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -617,13 +601,13 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/07/liu-mang-ap-ji-yong-fa/">
+                <a href="/2020/12/07/wpa-po-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="流氓ap及用法">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="wpa破解">
                         
-                        <span class="card-title">流氓ap及用法</span>
+                        <span class="card-title">wpa破解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -651,8 +635,8 @@ pyrit  -r wpa.cap -I pass.lst -b ap的mac attack_passthrough<span aria-hidden="t
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/WiFi/">
-                        <span class="chip bg-color">WiFi</span>
+                    <a href="/tags/wifi/">
+                        <span class="chip bg-color">wifi</span>
                     </a>
                     
                 </div>
