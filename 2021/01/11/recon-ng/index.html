@@ -1,0 +1,1340 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="recon-ng, Nbb&#39;s Blog">
+    <meta name="description" content="It&#39;s Nbb&#39;s Blog">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>recon-ng | Nbb&#39;s Blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.2.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Nbb's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Nbb&#39;s Blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Nbb&#39;s Blog</div>
+        <div class="logo-desc">
+            
+            It&#39;s Nbb&#39;s Blog
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">recon-ng</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                                <span class="chip bg-color">信息搜集</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="post-category">
+                                信息搜集
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-11
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>recon-ng是一个基于命令行的信息搜集框架，类似于msf，有很多不同的模块，根据需求调用搜索引擎完成信息搜集，并将结果存入数据库，在学完苑房弘老师的课后发现新版本有了很大的变化，虽然根本框架没变，但是指令用法变化很大，新版本还有一个大变化就是模块需要自己下载，默认不带模块</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">┌──(root💀kali)-[~]
+└─# recon-ng --version
+5.1.1
+                                                                                  
+┌──(root💀kali)-[~]
+└─# uname -a        
+Linux kali 5.9.0-kali2-amd64 #1 SMP Debian 5.9.6-1kali1 (2020-11-11) x86_64 GNU/Linux
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>类似msf，直接recon-ng命令进入框架命令行，也有一些参数，常用的有-r和-w<br>-r 指定一个命令文件，执行其中命令，可以用来解决重复性工作<br>-w 指定一个工作区，用以隔离不同信息搜集任务</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">┌──(root💀kali)-[~]
+└─# recon-ng -h         
+usage: recon-ng [-h] [-w workspace] [-r filename] [--no-version] [--no-analytics] [--no-marketplace] [--stealth] [--accessible] [--version]
+
+recon-ng - Tim Tomes (@lanmaster53)
+
+optional arguments:
+  -h, --help        show this help message and exit
+  -w workspace      load/create a workspace
+  -r filename       load commands from a resource file
+  --no-version      disable version check. Already disabled by default in Debian
+  --no-analytics    disable analytics reporting. Already disabled by default in Debian
+  --no-marketplace  disable remote module management
+  --stealth         disable all passive requests (--no-*)
+  --accessible      Use accessible outputs when available
+  --version         displays the current version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>进入recon-ng命令行，不指定工作区默认进入default工作区，先看一下help命令结果</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][default] &gt; help
+
+Commands (type [help|?] &lt;topic&gt;):
+---------------------------------
+back            Exits the current context
+dashboard       Displays a summary of activity
+db              Interfaces with the workspace's database
+exit            Exits the framework
+help            Displays this menu
+index           Creates a module index (dev only)
+keys            Manages third party resource credentials
+marketplace     Interfaces with the module marketplace
+modules         Interfaces with installed modules
+options         Manages the current context options
+pdb             Starts a Python Debugger session (dev only)
+script          Records and executes command scripts
+shell           Executes shell commands
+show            Shows various framework items
+snapshots       Manages workspace snapshots
+spool           Spools output to a file
+workspaces      Manages workspaces<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>因为要去github上下模块而其还会调用Google等搜索引擎，需要给recon-ng挂一个代理，可以看出options还可以设置ua头，线程，dns，超时时间，这里线程不建议太大，请求太多搜索引擎会暂时封禁我们的请求</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example] &gt; options list
+
+  Name        Current Value  Required  Description
+  ----------  -------------  --------  -----------
+  NAMESERVER  8.8.8.8        yes       default nameserver for the resolver mixin
+  PROXY                      no        proxy server (address:port)
+  THREADS     10             yes       number of threads (where applicable)
+  TIMEOUT     10             yes       socket timeout (seconds)
+  USER-AGENT  Recon-ng/v5    yes       user-agent string
+  VERBOSITY   1              yes       verbosity level (0 = minimal, 1 = verbose, 2 = debug)
+
+[recon-ng][example] &gt; options set PROXY 192.168.59.1:7890
+PROXY =&gt; 192.168.59.1:7890<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>marketplace命令用于下载模块，第一次使用要用refresh命令更新模块列表的缓存，search搜索模块，install安装模块</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example] &gt; marketplace refresh
+[*] Marketplace index refreshed.
+[recon-ng][example] &gt; marketplace search google
+[*] Searching module index for 'google'...
+
+  +--------------------------------------------------------------------------------+
+  |                 Path                | Version |   Status  |  Updated   | D | K |
+  +--------------------------------------------------------------------------------+
+  | recon/domains-hosts/google_site_web | 1.0     | installed | 2019-06-24 |   |   |
+  +--------------------------------------------------------------------------------+
+
+  D = Has dependencies. See info for details.
+  K = Requires keys. See info for details.
+
+[recon-ng][example] &gt; marketplace install recon/domains-hosts/google_site_web
+[*] Module installed: recon/domains-hosts/google_site_web
+[*] Reloading modules...<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>module命令加载模块，info查看模块简介</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example] &gt; modules load recon/domains-hosts/google_site_web
+[recon-ng][example][google_site_web] &gt; info
+
+      Name: Google Hostname Enumerator
+    Author: Tim Tomes (@lanmaster53)
+   Version: 1.0
+
+Description:
+  Harvests hosts from Google.com by using the 'site' search operator. Updates the 'hosts' table with
+  the results.
+
+Options:
+  Name    Current Value  Required  Description
+  ------  -------------  --------  -----------
+  SOURCE  default        yes       source of input (see 'info' for details)
+
+Source Options:
+  default        SELECT DISTINCT domain FROM domains WHERE domain IS NOT NULL
+  &lt;string&gt;       string representing a single input
+  &lt;path&gt;         path to a file containing a list of inputs
+  query &lt;sql&gt;    database query returning one column of inputs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>option设置好参数就可以跑了</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example][google_site_web] &gt; options set SOURCE sina.com
+SOURCE =&gt; sina.com
+[recon-ng][example][google_site_web] &gt; run
+
+--------
+SINA.COM
+--------
+[*] Searching Google for: site:sina.com
+[*] Country: None
+[*] Host: m.us.sina.com
+[*] Ip_Address: None
+[*] Latitude: None
+[*] Longitude: None
+[*] Notes: None
+[*] Region: None
+[*] --------------------------------------------------
+[*] Country: None
+[*] Host: eva.sina.com
+[*] Ip_Address: None
+[*] Latitude: None
+[*] Longitude: None
+[*] Notes: None
+[*] Region: None
+[*] --------------------------------------------------
+........以下结果省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>show命令可以查看结果，可以看主机，域名，端口等很多结果，我们用的Google模块是主机发现模块，可以看见发现了很多主机</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example][google_site_web] &gt; show
+Shows various framework items
+
+Usage: show &lt;companies|contacts|credentials|domains|hosts|leaks|locations|netblocks|ports|profiles|pushpins|repositories|vulnerabilities&gt;
+
+[recon-ng][example][google_site_web] &gt; show hosts
+
+  +--------------------------------------------------------------------------------------------------------------------+
+  | rowid |            host           | ip_address | region | country | latitude | longitude | notes |      module     |
+  +--------------------------------------------------------------------------------------------------------------------+
+  | 1     | m.us.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 2     | eva.sina.com              |            |        |         |          |           |       | google_site_web |
+  | 3     | match.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 4     | ipad.us.sina.com          |            |        |         |          |           |       | google_site_web |
+  | 5     | home.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 6     | mall.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 7     | med.sina.com              |            |        |         |          |           |       | google_site_web |
+  | 8     | books.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 9     | mycd.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 10    | henan.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 11    | finance.sina.com          |            |        |         |          |           |       | google_site_web |
+  | 12    | hainan.sina.com           |            |        |         |          |           |       | google_site_web |
+  | 13    | dailynews.sina.com        |            |        |         |          |           |       | google_site_web |
+  | 14    | chinanews.sina.com        |            |        |         |          |           |       | google_site_web |
+  | 15    | t.sina.com                |            |        |         |          |           |       | google_site_web |
+  | 16    | ipop.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 17    | slide.dailynews.sina.com  |            |        |         |          |           |       | google_site_web |
+  | 18    | slide.sports.sina.com     |            |        |         |          |           |       | google_site_web |
+  | 19    | mt.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 20    | weibo.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 21    | ent.sina.com              |            |        |         |          |           |       | google_site_web |
+  | 22    | travel.sina.com           |            |        |         |          |           |       | google_site_web |
+  | 23    | deals.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 24    | sh.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 25    | ir.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 26    | winner.sina.com           |            |        |         |          |           |       | google_site_web |
+  | 27    | blog.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 28    | fj.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 29    | english.sina.com          |            |        |         |          |           |       | google_site_web |
+  | 30    | sc.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 31    | mail.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 32    | newyorklife.sina.com      |            |        |         |          |           |       | google_site_web |
+  | 33    | hb.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 34    | mil.firefox.sina.com      |            |        |         |          |           |       | google_site_web |
+  | 35    | video.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 36    | house.sina.com            |            |        |         |          |           |       | google_site_web |
+  | 37    | t.us.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 38    | news.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 39    | eva.game.sina.com         |            |        |         |          |           |       | google_site_web |
+  | 40    | financenews.sina.com      |            |        |         |          |           |       | google_site_web |
+  | 41    | game.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 42    | sichuan.sina.com          |            |        |         |          |           |       | google_site_web |
+  | 43    | redirect.sina.com         |            |        |         |          |           |       | google_site_web |
+  | 44    | fujian.sina.com           |            |        |         |          |           |       | google_site_web |
+  | 45    | echineselearning.sina.com |            |        |         |          |           |       | google_site_web |
+  | 46    | zt.sina.com               |            |        |         |          |           |       | google_site_web |
+  | 47    | zx.eladies.sina.com       |            |        |         |          |           |       | google_site_web |
+  | 48    | immigration.sina.com      |            |        |         |          |           |       | google_site_web |
+  | 49    | dldl.game.sina.com        |            |        |         |          |           |       | google_site_web |
+  | 50    | yuqing.sina.com           |            |        |         |          |           |       | google_site_web |
+  | 51    | magazine.sina.com         |            |        |         |          |           |       | google_site_web |
+  | 52    | ada.sina.com              |            |        |         |          |           |       | google_site_web |
+  | 53    | ftx30s012.sports.sina.com |            |        |         |          |           |       | google_site_web |
+  | 54    | ftx30s1.sports.sina.com   |            |        |         |          |           |       | google_site_web |
+  | 55    | auto.sina.com             |            |        |         |          |           |       | google_site_web |
+  | 56    | baidu.video.sina.com      |            |        |         |          |           |       | google_site_web |
+  | 57    | vip.sina.com              |            |        |         |          |           |       | google_site_web |
+  | 58    | gb.comic.sina.com         |            |        |         |          |           |       | google_site_web |
+  +--------------------------------------------------------------------------------------------------------------------+
+
+[*] 58 rows returned<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>back退出模块，可以安装recon/hosts-hosts/resolve模块把域名变为IP，我已经安装好了，就直接module加载了</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example][google_site_web] &gt; back
+[recon-ng][example] &gt; modules search res
+[*] Searching installed modules for 'res'...
+
+  Discovery
+  ---------
+    discovery/info_disclosure/interesting_files
+
+  Recon
+  -----
+    recon/hosts-hosts/resolve
+    recon/hosts-hosts/reverse_resolve
+    recon/netblocks-hosts/reverse_resolve
+
+[recon-ng][example] &gt; modules load recon/hosts-hosts/resolve
+[recon-ng][example][resolve] &gt; options list
+
+  Name    Current Value  Required  Description
+  ------  -------------  --------  -----------
+  SOURCE  default        yes       source of input (see 'info' for details)
+
+[recon-ng][example][resolve] &gt; run
+[*] m.us.sina.com =&gt; 10.10.10.10
+[*] eva.sina.com =&gt; 220.181.84.153
+[*] match.sina.com =&gt; 10.10.10.10
+[*] ipad.us.sina.com =&gt; 10.10.10.10
+[*] home.sina.com =&gt; 10.10.10.10
+[*] mall.sina.com =&gt; 66.102.251.25
+[*] med.sina.com =&gt; 111.6.243.173
+[*] books.sina.com =&gt; 10.10.10.10
+[*] mycd.sina.com =&gt; Unknown
+[*] henan.sina.com =&gt; 112.17.3.69
+[*] finance.sina.com =&gt; 10.10.10.10
+[*] hainan.sina.com =&gt; 112.17.3.69
+[*] dailynews.sina.com =&gt; 10.10.10.10
+[*] chinanews.sina.com =&gt; 10.10.10.10
+[*] t.sina.com =&gt; 112.17.3.69
+[*] ipop.sina.com =&gt; 10.10.10.10
+以下省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>再通过show查看就会发现域名都解析成了IP，有部分因为域名不是A记录所以解析不成功</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example][resolve] &gt; show hosts
+
+  +-------------------------------------------------------------------------------------------------------------------------+
+  | rowid |            host           |    ip_address   | region | country | latitude | longitude | notes |      module     |
+  +-------------------------------------------------------------------------------------------------------------------------+
+  | 1     | m.us.sina.com             | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 2     | eva.sina.com              | 220.181.84.153  |        |         |          |           |       | google_site_web |
+  | 3     | match.sina.com            | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 4     | ipad.us.sina.com          | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 5     | home.sina.com             | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 6     | mall.sina.com             | 66.102.251.25   |        |         |          |           |       | google_site_web |
+  | 7     | med.sina.com              | 111.6.243.173   |        |         |          |           |       | google_site_web |
+  | 8     | books.sina.com            | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 9     | mycd.sina.com             |                 |        |         |          |           |       | google_site_web |
+  | 10    | henan.sina.com            | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 11    | finance.sina.com          | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 12    | hainan.sina.com           | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 13    | dailynews.sina.com        | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 14    | chinanews.sina.com        | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 15    | t.sina.com                | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 16    | ipop.sina.com             | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 17    | slide.dailynews.sina.com  | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 18    | slide.sports.sina.com     | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 19    | mt.sina.com               | 27.221.32.27    |        |         |          |           |       | google_site_web |
+  | 20    | weibo.sina.com            | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 21    | ent.sina.com              | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 22    | travel.sina.com           | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 23    | deals.sina.com            | 54.215.9.31     |        |         |          |           |       | google_site_web |
+  | 24    | sh.sina.com               | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 25    | ir.sina.com               | 23.199.133.165  |        |         |          |           |       | google_site_web |
+  | 26    | winner.sina.com           | 39.156.6.98     |        |         |          |           |       | google_site_web |
+  | 27    | blog.sina.com             | 39.156.6.117    |        |         |          |           |       | google_site_web |
+  | 28    | fj.sina.com               | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 29    | english.sina.com          | 112.13.107.244  |        |         |          |           |       | google_site_web |
+  | 30    | sc.sina.com               | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 31    | mail.sina.com             | 39.156.6.98     |        |         |          |           |       | google_site_web |
+  | 32    | newyorklife.sina.com      | 66.102.251.33   |        |         |          |           |       | google_site_web |
+  | 33    | hb.sina.com               | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 34    | mil.firefox.sina.com      |                 |        |         |          |           |       | google_site_web |
+  | 35    | video.sina.com            | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 36    | house.sina.com            | 112.15.1.222    |        |         |          |           |       | google_site_web |
+  | 37    | t.us.sina.com             | 66.102.251.33   |        |         |          |           |       | google_site_web |
+  | 38    | news.sina.com             | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 39    | eva.game.sina.com         | 47.75.70.85     |        |         |          |           |       | google_site_web |
+  | 40    | financenews.sina.com      | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 41    | game.sina.com             | 27.221.32.27    |        |         |          |           |       | google_site_web |
+  | 42    | sichuan.sina.com          | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 43    | redirect.sina.com         | 47.246.25.230   |        |         |          |           |       | google_site_web |
+  | 44    | fujian.sina.com           |                 |        |         |          |           |       | google_site_web |
+  | 45    | echineselearning.sina.com | 111.3.79.225    |        |         |          |           |       | google_site_web |
+  | 46    | zt.sina.com               | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 47    | zx.eladies.sina.com       | 39.156.6.98     |        |         |          |           |       | google_site_web |
+  | 48    | immigration.sina.com      | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 49    | dldl.game.sina.com        | 27.221.32.27    |        |         |          |           |       | google_site_web |
+  | 50    | yuqing.sina.com           | 180.153.135.186 |        |         |          |           |       | google_site_web |
+  | 51    | magazine.sina.com         | 10.10.10.10     |        |         |          |           |       | google_site_web |
+  | 52    | ada.sina.com              | 27.221.32.74    |        |         |          |           |       | google_site_web |
+  | 53    | ftx30s012.sports.sina.com | 47.112.107.191  |        |         |          |           |       | google_site_web |
+  | 54    | ftx30s1.sports.sina.com   | 47.112.107.191  |        |         |          |           |       | google_site_web |
+  | 55    | auto.sina.com             | 112.17.3.69     |        |         |          |           |       | google_site_web |
+  | 56    | baidu.video.sina.com      | 111.206.37.59   |        |         |          |           |       | google_site_web |
+  | 57    | vip.sina.com              | 39.156.6.179    |        |         |          |           |       | google_site_web |
+  | 58    | gb.comic.sina.com         | 66.102.251.33   |        |         |          |           |       | google_site_web |
+  | 59    | english.sina.com          | 111.3.79.228    |        |         |          |           |       | resolve         |
+  | 60    | english.sina.com          | 112.15.1.229    |        |         |          |           |       | resolve         |
+  | 61    | english.sina.com          | 111.1.160.229   |        |         |          |           |       | resolve         |
+  | 62    | english.sina.com          | 111.3.86.233    |        |         |          |           |       | resolve         |
+  | 63    | english.sina.com          | 111.3.86.226    |        |         |          |           |       | resolve         |
+  | 64    | english.sina.com          | 111.3.86.228    |        |         |          |           |       | resolve         |
+  | 65    | english.sina.com          | 111.1.160.232   |        |         |          |           |       | resolve         |
+  | 66    | english.sina.com          | 111.1.160.226   |        |         |          |           |       | resolve         |
+  | 67    | english.sina.com          | 111.1.160.228   |        |         |          |           |       | resolve         |
+  | 68    | english.sina.com          | 112.15.1.225    |        |         |          |           |       | resolve         |
+  | 69    | english.sina.com          | 112.15.1.224    |        |         |          |           |       | resolve         |
+  | 70    | english.sina.com          | 111.3.79.230    |        |         |          |           |       | resolve         |
+  | 71    | house.sina.com            | 111.1.160.7     |        |         |          |           |       | resolve         |
+  | 72    | house.sina.com            | 112.13.107.240  |        |         |          |           |       | resolve         |
+  | 73    | house.sina.com            | 111.3.79.227    |        |         |          |           |       | resolve         |
+  | 74    | house.sina.com            | 111.3.86.228    |        |         |          |           |       | resolve         |
+  | 75    | house.sina.com            | 111.3.86.230    |        |         |          |           |       | resolve         |
+  | 76    | house.sina.com            | 111.3.86.227    |        |         |          |           |       | resolve         |
+  | 77    | house.sina.com            | 111.3.79.226    |        |         |          |           |       | resolve         |
+  | 78    | house.sina.com            | 111.1.160.227   |        |         |          |           |       | resolve         |
+  | 79    | house.sina.com            | 111.1.160.230   |        |         |          |           |       | resolve         |
+  | 80    | house.sina.com            | 111.1.160.229   |        |         |          |           |       | resolve         |
+  | 81    | house.sina.com            | 112.15.1.227    |        |         |          |           |       | resolve         |
+  | 82    | house.sina.com            | 112.15.1.226    |        |         |          |           |       | resolve         |
+  | 83    | redirect.sina.com         | 47.246.25.229   |        |         |          |           |       | resolve         |
+  | 84    | redirect.sina.com         | 47.246.25.228   |        |         |          |           |       | resolve         |
+  | 85    | redirect.sina.com         | 47.246.25.232   |        |         |          |           |       | resolve         |
+  | 86    | redirect.sina.com         | 47.246.25.231   |        |         |          |           |       | resolve         |
+  | 87    | redirect.sina.com         | 47.246.25.227   |        |         |          |           |       | resolve         |
+  | 88    | redirect.sina.com         | 47.246.25.226   |        |         |          |           |       | resolve         |
+  | 89    | redirect.sina.com         | 47.246.25.225   |        |         |          |           |       | resolve         |
+  | 90    | echineselearning.sina.com | 112.13.107.248  |        |         |          |           |       | resolve         |
+  | 91    | echineselearning.sina.com | 111.1.160.230   |        |         |          |           |       | resolve         |
+  | 92    | echineselearning.sina.com | 112.15.1.224    |        |         |          |           |       | resolve         |
+  | 93    | echineselearning.sina.com | 111.3.86.227    |        |         |          |           |       | resolve         |
+  | 94    | echineselearning.sina.com | 111.3.86.233    |        |         |          |           |       | resolve         |
+  | 95    | echineselearning.sina.com | 111.3.86.229    |        |         |          |           |       | resolve         |
+  | 96    | echineselearning.sina.com | 112.15.1.227    |        |         |          |           |       | resolve         |
+  | 97    | echineselearning.sina.com | 112.15.1.225    |        |         |          |           |       | resolve         |
+  | 98    | echineselearning.sina.com | 111.1.160.7     |        |         |          |           |       | resolve         |
+  | 99    | echineselearning.sina.com | 111.1.160.229   |        |         |          |           |       | resolve         |
+  | 100   | echineselearning.sina.com | 111.1.160.232   |        |         |          |           |       | resolve         |
+  | 101   | echineselearning.sina.com | 111.3.79.224    |        |         |          |           |       | resolve         |
+  | 102   | baidu.video.sina.com      | 112.34.111.111  |        |         |          |           |       | resolve         |
+  | 103   | baidu.video.sina.com      | 123.125.114.32  |        |         |          |           |       | resolve         |
+  | 104   | baidu.video.sina.com      | 220.181.33.93   |        |         |          |           |       | resolve         |
+  | 105   | baidu.video.sina.com      | 39.156.68.155   |        |         |          |           |       | resolve         |
+  | 106   | baidu.video.sina.com      | 106.120.159.70  |        |         |          |           |       | resolve         |
+  +-------------------------------------------------------------------------------------------------------------------------+
+
+[*] 106 rows returned<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以通过导出模块导出为不同格式的报告</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example] &gt; modules load reporting/html
+[recon-ng][example][html] &gt; options list
+
+  Name      Current Value                                    Required  Description
+  --------  -------------                                    --------  -----------
+  CREATOR                                                    yes       use creator name in the report footer
+  CUSTOMER                                                   yes       use customer name in the report header
+  FILENAME  /root/.recon-ng/workspaces/example/results.html  yes       path and filename for report output
+  SANITIZE  True                                             yes       mask sensitive data in the report
+
+[recon-ng][example][html] &gt; options set CREATOR nbb
+CREATOR =&gt; nbb
+[recon-ng][example][html] &gt; options set CUSTOMER sina.com
+CUSTOMER =&gt; sina.com
+[recon-ng][example][html] &gt; options set FILENAME /root/sina.html
+FILENAME =&gt; /root/sina.html
+[recon-ng][example][html] &gt; run
+[*] Report generated at '/root/sina.html'.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>html报告长这样</p>
+<p><img src="1.jpg" alt="报告结果"></p>
+<p>可以通过marketplace info查看模块详细信息，双击tab可以显示所有模块，用法都类似</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">[recon-ng][example] &gt; marketplace info 
+Display all 116 possibilities? (y or n)
+discovery/info_disclosure/cache_snoop               recon/domains-contacts/whois_pocs                   recon/hosts-locations/migrate_hosts
+discovery/info_disclosure/interesting_files         recon/domains-contacts/wikileaker                   recon/hosts-ports/binaryedge
+exploitation/injection/command_injector             recon/domains-credentials/pwnedlist/account_creds   recon/hosts-ports/shodan_ip
+exploitation/injection/xpath_bruter                 recon/domains-credentials/pwnedlist/api_usage       recon/locations-locations/geocode
+import/csv_file                                     recon/domains-credentials/pwnedlist/domain_creds    recon/locations-locations/reverse_geocode
+import/list                                         recon/domains-credentials/pwnedlist/domain_ispwned  recon/locations-pushpins/flickr
+import/masscan                                      recon/domains-credentials/pwnedlist/leak_lookup     recon/locations-pushpins/shodan
+import/nmap                                         recon/domains-credentials/pwnedlist/leaks_dump      recon/locations-pushpins/twitter
+recon/companies-contacts/bing_linkedin_cache        recon/domains-credentials/scylla                    recon/locations-pushpins/youtube
+recon/companies-contacts/censys_email_address       recon/domains-domains/brute_suffix                  recon/netblocks-companies/censys_netblock_company
+recon/companies-contacts/pen                        recon/domains-hosts/binaryedge                      recon/netblocks-companies/whois_orgs
+recon/companies-domains/censys_subdomains           recon/domains-hosts/bing_domain_api                 recon/netblocks-hosts/censys_netblock
+recon/companies-domains/pen                         recon/domains-hosts/bing_domain_web                 recon/netblocks-hosts/reverse_resolve
+recon/companies-domains/viewdns_reverse_whois       recon/domains-hosts/brute_hosts                     recon/netblocks-hosts/shodan_net
+recon/companies-domains/whoxy_dns                   recon/domains-hosts/builtwith                       recon/netblocks-hosts/virustotal
+recon/companies-hosts/censys_org                    recon/domains-hosts/censys_domain                   recon/netblocks-ports/census_2012
+recon/companies-hosts/censys_tls_subjects           recon/domains-hosts/certificate_transparency        recon/netblocks-ports/censysio
+recon/companies-multi/github_miner                  recon/domains-hosts/google_site_web                 recon/ports-hosts/migrate_ports
+recon/companies-multi/shodan_org                    recon/domains-hosts/hackertarget                    recon/ports-hosts/ssl_scan
+recon/companies-multi/whois_miner                   recon/domains-hosts/mx_spf_ip                       recon/profiles-contacts/bing_linkedin_contacts
+recon/contacts-contacts/abc                         recon/domains-hosts/netcraft                        recon/profiles-contacts/dev_diver
+recon/contacts-contacts/mailtester                  recon/domains-hosts/shodan_hostname                 recon/profiles-contacts/github_users
+recon/contacts-contacts/mangle                      recon/domains-hosts/spyse_subdomains                recon/profiles-profiles/namechk
+recon/contacts-contacts/unmangle                    recon/domains-hosts/ssl_san                         recon/profiles-profiles/profiler
+recon/contacts-credentials/hibp_breach              recon/domains-hosts/threatcrowd                     recon/profiles-profiles/twitter_mentioned
+recon/contacts-credentials/hibp_paste               recon/domains-hosts/threatminer                     recon/profiles-profiles/twitter_mentions
+recon/contacts-credentials/scylla                   recon/domains-vulnerabilities/ghdb                  recon/profiles-repositories/github_repos
+recon/contacts-domains/migrate_contacts             recon/domains-vulnerabilities/xssed                 recon/repositories-profiles/github_commits
+recon/contacts-profiles/fullcontact                 recon/hosts-domains/migrate_hosts                   recon/repositories-vulnerabilities/gists_search
+recon/credentials-credentials/adobe                 recon/hosts-hosts/bing_ip                           recon/repositories-vulnerabilities/github_dorks
+recon/credentials-credentials/bozocrack             recon/hosts-hosts/censys_hostname                   reporting/csv
+recon/credentials-credentials/hashes_org            recon/hosts-hosts/censys_ip                         reporting/html
+recon/domains-companies/censys_companies            recon/hosts-hosts/censys_query                      reporting/json
+recon/domains-companies/pen                         recon/hosts-hosts/ipinfodb                          reporting/list
+recon/domains-companies/whoxy_whois                 recon/hosts-hosts/ipstack                           reporting/proxifier
+recon/domains-contacts/hunter_io                    recon/hosts-hosts/resolve                           reporting/pushpin
+recon/domains-contacts/metacrawler                  recon/hosts-hosts/reverse_resolve                   reporting/xlsx
+recon/domains-contacts/pen                          recon/hosts-hosts/ssltools                          reporting/xml
+recon/domains-contacts/pgp_search                   recon/hosts-hosts/virustotal  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">nbb</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://example.com/2021/01/11/recon-ng/">http://example.com/2021/01/11/recon-ng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">nbb</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                                    <span class="chip bg-color">信息搜集</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/01/11/recon-ng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="recon-ng">
+                        
+                        <span class="card-title">recon-ng</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            某一天下午
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="post-category">
+                                    信息搜集
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                        <span class="chip bg-color">信息搜集</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="域名相关信息搜集">
+                        
+                        <span class="card-title">域名相关信息搜集</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            某一天晚上
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-30
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="post-category">
+                                    信息搜集
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
+                        <span class="chip bg-color">信息搜集</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9F%9F%E5%90%8D/">
+                        <span class="chip bg-color">域名</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="song"
+                   id="561493928"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2020</span>
+            <a href="/about" target="_blank">nbb</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/shenzhibuqin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1204244160@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1204244160" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1204244160" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
