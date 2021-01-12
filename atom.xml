@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-12T12:50:46.479Z</updated>
+  <updated>2021-01-12T14:05:32.352Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>msfvenom生成木马</title>
+    <link href="http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/"/>
+    <id>http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/</id>
+    <published>2021-01-12T13:06:42.000Z</published>
+    <updated>2021-01-12T14:05:32.352Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;msfvenom&quot;&gt;&lt;a href=&quot;#msfvenom&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="msf" scheme="http://example.com/categories/msf/"/>
+    
+    
+    <category term="msf" scheme="http://example.com/tags/msf/"/>
+    
+    <category term="木马" scheme="http://example.com/tags/%E6%9C%A8%E9%A9%AC/"/>
+    
+  </entry>
   
   <entry>
     <title>初识msf</title>
