@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-12T14:05:32.352Z</updated>
+  <updated>2021-01-15T14:26:09.180Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何从内存中获取当前窗口界面</title>
+    <link href="http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/"/>
+    <id>http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/</id>
+    <published>2021-01-15T13:37:59.000Z</published>
+    <updated>2021-01-15T14:26:09.180Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;我们都知道计算机运行时的数据都存在内存中，那么程序运行时的图形化界面的数据是不是也应该在内存中呢？&lt;/p&gt;
+&lt;h2 id=&quot;流程&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="杂" scheme="http://example.com/categories/%E6%9D%82/"/>
+    
+    
+    <category term="内存" scheme="http://example.com/tags/%E5%86%85%E5%AD%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>msf_meterpreter</title>
+    <link href="http://example.com/2021/01/15/msf-meterpreter/"/>
+    <id>http://example.com/2021/01/15/msf-meterpreter/</id>
+    <published>2021-01-15T13:35:33.000Z</published>
+    <updated>2021-01-15T15:59:24.780Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="msf" scheme="http://example.com/categories/msf/"/>
+    
+    
+    <category term="msf" scheme="http://example.com/tags/msf/"/>
+    
+    <category term="meterpreter" scheme="http://example.com/tags/meterpreter/"/>
+    
+  </entry>
   
   <entry>
     <title>msfvenom生成木马</title>
