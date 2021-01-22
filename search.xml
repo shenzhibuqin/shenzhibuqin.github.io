@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>ssh隧道</title>
+      <link href="2021/01/22/ssh-sui-dao/"/>
+      <url>2021/01/22/ssh-sui-dao/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们都知道ssh可以用来远程管理服务器，但ssh的功能远不止管理服务器这么简单，我们还可以用它来建立网络隧道</p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>本次实验主要使用一下四台机子</p><p><img src="15.jpg" alt="机子"></p><p>kali 1<br>开了apache服务<br>kali 2<br>ssh服务端<br>kali 3<br>ssh客户端<br>Windows 7<br>开了3389远程桌面<br>网关<br>只允许192.168.39.0网段往外访问53端口，模拟只允许dns解析的环境</p><h2 id="隧道搭建"><a href="#隧道搭建" class="headerlink" title="隧道搭建"></a>隧道搭建</h2><p>ssh隧道主要分为三种，本地端口转发，远程端口转发，动态端口转发</p><p>本地端口转发于远程端口转发主要区别在应用数据的传输方向和ssh的建立方向是否一致，本次实验中由kali 3向kali 2发起ssh连接，如果能让192.168.39网段访问192.168.1网段就是本地端口转发，反之就是远程端口转发</p><p>而动态端口转发则可以借ssh隧道实现socks代理的效果</p><h3 id="本地端口转发"><a href="#本地端口转发" class="headerlink" title="本地端口转发"></a>本地端口转发</h3><p>如下图所示，我们在kali 3和kali 2建立隧道，kali 3监听7001端口，Windows 7通过访问kali 3的7001端口穿过隧道再通过kali 2的转发访问到kali 1的80端口</p><p><img src="16.jpg" alt="访问流程图"></p><p>首先，因为网关只允许192.168.39网段访问外网53端口，我们需要把kali 2的ssh服务调整至53端口上，修改/etc/ssh/sshd_config配置文件，改下面三个参数</p><p><img src="1.jpg" alt="修改参数"></p><p><img src="2.jpg" alt="修改参数"></p><p>然后systemctl restart ssh重启服务，检查一下端口是否在监听</p><p><img src="3.jpg" alt="查看端口"></p><p>由kali 3向kali 2建立ssh连接</p><p><img src="4.jpg" alt="建立连接"></p><p>-f 连接后在后台运行<br>-C 压缩传输的数据<br>-N 不进入命令行执行命令<br>-g 端口向局域网公开，所有机器访问这台机器的本地监听的端口都可以使用隧道<br>-L <listen port="">:<remote ip="">:<remote port=""> 本地监听端口 目的IP 目的端口</remote></remote></listen></p><p>然后由Windows 7访问kali 3的7001端口就可以通过隧道到kali 1的80端口</p><p><img src="5.jpg" alt="结果"></p><p>在此基础上除了web我们还可以利用隧道做一些好玩的事，例如我们用nc把windows 7的shell发到kali 3的7001端口上，在kali 1上监听80端口的nc就能接到shell</p><p><img src="6.jpg" alt="Windows 7"></p><p><img src="7.jpg" alt="kali 1"></p><h3 id="远程端口转发"><a href="#远程端口转发" class="headerlink" title="远程端口转发"></a>远程端口转发</h3><p>和本地端口转发的情况相反，我们让kali 2监听本地7001端口，kali 1通过访问kali 2的7001端口，通过隧道访问Windows 7的3389端口</p><p><img src="17.jpg" alt="访问流程图"></p><p>首先建立ssh连接</p><p><img src="8.jpg" alt="建立连接"></p><p>-f 连接后在后台运行<br>-C 压缩数据<br>-N 不进入命令行执行命令<br>-g 远程端口转发时-g参数不起作用，只能监听本地端口，不能开放给局域网<br>-R <listen port="">:<remote ip="">:<remote port=""> 远程服务器监听的本地端口 目的IP 目的端口</remote></remote></listen></p><p>可以看到kali 2上的7001已经在监听了</p><p><img src="9.jpg" alt="远程桌面"></p><p>这样通过kali 2的7001端口kali 1就可以访问Windows 7的远程桌面</p><p><img src="10.jpg" alt="远程桌面"></p><h3 id="动态端口转发"><a href="#动态端口转发" class="headerlink" title="动态端口转发"></a>动态端口转发</h3><p>本地端口和远程端口都是实现的指定目标的隧道，如果要任意访问目标就需要动态端口转发通过kali 3的7001端口传到kali 2，然后通过kali 2的转发连接公网</p><p><img src="18.jpg" alt="访问流程图"></p><p>首先，kali 3连接kali 2的ssh</p><p><img src="11.jpg" alt="连接ssh"></p><p>-f 连接后在后台运行<br>-C 压缩数据<br>-N 不进入命令行执行命令<br>-g 远程端口转发时-g参数不起作用，只能监听本地端口，不能开放给局域网<br>-D 指定动态监听的端口</p><p>设置windows 7的socks代理到kali 3的7001端口</p><p><img src="12.jpg" alt="设置代理"></p><p>然后内网的Windows 7就实现了上外网</p><p><img src="13.jpg" alt="上外网"></p><p>可以看一下网络连接，全是连到7001端口的tcp连接，通过隧道上外网</p><p><img src="14.jpg" alt="网络情况"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 隧道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ssh隧道 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>使用rinetd进行端口转发及流量分析</title>
       <link href="2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/"/>
       <url>2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/</url>

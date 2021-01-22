@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-22T04:51:28.529Z</updated>
+  <updated>2021-01-22T13:42:15.494Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ssh隧道</title>
+    <link href="http://example.com/2021/01/22/ssh-sui-dao/"/>
+    <id>http://example.com/2021/01/22/ssh-sui-dao/</id>
+    <published>2021-01-22T09:51:09.000Z</published>
+    <updated>2021-01-22T13:42:15.494Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;我们都知道ssh可以用来远程管理服务器，但ssh的功能远不止管理服务器这么简单，我们还可以用它来建立网络隧道&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
+    
+    
+    <category term="ssh隧道" scheme="http://example.com/tags/ssh%E9%9A%A7%E9%81%93/"/>
+    
+  </entry>
   
   <entry>
     <title>使用rinetd进行端口转发及流量分析</title>
