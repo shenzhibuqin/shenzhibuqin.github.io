@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>使用rinetd进行端口转发及流量分析</title>
+      <link href="2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/"/>
+      <url>2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>rinetd是一个简单的端口转发工具，可以将监听的一个端口的流量转发到另一个端口，实验用的网络环境一共是三台机子，由本机访问192.168.1.35的53端口，由rinetd将流量转发到192.168.1.40的80端口上</p><p><img src="1.jpg" alt="环境"></p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>主要是rinetd的配置，kali并不自带该工具，需要使用apt install rinetd命令安装，该工具功能很简单，所有的配置在/etc/rinetd.conf中完成</p><p><img src="2.jpg" alt="配置文件"></p><p>需要添加红框中的内容，按序分别为监听IP，监听端口，转发目标IP，目标端口，配置完以后直接用rinetd命令启动转发，不用参数</p><p><img src="3.jpg" alt="监听情况"></p><p>可以看到已经在监听53端口，这时本机访问1.35的53端口就会看到1.40的apache web服务，这里有一点，应该是chrome的安全机制，该办法对chrome不起作用，只能对ie这样的老古董有效果</p><p><img src="4.jpg" alt="结果"></p><h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>启动wireshark监听，刷新网页，获取到以下流量，除去头两个数据包以外，从第三个包开始是一次完整的转发过程</p><p><img src="5.jpg" alt="流量"></p><p>首先看刚开始的三个包</p><p><img src="6.jpg" alt="建连"></p><p>这三个包是本机访问1.35的53端口时进行的tcp建连，1.12的3475到1.53的35</p><p>接下来是1.35和1.40的建连，但是中间1.12已经开始访问了</p><p><img src="7.jpg" alt="建连"></p><p>图中的123就是三步建连，中间夹杂的两步是1.12对1.35的53端口发出的数据以及回复的确认信号，我们可以看看这个tcp传输的数据内容</p><p><img src="8.jpg" alt="tcp请求内容"></p><p>我们可以看出这个tcp包的数据部分很明显是一个http的get包，这就是我们刷新浏览器的时候发出的http请求，因为ie刷新时只刷新了网页图标，就是这个favicon.ico，所以只发了了这一个tcp包，这个tcp包被1.35原封不动的转发给了1.40，所以接下来可以看到是1.35对1.40的http请求</p><p><img src="9.jpg" alt="http访问"></p><p>可以看到这一部分wireshark将tcp包中的http也解包了，看着像是1.35对1.40的访问，我们可以把这个http包的tcp层信息和1.12传给1.35的tcp包进行比较，看看rinetd到底做了什么</p><p><img src="11.jpg" alt="比较"></p><p>我们可以看到IP和目的端口依据我们的设置发生了改变，tcp的窗口大小和序号依据不同机子环境而不同，但是最重要的标志位以及payload等内容部分是一模一样的，这就是rinetd的tcp转发，将tcp收到的内容改变目的地再转发出去</p><p>最后两个包就是1.35把返回的tcp包转发给了1.12，可以看到数据包部分就是http响应包</p><p><img src="10.jpg" alt="结果"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 隧道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 端口转发 </tag>
+            
+            <tag> 流量分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何从内存中获取当前窗口界面</title>
       <link href="2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/"/>
       <url>2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/</url>

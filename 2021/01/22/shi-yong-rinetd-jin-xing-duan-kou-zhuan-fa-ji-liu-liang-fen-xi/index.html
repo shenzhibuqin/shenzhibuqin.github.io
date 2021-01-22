@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="如何从内存中获取当前窗口界面, Nbb&#39;s Blog">
+    <meta name="keywords" content="使用rinetd进行端口转发及流量分析, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>如何从内存中获取当前窗口界面 | Nbb&#39;s Blog</title>
+    <title>使用rinetd进行端口转发及流量分析 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">如何从内存中获取当前窗口界面</h1>
+                    <h1 class="description center-align post-title">使用rinetd进行端口转发及流量分析</h1>
                 </div>
             </div>
         </div>
@@ -326,8 +326,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%86%85%E5%AD%98/">
-                                <span class="chip bg-color">内存</span>
+                            <a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
+                                <span class="chip bg-color">端口转发</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+                                <span class="chip bg-color">流量分析</span>
                             </a>
                         
                     </div>
@@ -338,8 +342,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%9D%82/" class="post-category">
-                                杂
+                            <a href="/categories/%E9%9A%A7%E9%81%93/" class="post-category">
+                                隧道
                             </a>
                         
                     </div>
@@ -351,7 +355,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-15
+                    2021-01-22
                 </div>
                 
 
@@ -367,19 +371,30 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们都知道计算机运行时的数据都存在内存中，那么程序运行时的图形化界面的数据是不是也应该在内存中呢？</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>首先找一张图片，在win7中用画图打开</p>
-<p><img src="1.jpg" alt="图片"></p>
-<p>然后我们用procdump64导出画图进程的内存，这是微软的神人Mark Russinovich开发套件SysinternalsSuite中的一个工具</p>
-<p><img src="2.jpg" alt="导出内存"></p>
-<p>如果在内存中有这个图像，那我们就应该能从这个内存中把那个图像复现出来，这时候我们就需要kali中的一个工具了，gimp，Linux版的ps</p>
-<p><img src="3.jpg" alt="gimp"></p>
-<p>将内存文件后缀名改为data，然后用gimp打开</p>
-<p><img src="4.jpg" alt="打开data文件"></p>
-<p>打开以后效果是这样的</p>
-<p><img src="5.jpg" alt="打开图像"></p>
-<p>将宽度和高度设置为画图软件当时打开的图像的大小，我这里是740，643，然后调整位移的大小，然后就会看见神奇的一幕</p>
-<p><img src="6.jpg" alt="调整参数"></p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>rinetd是一个简单的端口转发工具，可以将监听的一个端口的流量转发到另一个端口，实验用的网络环境一共是三台机子，由本机访问192.168.1.35的53端口，由rinetd将流量转发到192.168.1.40的80端口上</p>
+<p><img src="1.jpg" alt="环境"></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>主要是rinetd的配置，kali并不自带该工具，需要使用apt install rinetd命令安装，该工具功能很简单，所有的配置在/etc/rinetd.conf中完成</p>
+<p><img src="2.jpg" alt="配置文件"></p>
+<p>需要添加红框中的内容，按序分别为监听IP，监听端口，转发目标IP，目标端口，配置完以后直接用rinetd命令启动转发，不用参数</p>
+<p><img src="3.jpg" alt="监听情况"></p>
+<p>可以看到已经在监听53端口，这时本机访问1.35的53端口就会看到1.40的apache web服务，这里有一点，应该是chrome的安全机制，该办法对chrome不起作用，只能对ie这样的老古董有效果</p>
+<p><img src="4.jpg" alt="结果"></p>
+<h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>启动wireshark监听，刷新网页，获取到以下流量，除去头两个数据包以外，从第三个包开始是一次完整的转发过程</p>
+<p><img src="5.jpg" alt="流量"></p>
+<p>首先看刚开始的三个包</p>
+<p><img src="6.jpg" alt="建连"></p>
+<p>这三个包是本机访问1.35的53端口时进行的tcp建连，1.12的3475到1.53的35</p>
+<p>接下来是1.35和1.40的建连，但是中间1.12已经开始访问了</p>
+<p><img src="7.jpg" alt="建连"></p>
+<p>图中的123就是三步建连，中间夹杂的两步是1.12对1.35的53端口发出的数据以及回复的确认信号，我们可以看看这个tcp传输的数据内容</p>
+<p><img src="8.jpg" alt="tcp请求内容"></p>
+<p>我们可以看出这个tcp包的数据部分很明显是一个http的get包，这就是我们刷新浏览器的时候发出的http请求，因为ie刷新时只刷新了网页图标，就是这个favicon.ico，所以只发了了这一个tcp包，这个tcp包被1.35原封不动的转发给了1.40，所以接下来可以看到是1.35对1.40的http请求</p>
+<p><img src="9.jpg" alt="http访问"></p>
+<p>可以看到这一部分wireshark将tcp包中的http也解包了，看着像是1.35对1.40的访问，我们可以把这个http包的tcp层信息和1.12传给1.35的tcp包进行比较，看看rinetd到底做了什么</p>
+<p><img src="11.jpg" alt="比较"></p>
+<p>我们可以看到IP和目的端口依据我们的设置发生了改变，tcp的窗口大小和序号依据不同机子环境而不同，但是最重要的标志位以及payload等内容部分是一模一样的，这就是rinetd的tcp转发，将tcp收到的内容改变目的地再转发出去</p>
+<p>最后两个包就是1.35把返回的tcp包转发给了1.12，可以看到数据包部分就是http响应包</p>
+<p><img src="10.jpg" alt="结果"></p>
 
             </div>
             <hr/>
@@ -405,7 +420,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/">http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/</a>
+                    <a href="http://example.com/2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/">http://example.com/2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -443,8 +458,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%86%85%E5%AD%98/">
-                                    <span class="chip bg-color">内存</span>
+                                <a href="/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/">
+                                    <span class="chip bg-color">端口转发</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+                                    <span class="chip bg-color">流量分析</span>
                                 </a>
                             
                         </div>
@@ -486,9 +505,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/">
                     <div class="card-image">
@@ -506,9 +526,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -521,6 +541,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -543,13 +564,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/15/msf-meterpreter/">
+                <a href="/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="msf_meterpreter">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="如何从内存中获取当前窗口界面">
                         
-                        <span class="card-title">msf_meterpreter</span>
+                        <span class="card-title">如何从内存中获取当前窗口界面</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -566,8 +587,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/msf/" class="post-category">
-                                    msf
+                            <a href="/categories/%E6%9D%82/" class="post-category">
+                                    杂
                                 </a>
                             
                             
@@ -577,12 +598,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/msf/">
-                        <span class="chip bg-color">msf</span>
-                    </a>
-                    
-                    <a href="/tags/meterpreter/">
-                        <span class="chip bg-color">meterpreter</span>
+                    <a href="/tags/%E5%86%85%E5%AD%98/">
+                        <span class="chip bg-color">内存</span>
                     </a>
                     
                 </div>
