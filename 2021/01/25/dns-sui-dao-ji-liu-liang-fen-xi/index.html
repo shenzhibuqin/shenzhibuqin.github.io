@@ -383,11 +383,11 @@
 <p>然后右键nbbs.top域创建一条A记录</p>
 <p><img src="4.jpg" alt="A记录"></p>
 <p>将dns.nbbs.top指向192.168.1.40</p>
-<p><img src="5.jpg" alt="A记录"></p>
+<p><img src="5.jpg" alt="设置A记录"></p>
 <p>然后配置dns转发器，转发器会将dns服务器解析不了的域名发给我们指定的dns服务器，右键服务器名，属性里的转发器，我添加了一条指向114.114.114.114的记录，只要是能用的dns服务器都行，本地网关也可以，同时我在网络设置里把window2012的dns也指向了自己127.0.0.1，这个Windows2012在真实环境里其实担任了网关和公网dns两个角色</p>
-<p><img src="6.jpg" alt="A记录"></p>
+<p><img src="6.jpg" alt="转发器"></p>
 <p>配置完dns服务器就可以准备隧道了，dns2tcp分为服务器端dns2tcpd和客户端dns2tcpc，dns2tcpd使用一个配置文件进行配置，/etc/dns2tcpd.conf，dns2tcp服务器端可以设置提供多种服务，并且分别转发到指定地址，客户端的连接必须指定使用的服务，一个客户端连接只能使用一种服务，多个服务就需要创建多个连接</p>
-<p><img src="7.jpg" alt="A记录"></p>
+<p><img src="7.jpg" alt="配置文件"></p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">listen = 0.0.0.0
 监听IP，127.0.0.1监听本地，公网IP192.168.1.40监听这个IP的网络请求，0.0.0.0接受所有IP请求
 port = 53
@@ -403,33 +403,33 @@ resources = ssh:127.0.0.1:22 , http:127.0.0.1:8080 , socks:127.0.0.1:8081
 提供的服务及转发地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>配置好后启动服务器端</p>
-<p><img src="8.jpg" alt="A记录"></p>
+<p><img src="8.jpg" alt="服务器端"></p>
 <p>-F 显示详细信息<br>-d 详细等级一共1，2，3三级<br>-f 指定配置文件</p>
 <p>启动了服务器端客户端就可以连接了</p>
-<p><img src="9.jpg" alt="A记录"></p>
+<p><img src="9.jpg" alt="客户端"></p>
 <p>-c 压缩传输数据<br>-k 密码<br>-d 详细信息，也是三级<br>-l 本地监听端口<br>-r 使用服务器端提供的ssh服务<br>-z 域名 </p>
 <p>ssh连接本地7001端口就连上了192.168.1.40shell</p>
-<p><img src="10.jpg" alt="A记录"></p>
+<p><img src="10.jpg" alt="ssh连接"></p>
 <h3 id="iodine"><a href="#iodine" class="headerlink" title="iodine"></a>iodine</h3><p>这个工具和dns2tcp类似，特点是会在本地创建一块虚拟网卡，iodined命令启动服务器端，-f指定虚拟网卡的IP，然后加域名，服务器端就启动了，需要注意虚拟网卡的IP网段不能和服务器端机器和客户端机器的的真实IP网段相同，需要一个独立的网段</p>
-<p><img src="18.jpg" alt="A记录"></p>
+<p><img src="18.jpg" alt="服务器端"></p>
 <p>可以看见服务器端已经多了一块IP是10.0.0.1的网卡</p>
-<p><img src="19.jpg" alt="A记录"></p>
+<p><img src="19.jpg" alt="网卡"></p>
 <p>客户端连接也很简单，可以用-f 指定dns服务器，也可以不指定，使用本机默认的dns服务器，再加上使用的域名，隧道就连上了</p>
-<p><img src="20.jpg" alt="A记录"></p>
+<p><img src="20.jpg" alt="客户端"></p>
 <p>可以看见客户端也有一块10.0.0.2的网卡，客户端的网卡IP是会根据服务器端自动获取的，现在隧道两端的机器已经实现了物理连接一样，可以直接通过IP访问，要是想代理上网可以再嵌套一条ssh的动态访问隧道</p>
-<p><img src="21.jpg" alt="A记录"></p>
+<p><img src="21.jpg" alt="网卡"></p>
 <h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>筛选dns数据包，有大量长度为83和108的数据包，这些都是隧道的心跳数据包，每半秒一次</p>
-<p><img src="11.jpg" alt="A记录"></p>
+<p><img src="11.jpg" alt="心跳"></p>
 <p>除去心跳，剩下的除了头四个是真的dns数据包，接下来的都是隧道的数据包，从auth这个子域名可以猜出头四个是认证的数据包，通过密码进行身份确认，加下来俩connect是请求建立连接</p>
-<p><img src="12.jpg" alt="A记录"></p>
+<p><img src="12.jpg" alt="认证连接"></p>
 <p>对比请求包和返回包可以看见内容都是加密的，那一串特备长的子域名就是传给服务器端的信息，TXT记录的内容就是返回信息，dns2tcp的服务器端选用的是TXT记录，可以传输更多信息</p>
-<p><img src="13.jpg" alt="A记录"></p>
-<p><img src="14.jpg" alt="A记录"></p>
+<p><img src="13.jpg" alt="请求"></p>
+<p><img src="14.jpg" alt="返回"></p>
 <p>从服务器端抓到的包可以看出，dns解析都是Windows 2012那台dns服务器向他发起的，说明隧道客户端并没有解析出log.nbbs.top的ns记录然后直接和服务器端通信，dns都是发给windows2012的，由windows2012向服务器端进行dns的解析</p>
-<p><img src="15.jpg" alt="A记录"></p>
+<p><img src="15.jpg" alt="服务器端数据包"></p>
 <p>对比服务器端和客户端抓到的包就可以发现两边的包一模一样，只是有个别在数据包顺序上不同，说明windows2012只是进行了单纯的中间人的角色</p>
-<p><img src="16.jpg" alt="A记录"></p>
-<p><img src="17.jpg" alt="A记录"></p>
+<p><img src="16.jpg" alt="服务器端数据包"></p>
+<p><img src="17.jpg" alt="客户端数据包"></p>
 
             </div>
             <hr/>

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-26T09:21:37.869Z</updated>
+  <updated>2021-01-26T16:56:05.877Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>http隧道及流量分析</title>
+    <link href="http://example.com/2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/"/>
+    <id>http://example.com/2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/</id>
+    <published>2021-01-26T14:14:58.000Z</published>
+    <updated>2021-01-26T16:56:05.877Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;http隧道利用的是http代理的转发功能，在一种特殊情境下达到出网的目的&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;21.jpg&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
+    
+    
+    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+    
+    <category term="http隧道" scheme="http://example.com/tags/http%E9%9A%A7%E9%81%93/"/>
+    
+  </entry>
   
   <entry>
     <title>ICMP隧道及流量分析</title>
@@ -48,7 +76,7 @@
     <link href="http://example.com/2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/"/>
     <id>http://example.com/2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/</id>
     <published>2021-01-25T15:33:23.000Z</published>
-    <updated>2021-01-26T10:54:36.551Z</updated>
+    <updated>2021-01-26T15:59:20.112Z</updated>
     
     
       
