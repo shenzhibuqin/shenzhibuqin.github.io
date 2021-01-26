@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>ICMP隧道及流量分析</title>
+      <link href="2021/01/26/icmp-sui-dao-ji-liu-liang-fen-xi/"/>
+      <url>2021/01/26/icmp-sui-dao-ji-liu-liang-fen-xi/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>icmp隧道是利用icmp协议的请求于响应包来构建隧道，icmp包会有一个data字段，就是使用ping命令的时候的那个32字节的数据，正常这会是随机字符，用来传递信息就可以构成icmp隧道</p><p><img src="9.jpg" alt="ping"></p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>环境大概如下图所示</p><p><img src="10.jpg" alt="环境"></p><p>类比官方的图示，192.168.1.40就是那个proxy</p><p><img src="11.png" alt="官方图示"></p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>使用工具ptunnel搭建，分为服务器端和客户端，服务器端直接输入ptunnel就可以启动，-x参数可以指定密码</p><p><img src="1.jpg" alt="服务器端"></p><p>客户端需要指定服务器端等参数连接服务器端</p><p><img src="2.jpg" alt="客户端连接"></p><p>-p 指定服务器端地址<br>-lp 指定本地监听端口<br>-da 指定流量出隧道后的转发地址<br>-dp 指定流量出隧道后的转发端口</p><p>用浏览器访问一下本机7001端口，成功连到了网关的80端口</p><p><img src="3.jpg" alt="网关"></p><p>这样隧道就建成了，但是只能访问到固定IP和端口，如果想随意上网可以把icmp出口转发到22端口，在icmp隧道里嵌套一个ssh动态访问隧道，这样就可以访问任意地址了</p><h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>在服务器端用wireshark抓包，过滤icmp包，可以发现空闲时段会有大量的长度为70的数据包，这些都是隧道的信条数据包</p><p><img src="4.jpg" alt="心跳"></p><p>把心跳数据包过滤掉，找一个icmp请求，可以看见数据部分就是我们通过隧道传过来的访问网关的http请求</p><p><img src="5.jpg" alt="请求"></p><p>我们看他对应的icmp响应包，发现长度和内容和请求包一模一样，猜测是ptunnel服务器端在和客户端确认输出传输有没有出错</p><p><img src="6.jpg" alt="响应包"></p><p>看接下来的几个响应包，内容明显是我们访问网关的http回包，这一串大小1094的包都是在传输返回的http数据包</p><p><img src="7.jpg" alt="返回包"></p><p>去掉icmp的过滤，我们会发现ptunnel在和客户端确认了数据包之后就把http转发给了网关，网关回了响应的包，但是wireshark并没有把返回包解析成http包，还是解析为了tcp包</p><p><img src="8.jpg" alt="请求网关"></p><p>仔细看这个转发的http包我们会发现ptunnel转发的很彻底，http包一点没改，host都还是过隧道前的127.0.0.1：7001，而且我们可以发现这个icmp隧道都是明文的，不像别的工具会加密流量，毕竟是一位多年前就停更的老前辈，所以真的使用的时候嵌套一个加密的ssh隧道还是需要的</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 隧道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 流量分析 </tag>
+            
+            <tag> 隧道 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>dns隧道及流量分析</title>
+      <link href="2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/"/>
+      <url>2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>dns隧道是使用了dns查询的dns数据包来构建隧道，dns查询走53端口，正常是发送请求查询域名，dns服务器返回查询结果，如果我们控制一台dns服务器，利用解析请求和服务器返回结果这一去一回就可以构建一条dns隧道</p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>一共三台机器一台防火墙，win2012上配置了dns服务器，解析nbbs.top域，有一条log.nbbs.top的ns记录指向kali 1，实验分别用dns2tcp和iodine两种工具进行演示</p><p><img src="22.jpg" alt="环境"></p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="dns2tcp"><a href="#dns2tcp" class="headerlink" title="dns2tcp"></a>dns2tcp</h3><p>首先来配置dns服务器，windows 2012通过添加功能安装dns服务器，然后进入dns管理器，在正向查找上右键创建新区域，根据提示一路下一步创建nbbs.top</p><p><img src="1.jpg" alt="新建域"></p><p>在域上右键创建新委派，也就是子域名</p><p><img src="2.jpg" alt="子域名"></p><p>创建log.nbbs.top子域，并将权威dns服务器指向dns.nbbs.top</p><p><img src="3.jpg" alt="子域名"></p><p>然后右键nbbs.top域创建一条A记录</p><p><img src="4.jpg" alt="A记录"></p><p>将dns.nbbs.top指向192.168.1.40</p><p><img src="5.jpg" alt="A记录"></p><p>然后配置dns转发器，转发器会将dns服务器解析不了的域名发给我们指定的dns服务器，右键服务器名，属性里的转发器，我添加了一条指向114.114.114.114的记录，只要是能用的dns服务器都行，本地网关也可以，同时我在网络设置里把window2012的dns也指向了自己127.0.0.1，这个Windows2012在真实环境里其实担任了网关和公网dns两个角色</p><p><img src="6.jpg" alt="A记录"></p><p>配置完dns服务器就可以准备隧道了，dns2tcp分为服务器端dns2tcpd和客户端dns2tcpc，dns2tcpd使用一个配置文件进行配置，/etc/dns2tcpd.conf，dns2tcp服务器端可以设置提供多种服务，并且分别转发到指定地址，客户端的连接必须指定使用的服务，一个客户端连接只能使用一种服务，多个服务就需要创建多个连接</p><p><img src="7.jpg" alt="A记录"></p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">listen = 0.0.0.0监听IP，127.0.0.1监听本地，公网IP192.168.1.40监听这个IP的网络请求，0.0.0.0接受所有IP请求port = 53端口# If you change this value, also change the USER variable in /etc/default/dns2tcpduser = nobodychroot = /tmpdomain = log.nbbs.top域名key = asdasd预设的密码resources = ssh:127.0.0.1:22 , http:127.0.0.1:8080 , socks:127.0.0.1:8081提供的服务及转发地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>配置好后启动服务器端</p><p><img src="8.jpg" alt="A记录"></p><p>-F 显示详细信息<br>-d 详细等级一共1，2，3三级<br>-f 指定配置文件</p><p>启动了服务器端客户端就可以连接了</p><p><img src="9.jpg" alt="A记录"></p><p>-c 压缩传输数据<br>-k 密码<br>-d 详细信息，也是三级<br>-l 本地监听端口<br>-r 使用服务器端提供的ssh服务<br>-z 域名 </p><p>ssh连接本地7001端口就连上了192.168.1.40shell</p><p><img src="10.jpg" alt="A记录"></p><h3 id="iodine"><a href="#iodine" class="headerlink" title="iodine"></a>iodine</h3><p>这个工具和dns2tcp类似，特点是会在本地创建一块虚拟网卡，iodined命令启动服务器端，-f指定虚拟网卡的IP，然后加域名，服务器端就启动了，需要注意虚拟网卡的IP网段不能和服务器端机器和客户端机器的的真实IP网段相同，需要一个独立的网段</p><p><img src="18.jpg" alt="A记录"></p><p>可以看见服务器端已经多了一块IP是10.0.0.1的网卡</p><p><img src="19.jpg" alt="A记录"></p><p>客户端连接也很简单，可以用-f 指定dns服务器，也可以不指定，使用本机默认的dns服务器，再加上使用的域名，隧道就连上了</p><p><img src="20.jpg" alt="A记录"></p><p>可以看见客户端也有一块10.0.0.2的网卡，客户端的网卡IP是会根据服务器端自动获取的，现在隧道两端的机器已经实现了物理连接一样，可以直接通过IP访问，要是想代理上网可以再嵌套一条ssh的动态访问隧道</p><p><img src="21.jpg" alt="A记录"></p><h2 id="流量分析"><a href="#流量分析" class="headerlink" title="流量分析"></a>流量分析</h2><p>筛选dns数据包，有大量长度为83和108的数据包，这些都是隧道的心跳数据包，每半秒一次</p><p><img src="11.jpg" alt="A记录"></p><p>除去心跳，剩下的除了头四个是真的dns数据包，接下来的都是隧道的数据包，从auth这个子域名可以猜出头四个是认证的数据包，通过密码进行身份确认，加下来俩connect是请求建立连接</p><p><img src="12.jpg" alt="A记录"></p><p>对比请求包和返回包可以看见内容都是加密的，那一串特备长的子域名就是传给服务器端的信息，TXT记录的内容就是返回信息，dns2tcp的服务器端选用的是TXT记录，可以传输更多信息</p><p><img src="13.jpg" alt="A记录"></p><p><img src="14.jpg" alt="A记录"></p><p>从服务器端抓到的包可以看出，dns解析都是Windows 2012那台dns服务器向他发起的，说明隧道客户端并没有解析出log.nbbs.top的ns记录然后直接和服务器端通信，dns都是发给windows2012的，由windows2012向服务器端进行dns的解析</p><p><img src="15.jpg" alt="A记录"></p><p>对比服务器端和客户端抓到的包就可以发现两边的包一模一样，只是有个别在数据包顺序上不同，说明windows2012只是进行了单纯的中间人的角色</p><p><img src="16.jpg" alt="A记录"></p><p><img src="17.jpg" alt="A记录"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 隧道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 流量分析 </tag>
+            
+            <tag> dns隧道 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ssh隧道</title>
       <link href="2021/01/22/ssh-sui-dao/"/>
       <url>2021/01/22/ssh-sui-dao/</url>
