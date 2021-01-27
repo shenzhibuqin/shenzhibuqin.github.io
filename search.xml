@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>sslh端口复用</title>
+      <link href="2021/01/27/sslh-duan-kou-fu-yong/"/>
+      <url>2021/01/27/sslh-duan-kou-fu-yong/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>sslh是一个端口复用的工具，按照第一个数据包对流量进行转发，按配置文件分发到不同目标，实验用https，http，ssh演示</p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="https搭建"><a href="#https搭建" class="headerlink" title="https搭建"></a>https搭建</h3><p>在服务器管理器的管理菜单下添加功能，选中证书服务器和iis</p><p><img src="4.jpg" alt="添加功能"></p><p>一路下一步，在证书服务器的角色服务中加上图中两项</p><p><img src="5.jpg" alt="添加服务"></p><p>安装完之后点击服务器管理器右上角的旗帜，配置证书服务器</p><p><img src="6.jpg" alt="配置"></p><p>选中三项服务</p><p><img src="7.jpg" alt="配置"></p><p>设置类型是独立证书服务器，然后下一步</p><p><img src="8.jpg" alt="配置"></p><p>一直下一步到证书服务器，选择稍后分配，然后一直下一步到配置完成</p><p><img src="9.jpg" alt="配置"></p><p>在iis服务器管理界面双击服务器证书进入证书管理</p><p><img src="10.jpg" alt="申请证书"></p><p>在右边申请证书</p><p><img src="11.jpg" alt="申请证书"></p><p>弹出的对话框会要求填身份信息，可以随便填，最后保存为一个txt文件</p><p><img src="12.jpg" alt="保存"></p><p>然后浏览器访问127.0.0.1/certsrv这个地址</p><p><img src="13.jpg" alt="访问地址"></p><p>然后点击申请证书-》高级申请-》使用base64编码的cmc或。。。。进入这个界面</p><p><img src="14.jpg" alt="申请证书"></p><p>把之前保存的txt文件中的内容复制到保存的申请那个大框里然后提交，然后会显示证书正在挂起，从服务器管理器的工具里进入证书颁发机构，在挂起的申请里右键颁发证书</p><p><img src="15.jpg" alt="颁发证书"></p><p>再访问之前那个网址，点击查看挂起的证书状态-》保存的申请证书，可以看到证书已颁发，点击下载证书</p><p><img src="16.jpg" alt="下载证书"></p><p>然后回到iis，点击完成证书申请</p><p><img src="17.jpg" alt="完成申请"></p><p>选择下载的证书，名字随便填，确定</p><p><img src="18.jpg" alt="使用证书"></p><p>然后在iis中配置https，证书使用我们刚导入的证书</p><p><img src="19.jpg" alt="配置https"></p><p>然后https就成了，但是由于证书是我们自己颁的，浏览器会提示和网站不符，点继续浏览就能看见iis默认界面</p><p><img src="20.jpg" alt="提示"></p><h3 id="sslh配置"><a href="#sslh配置" class="headerlink" title="sslh配置"></a>sslh配置</h3><p>sslh需要先修改配置文件/etc/default/sslh</p><p><img src="1.jpg" alt="配置文件"></p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">RUN=yes开启sslhDAEMON=/usr/sbin/sslhDAEMON_OPTS="--user sslh --listen 192.168.39.17:443 --ssh 127.0.0.1:22 --ssl 192.168.39.21:443 --http 127.0.0.1:80 --pidfile /var/run/sslh/sslh.pid"--user 使用sslh用户运行服务--listen 监听网卡及端口--ssh、ssl（https）、http是提供的服务及转发地址--pidfile pid文件地址<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>systemctl start sslh启动服务，浏览器访问就能看见效果，sslh按配置文件进行了分流</p><p><img src="2.jpg" alt="访问"></p><p>ssh也可以连接</p><p><img src="3.jpg" alt="ssh连接"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 隧道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 端口复用 </tag>
+            
+            <tag> sslh </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>http隧道及流量分析</title>
       <link href="2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/"/>
       <url>2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/</url>
