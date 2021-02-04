@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-27T14:10:44.988Z</updated>
+  <updated>2021-02-04T08:12:02.128Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决kali安装vsftpd无法限制根目录</title>
+    <link href="http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/"/>
+    <id>http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/</id>
+    <published>2021-02-04T07:45:23.000Z</published>
+    <updated>2021-02-04T08:12:02.128Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="杂" scheme="http://example.com/categories/%E6%9D%82/"/>
+    
+    
+    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+    
+    <category term="ftp" scheme="http://example.com/tags/ftp/"/>
+    
+  </entry>
   
   <entry>
     <title>sslh端口复用</title>
@@ -417,7 +444,7 @@
     <link href="http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/"/>
     <id>http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/</id>
     <published>2020-11-29T03:06:35.000Z</published>
-    <updated>2020-11-29T03:08:04.069Z</updated>
+    <updated>2021-02-04T07:46:36.276Z</updated>
     
     
       
@@ -442,7 +469,7 @@
     <link href="http://example.com/2020/11/28/linux-ming-ling-bei-wang-lu/"/>
     <id>http://example.com/2020/11/28/linux-ming-ling-bei-wang-lu/</id>
     <published>2020-11-28T12:12:57.000Z</published>
-    <updated>2020-11-28T15:08:55.561Z</updated>
+    <updated>2021-02-04T08:13:17.588Z</updated>
     
     
       

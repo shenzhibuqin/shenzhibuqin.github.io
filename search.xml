@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>解决kali安装vsftpd无法限制根目录</title>
+      <link href="2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/"/>
+      <url>2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在kali上安装了vsftpd，根据说明手册，在配置文件中设置chroot_local_user=yes可以限制用户ftp访问在用户根目录下，但是我设置该选项后ftp就无法正常访问，网上也没有明确的资料</p><h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>设置chroot_local_user=yes然后用kali自带的火狐进行访问，抓包看了一下具体数据</p><p><img src="1.jpg" alt="数据"></p><p>第一个框里是浏览器先进行的ftp登录，先尝试匿名登录，然后用账户密码进行登录，登录完成后就能看见问题了，500报错，回应说拒绝在有写权限的根目录下工作，应该就是死在了写权限上</p><p>去掉目录的写权限，正常工作，跨目录不起作用</p><p><img src="2.jpg" alt="正常工作"></p><p>最后改的时候发现，人家其实已经明确写在文件里了，这可能就是不识字的痛处吧</p><p><img src="4.jpg" alt="说明"></p><h2 id="chrome和火狐的区别"><a href="#chrome和火狐的区别" class="headerlink" title="chrome和火狐的区别"></a>chrome和火狐的区别</h2><p>之前没有目录限制的时候用本机测了一下，发现火狐多个上级目录，可以跳目录</p><p><img src="5.jpg" alt="火狐"></p><p>但是chrome就算开了跳目录也不行，只能在家目录下，不禁没有上级目录的选项，访问<a href="ftp://192.168.59.153/%E9%83%BD%E4%BC%9A%E8%A2%ABchrome%E9%87%8D%E7%BD%AE%E6%88%90%E5%AE%B6%E7%9B%AE%E5%BD%95">ftp://192.168.59.153/../都会被chrome重置成家目录</a></p><p><img src="6.jpg" alt="chrome"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 流量分析 </tag>
+            
+            <tag> ftp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>sslh端口复用</title>
       <link href="2021/01/27/sslh-duan-kou-fu-yong/"/>
       <url>2021/01/27/sslh-duan-kou-fu-yong/</url>
