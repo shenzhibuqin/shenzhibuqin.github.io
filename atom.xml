@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-04T08:12:02.128Z</updated>
+  <updated>2021-02-26T07:51:09.958Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>shiro550_python脚本改写</title>
+    <link href="http://example.com/2021/02/26/shiro550-python-jiao-ben-gai-xie/"/>
+    <id>http://example.com/2021/02/26/shiro550-python-jiao-ben-gai-xie/</id>
+    <published>2021-02-26T07:20:00.000Z</published>
+    <updated>2021-02-26T07:51:09.958Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;shiro550是前几年出的一个比较好用的反序列化漏洞，特征也很明显，apache</summary>
+        
+      
+    
+    
+    
+    <category term="python" scheme="http://example.com/categories/python/"/>
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+    <category term="shiro550" scheme="http://example.com/tags/shiro550/"/>
+    
+  </entry>
   
   <entry>
     <title>解决kali安装vsftpd无法限制根目录</title>

