@@ -4,19 +4,6 @@
   
     
     <entry>
-      <title>tesrtr</title>
-      <link href="2021/04/07/tesrtr/"/>
-      <url>2021/04/07/tesrtr/</url>
-      
-        <content type="html"><![CDATA[<p>WINDOWS</p><p>cmd<br>Powershell.exe -Command “$URL=’<a href="http://192.168.0.155:8002/plugins/v3.400.100-win64/TitanAgent_for_All_x86_64.exe'">http://192.168.0.155:8002/plugins/v3.400.100-win64/TitanAgent_for_All_x86_64.exe'</a>; $FILE=$env:temp + ‘\TitanAgent_for_All.exe’; ((New-Object System.Net.WebClient).DownloadFile($URL, $FILE))” &amp; %TEMP%\TitanAgent_for_All.exe –silent=yes –cover-conf=yes –cover-app=yes –install-path=’C:\Program Files\TitanAgent’ –url=”<a href="http://172.20.37.134/agent/winDownloader?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=8&amp;protocol=0&quot;">http://172.20.37.134/agent/winDownloader?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=8&amp;protocol=0"</a></p><p>powershell<br>$URL=’<a href="http://192.168.0.155:8002/plugins/v3.400.100-win64/TitanAgent_for_All_x86_64.exe'">http://192.168.0.155:8002/plugins/v3.400.100-win64/TitanAgent_for_All_x86_64.exe'</a>; $FILE=$env:temp + ‘\TitanAgent_for_All.exe’; ((New-Object System.Net.WebClient).DownloadFile($URL, $FILE)); $PARAM = “ –silent=yes –cover-conf=yes –cover-app=yes –install-path=’C:\Program Files\TitanAgent’ –url=’<a href="http://172.20.37.134/agent/winDownloader?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=2&amp;protocol=0'&quot;">http://172.20.37.134/agent/winDownloader?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=2&amp;protocol=0'"</a>; $ps_obj= New-Object System.Diagnostics.Process; $ps_obj.StartInfo.Arguments = $PARAM; $ps_obj.StartInfo.FileName = $FILE; $ps_obj.Start(); $ps_obj.WaitForExit();</p><p>LINUX</p><p>curl -s -L ‘<a href="http://172.20.37.134/agent/download?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=7&amp;protocol=0'">http://172.20.37.134/agent/download?k=8ce11f472153797f5bce30b231edf95220cfc82e&amp;group=7&amp;protocol=0'</a> | bash</p>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>shiro550_python脚本改写</title>
       <link href="2021/02/26/shiro550-python-jiao-ben-gai-xie/"/>
       <url>2021/02/26/shiro550-python-jiao-ben-gai-xie/</url>
