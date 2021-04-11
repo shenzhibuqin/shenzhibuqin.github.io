@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-26T07:51:09.958Z</updated>
+  <updated>2021-04-11T10:46:12.683Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于github的C2改造</title>
+    <link href="http://example.com/2021/04/11/ji-yu-github-de-c2-gai-zao/ji-yu-github-de-c2-gai-zao/"/>
+    <id>http://example.com/2021/04/11/ji-yu-github-de-c2-gai-zao/ji-yu-github-de-c2-gai-zao/</id>
+    <published>2021-04-11T09:13:03.000Z</published>
+    <updated>2021-04-11T10:46:12.683Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;在学习了《Python黑帽子 黑客与渗透测试编程之道》之后，想把其中GitHub</summary>
+        
+      
+    
+    
+    
+    <category term="工具" scheme="http://example.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>shiro550_python脚本改写</title>
@@ -516,31 +541,6 @@
     <category term="基础" scheme="http://example.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
     <category term="Linux" scheme="http://example.com/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从这里开始</title>
-    <link href="http://example.com/2020/11/27/hello-world/"/>
-    <id>http://example.com/2020/11/27/hello-world/</id>
-    <published>2020-11-27T07:12:00.000Z</published>
-    <updated>2020-11-27T07:23:05.656Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;hello</summary>
-        
-      
-    
-    
-    
-    <category term="杂" scheme="http://example.com/categories/%E6%9D%82/"/>
-    
-    
-    <category term="杂" scheme="http://example.com/tags/%E6%9D%82/"/>
     
   </entry>
   
