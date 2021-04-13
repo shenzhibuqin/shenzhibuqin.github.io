@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-04-11T10:46:12.683Z</updated>
+  <updated>2021-04-13T12:29:54.040Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>rust学习记录2</title>
+    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/"/>
+    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/</id>
+    <published>2021-04-13T12:24:13.000Z</published>
+    <updated>2021-04-13T12:29:54.040Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;所有权&quot;&gt;&lt;a href=&quot;#所有权&quot; class=&quot;headerlink&quot; title=&quot;所有权&quot;&gt;&lt;/a&gt;所有权&lt;/h2&gt;&lt;p&gt;管理堆上的数据，清理不再使用的垃圾&lt;/p&gt;
+&lt;p&gt;规则：&lt;br&gt;Rust 中的每一个值都有一个被称为其</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录1</title>
+    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-1/"/>
+    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-1/</id>
+    <published>2021-04-13T12:24:09.000Z</published>
+    <updated>2021-04-13T12:29:55.794Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;声明&quot;&gt;&lt;a href=&quot;#声明&quot; class=&quot;headerlink&quot; title=&quot;声明&quot;&gt;&lt;/a&gt;声明&lt;/h3&gt;&lt;p&gt;声明变量前加mut代表可变变量&lt;br&gt;let spaces = “abc”;&lt;br&gt;let mut spaces =</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
   
   <entry>
     <title>基于github的C2改造</title>
@@ -488,59 +539,6 @@
     <category term="JDBC" scheme="http://example.com/tags/JDBC/"/>
     
     <category term="java" scheme="http://example.com/tags/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git的奇技淫巧</title>
-    <link href="http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/"/>
-    <id>http://example.com/2020/11/29/git-de-qi-ji-yin-qiao/</id>
-    <published>2020-11-29T03:06:35.000Z</published>
-    <updated>2021-02-04T07:46:36.276Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;Git的奇技淫巧-see-no-evil&quot;&gt;&lt;a href=&quot;#Git的奇技淫巧-see-no-evil&quot; class=&quot;headerlink&quot; title=&quot;Git的奇技淫巧:see_no_evil:&quot;&gt;&lt;/a&gt;Git的奇技淫巧&lt;span</summary>
-        
-      
-    
-    
-    
-    <category term="基础" scheme="http://example.com/categories/%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="Git" scheme="http://example.com/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux命令备忘录</title>
-    <link href="http://example.com/2020/11/28/linux-ming-ling-bei-wang-lu/"/>
-    <id>http://example.com/2020/11/28/linux-ming-ling-bei-wang-lu/</id>
-    <published>2020-11-28T12:12:57.000Z</published>
-    <updated>2021-02-04T08:13:17.588Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;man&quot;&gt;&lt;a href=&quot;#man&quot; class=&quot;headerlink&quot; title=&quot;man&quot;&gt;&lt;/a&gt;man&lt;/h2&gt;&lt;p&gt;man command&lt;br&gt;查看命令相关用户手册&lt;/p&gt;
-&lt;h2 id=&quot;init&quot;&gt;&lt;a href=&quot;#init&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="基础" scheme="http://example.com/categories/%E5%9F%BA%E7%A1%80/"/>
-    
-    
-    <category term="基础" scheme="http://example.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
     
   </entry>
   

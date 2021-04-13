@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>rust学习记录2</title>
+      <link href="2021/04/13/rust-xue-xi-ji-lu-2/"/>
+      <url>2021/04/13/rust-xue-xi-ji-lu-2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><p>管理堆上的数据，清理不再使用的垃圾</p><p>规则：<br>Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。<br>值在任一时刻有且只有一个所有者。<br>当所有者（变量）离开作用域，这个值将被丢弃。</p><p>基础类型存储在栈上并且在离开作用域时被移出栈<br>String存储在堆上，可以由from函数创建<br>let s = String::from(“hello”)</p><p>移动<br>let s1 = String::from(“hello”)<br>let s2 = s1<br>s1赋给s2并不会有两个值一样的变量，s1会被认为不再有效，s1在栈上的数据传递给了s2<br>println!(“{}”,s1)会报错</p><p>克隆<br>需要复制堆上的数据，可以使用clone方法<br>let s1 = String::from(“hello”);<br>let s2 = s1.clone();<br>println!(“s1 = {}, s2 = {}”, s1, s2);</p><p>let x = 5;<br>let y = x;<br>println!(“x = {}, y = {}”, x, y);<br>整形这样存储在栈上的数据可以被快速复制，不需要clone</p><p>所有权与方法<br>变量传入函数时与变量赋值类似，也有移动，基础类型会被复制<br>函数返回值也会有移动，和传入类似</p><p>引用<br>为了避免所有权转移到函数里，可以使用引用来调用参数，也被称作借用<br>&amp;String和&amp;s1表示变量的引用，可以使用变量值，但是没有所有权<br> let len = calculate_length(&amp;s1)<br>fn calculate_length(s: &amp;String) -&gt; usize {<br>    s.len()<br>}</p><p>可变引用<br>引用默认不能修改值，需要改变值就要使用可变引用<br>fn main() {<br>    let mut s = String::from(“hello”);</p><pre><code>change(&amp;mut s);</code></pre><p>}</p><p>fn change(some_string: &amp;mut String) {<br>    some_string.push_str(“, world”);<br>}<br>但是在特定作用域中的特定数据只能有一个可变引用，以下代码会编译出错，rust在编译阶段就避免了数据竞争<br>let r1 = &amp;mut s;<br>let r2 = &amp;mut s;</p><p>引用与可变引用共存<br>引用的作用域是声明引用到最后一次使用之间，在最后一次使用之后声明使用可变引用是可以通过编译的，在引用作用域内声明可变引用会出错，可变引用可能会改变引用的值<br>    let r1 = &amp;s; // 没问题<br>    let r2 = &amp;s; // 没问题<br>    let r3 = &amp;mut s; // 大问题<br>    println!(“{}, {}, and {}”, r1, r2, r3);</p><pre><code>let mut s = String::from("hello");let r1 = &amp;s; // 没问题let r2 = &amp;s; // 没问题println!("{} and {}", r1, r2);// 此位置之后 r1 和 r2 不再使用let r3 = &amp;mut s; // 没问题println!("{}", r3);</code></pre><p>悬垂引用<br>内存在引用之前被释放，引用就会变成悬垂引用，编译器会在编译时避免这种错误，以下代码不会通过编译<br>fn dangle() -&gt; &amp;String {<br>    let s = String::from(“hello”);<br>    &amp;s<br>}</p><p>slice<br>通过中括号指定的范围[0..5]创建一个slice，从零开始，包括第一个不包括最后一个<br>不写第一个从头开始，不写后一个到最后一个，都不写获取整个引用<br>let s = String::from(“hello world”);<br>let hello = &amp;s[0..5];<br>let world = &amp;s[6..11];</p><p>使用slice时更改字符串会报错，改变字符串会在底层使用可变引用，与不可变引用会冲突<br>    let mut s = String::from(“hello world”);<br>    let word = first_word(&amp;s);<br>    s.clear(); // 错误!<br>    println!(“the first word is: {}”, word);</p><p>slice是一个不可变引用，字符串字面量就是指向二进制文件特定位置的slice，所以字符串字面量不可变</p><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>相当于别的语言里的类<br>声明一个结构体，结构体名，字段名，字段类型<br>struct User {<br>    username: String,<br>    email: String,<br>    sign_in_count: u64,<br>    active: bool,<br>}</p><p>创建一个结构体实例，如果需要可变需要加mut<br>let [mut] user1 = User {<br>    email: String::from(“<a href="mailto:someone@example.com">someone@example.com</a>“),<br>    username: String::from(“someusername123”),<br>    active: true,<br>    sign_in_count: 1,<br>}</p><p>获取和修改结构体的值<br>let mail = user1.email<br>user1.email = String::from(“<a href="mailto:anotheremail@example.com">anotheremail@example.com</a>“)</p><p>函数最后一行构造返回结构体<br>fn build_user(email: String, username: String) -&gt; User {<br>    User {<br>        email: email,<br>        username: username,<br>        active: true,<br>        sign_in_count: 1,<br>    }<br>}</p><p>变量名与字段名相同时可以简写，省略变量名<br>fn build_user(email: String, username: String) -&gt; User {<br>    User {<br>        email,<br>        username,<br>        active: true,<br>        sign_in_count: 1,<br>    }<br>}</p><p>通过改变旧结构体创建新结构体，用user1的值填充为定义的字段<br>let user2 = User {<br>    email: String::from(“<a href="mailto:another@example.com">another@example.com</a>“),<br>    username: String::from(“anotherusername567”),<br>    ..user1<br>};</p><p>定义元组结构体，可以给一种元组取一个名字，成为一种特定类型<br>struct Point(i32, i32, i32)<br>let black = Color(0, 0, 0)<br>与元组类似，可以结构，可以加点和索引获取元素</p><p>方法<br>声明结构体<br>struct rectangles {<br>    width:u32,<br>    height:u32,<br>}<br>声明方法，多个方法在一个imp块中和多个impl块中效果相同<br>impl rectangles{<br>    fn area(&amp;self) -&gt; u32{<br>        self.height * self.width<br>    }<br>}<br>调用方法<br>let rec = rectangles{<br>    width:4,<br>    height:5,<br>};<br>println!(“{}”,rec.area());</p><p>关联函数<br>impl块中可以声明没有self参数的函数，作为这个结构体的关联函数，用::调用，常作为构造函数，例如String::from(“asd”)</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>rust学习记录1</title>
+      <link href="2021/04/13/rust-xue-xi-ji-lu-1/"/>
+      <url>2021/04/13/rust-xue-xi-ji-lu-1/</url>
+      
+        <content type="html"><![CDATA[<h3 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h3><p>声明变量前加mut代表可变变量<br>let spaces = “abc”;<br>let mut spaces = “abc”;<br>const声明常量，变量类型可以自动识别也可以加引号和类型名来声明<br>数字可以添加下划线增加可读性<br>MAX_POINTS: u32 = 100_000</p><p>重复声明可以隐藏变量，可以更改变量类型，值<br>let spaces = “abc”;<br>let spaces = spaces.len();</p><h2 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h2><h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><p>长度    有符号        无符号<br>8-bit        i8        u8<br>16-bit        i16        u16<br>32-bit        i32（默认）        u32<br>64-bit        i64    u64<br>128-bit        i128        u128<br>arch（64位机器就是64bit，32位机器就是32bit）    isize        usize<br>除 byte 以外的所有数字字面值允许使用类型后缀，例如 57u8<br>同时也允许使用 _ 做为分隔符以方便读数，例如1_000<br>进制<br>数字字面值        例子<br>Decimal (十进制)        98_222<br>Hex (十六进制)        0xff<br>Octal (八进制)        0o77<br>Binary (二进制)        0b1111_0000<br>Byte (单字节字符)(仅限于u8)    b’A’</p><h3 id="浮点"><a href="#浮点" class="headerlink" title="浮点"></a>浮点</h3><p>f32，f64（默认）</p><h3 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h3><p>true，false</p><h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>char<br>大小为四个字节<br>单引号表示<br>let c =’z’<br>在 Rust 中，拼音字母，中文、日文、韩文等字符，emoji（绘文字）以及零长度的空白字符都是有效的 char 值</p><h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>长度固定，一旦声明长度不会增大或减小<br>声明<br>    let tup: (i32, f64, u8) = (500, 6.4, 1)<br>    一个位置一个类型，不一定相同<br>获取<br>    可以使用模式匹配来解构元组值获取<br>    let tup = (500, 6.4, 1);<br>    let (x, y, z) = tup;<br>    println!(“The value of y is: {}”, y);<br>    跟索引获取<br>    let x: (i32, f64, u8) = (500, 6.4, 1);<br>    let five_hundred = x.0;</p><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>长度固定，一旦声明长度不会增大或减小<br>类型需要相同<br>声明<br>    let a = [1, 2, 3, 4, 5]<br>    let a: [i32; 5] = [1, 2, 3, 4, 5]<br>    let a = [3; 5];<br>获取<br>    let a = [1, 2, 3, 4, 5];<br>    let first = a[0];<br>    let second = a[1];</p><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Rust 不关心函数定义于何处，只要定义了就行<br>参数格式<br>fn another_function(x: i32, y: i32) {<br>    println!(“The value of x is: {}”, x);<br>    println!(“The value of y is: {}”, y);<br>}<br>返回类型与值<br>在括号后定义返回类型<br>fn five() -&gt; i32 {<br>    5<br>}<br>fn plus_one(x: i32) -&gt; i32 {<br>    x + 1<br>}</p><p>函数的返回值等同于函数体最后一个表达式的值，表达式没有结尾的分号<br>使用 return 关键字和指定值，可从函数中提前返回</p><h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>条件必须是bool<br>if number &lt; 5 {<br>    println!(“condition was true”);<br>} else if number &gt; 5 {<br>    println!(“condition was false”);<br>}else{<br>    println!(“something”);<br>}</p><p>if是表达式，可以用于赋值，但是值的类型需要相同，因为rust的需要在编译时就知道返回类型<br>let condition = true;<br>let number = if condition {<br>    5<br>} else {<br>    6<br>};</p><h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>无限循环，break可以退出循环，并将值作为循环的返回值<br>    let mut i=0;<br>    let y = loop {<br>        i=i+1;<br>        if i==10 {<br>            break i*2<br>        }<br>    };<br>    println!(“{}”,y);</p><h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><pre><code>let mut i=0;</code></pre><p>   while i&lt;9 {<br>        i=i+1;<br>        println!(“{}”,i);<br>    }<br>for<br>    let numbers:[i32;5]=[1,2,3,4,5];<br>    for number in numbers.iter(){<br>        println!(“{}”,number)<br>    }</p><pre><code>可以使用(1..4)产生包含1不包含4的数字，rev可以让序列反转for num in (1..4).rev(){    println!("{}",num);}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>基于github的C2改造</title>
       <link href="2021/04/11/ji-yu-github-de-c2-gai-zao/"/>
       <url>2021/04/11/ji-yu-github-de-c2-gai-zao/</url>
