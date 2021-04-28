@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="rust学习记录2, Nbb&#39;s Blog">
+    <meta name="keywords" content="rust学习记录-泛型, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>rust学习记录2 | Nbb&#39;s Blog</title>
+    <title>rust学习记录-泛型 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">rust学习记录2</h1>
+                    <h1 class="description center-align post-title">rust学习记录-泛型</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-13
+                    2021-04-28
                 </div>
                 
 
@@ -367,39 +367,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><p>管理堆上的数据，清理不再使用的垃圾</p>
-<p>规则：<br>Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。<br>值在任一时刻有且只有一个所有者。<br>当所有者（变量）离开作用域，这个值将被丢弃。</p>
-<p>基础类型存储在栈上并且在离开作用域时被移出栈<br>String存储在堆上，可以由from函数创建<br>let s = String::from(“hello”)</p>
-<p>移动<br>let s1 = String::from(“hello”)<br>let s2 = s1<br>s1赋给s2并不会有两个值一样的变量，s1会被认为不再有效，s1在栈上的数据传递给了s2<br>println!(“{}”,s1)会报错</p>
-<p>克隆<br>需要复制堆上的数据，可以使用clone方法<br>let s1 = String::from(“hello”);<br>let s2 = s1.clone();<br>println!(“s1 = {}, s2 = {}”, s1, s2);</p>
-<p>let x = 5;<br>let y = x;<br>println!(“x = {}, y = {}”, x, y);<br>整形这样存储在栈上的数据可以被快速复制，不需要clone</p>
-<p>所有权与方法<br>变量传入函数时与变量赋值类似，也有移动，基础类型会被复制<br>函数返回值也会有移动，和传入类似</p>
-<p>引用<br>为了避免所有权转移到函数里，可以使用引用来调用参数，也被称作借用<br>&amp;String和&amp;s1表示变量的引用，可以使用变量值，但是没有所有权<br> let len = calculate_length(&amp;s1)<br>fn calculate_length(s: &amp;String) -&gt; usize {<br>    s.len()<br>}</p>
-<p>可变引用<br>引用默认不能修改值，需要改变值就要使用可变引用<br>fn main() {<br>    let mut s = String::from(“hello”);</p>
-<pre><code>change(&amp;mut s);</code></pre>
-<p>}</p>
-<p>fn change(some_string: &amp;mut String) {<br>    some_string.push_str(“, world”);<br>}<br>但是在特定作用域中的特定数据只能有一个可变引用，以下代码会编译出错，rust在编译阶段就避免了数据竞争<br>let r1 = &amp;mut s;<br>let r2 = &amp;mut s;</p>
-<p>引用与可变引用共存<br>引用的作用域是声明引用到最后一次使用之间，在最后一次使用之后声明使用可变引用是可以通过编译的，在引用作用域内声明可变引用会出错，可变引用可能会改变引用的值<br>    let r1 = &amp;s; // 没问题<br>    let r2 = &amp;s; // 没问题<br>    let r3 = &amp;mut s; // 大问题<br>    println!(“{}, {}, and {}”, r1, r2, r3);</p>
-<pre><code>let mut s = String::from("hello");
-let r1 = &amp;s; // 没问题
-let r2 = &amp;s; // 没问题
-println!("{} and {}", r1, r2);
-// 此位置之后 r1 和 r2 不再使用
-let r3 = &amp;mut s; // 没问题
-println!("{}", r3);</code></pre>
-<p>悬垂引用<br>内存在引用之前被释放，引用就会变成悬垂引用，编译器会在编译时避免这种错误，以下代码不会通过编译<br>fn dangle() -&gt; &amp;String {<br>    let s = String::from(“hello”);<br>    &amp;s<br>}</p>
-<p>slice<br>通过中括号指定的范围[0..5]创建一个slice，从零开始，包括第一个不包括最后一个<br>不写第一个从头开始，不写后一个到最后一个，都不写获取整个引用<br>let s = String::from(“hello world”);<br>let hello = &amp;s[0..5];<br>let world = &amp;s[6..11];</p>
-<p>使用slice时更改字符串会报错，改变字符串会在底层使用可变引用，与不可变引用会冲突<br>    let mut s = String::from(“hello world”);<br>    let word = first_word(&amp;s);<br>    s.clear(); // 错误!<br>    println!(“the first word is: {}”, word);</p>
-<p>slice是一个不可变引用，字符串字面量就是指向二进制文件特定位置的slice，所以字符串字面量不可变</p>
-<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>相当于别的语言里的类<br>声明一个结构体，结构体名，字段名，字段类型<br>struct User {<br>    username: String,<br>    email: String,<br>    sign_in_count: u64,<br>    active: bool,<br>}</p>
-<p>创建一个结构体实例，如果需要可变需要加mut<br>let [mut] user1 = User {<br>    email: String::from(“<a href="mailto:someone@example.com">someone@example.com</a>“),<br>    username: String::from(“someusername123”),<br>    active: true,<br>    sign_in_count: 1,<br>}</p>
-<p>获取和修改结构体的值<br>let mail = user1.email<br>user1.email = String::from(“<a href="mailto:anotheremail@example.com">anotheremail@example.com</a>“)</p>
-<p>函数最后一行构造返回结构体<br>fn build_user(email: String, username: String) -&gt; User {<br>    User {<br>        email: email,<br>        username: username,<br>        active: true,<br>        sign_in_count: 1,<br>    }<br>}</p>
-<p>变量名与字段名相同时可以简写，省略变量名<br>fn build_user(email: String, username: String) -&gt; User {<br>    User {<br>        email,<br>        username,<br>        active: true,<br>        sign_in_count: 1,<br>    }<br>}</p>
-<p>通过改变旧结构体创建新结构体，用user1的值填充为定义的字段<br>let user2 = User {<br>    email: String::from(“<a href="mailto:another@example.com">another@example.com</a>“),<br>    username: String::from(“anotherusername567”),<br>    ..user1<br>};</p>
-<p>定义元组结构体，可以给一种元组取一个名字，成为一种特定类型<br>struct Point(i32, i32, i32)<br>let black = Color(0, 0, 0)<br>与元组类似，可以结构，可以加点和索引获取元素</p>
-<p>方法<br>声明结构体<br>struct rectangles {<br>    width:u32,<br>    height:u32,<br>}<br>声明方法，多个方法在一个imp块中和多个impl块中效果相同<br>impl rectangles{<br>    fn area(&amp;self) -&gt; u32{<br>        self.height * self.width<br>    }<br>}<br>调用方法<br>let rec = rectangles{<br>    width:4,<br>    height:5,<br>};<br>println!(“{}”,rec.area());</p>
-<p>关联函数<br>impl块中可以声明没有self参数的函数，作为这个结构体的关联函数，用::调用，常作为构造函数，例如String::from(“asd”)</p>
+                <p>定义泛型函数（不能编译）<br>fn largest<t>(list: &amp;[T]) -&gt; T {<br>    let mut largest = list[0];<br>    for &amp;item in list.iter() {<br>        if item &gt; largest {<br>            largest = item;<br>        }<br>    }<br>    largest<br>}</t></p>
+<p>定义泛型结构体<br>struct Point<t>{<br>    x: T,<br>    y: T,<br>}<br>let integer = Point { x: 5, y: 10 };</t></p>
+<p>定义泛型方法<br>impl<t> Point<t> {<br>    fn x(&amp;self) -&gt; &amp;T {<br>        &amp;self.x<br>    }<br>}</t></t></p>
+<p>为特定类型定义方法<br>impl Point<f32> {<br>    fn distance_from_origin(&amp;self) -&gt; f32 {<br>        (self.x.powi(2) + self.y.powi(2)).sqrt()<br>    }<br>}</f32></p>
+<p>定义方法时泛型可以有impl声明也可以由方法声明，T，U与本身结构体定义对应，V，W是方法定义的泛型<br>struct Point&lt;T, U&gt; {<br>    x: T,<br>    y: U,<br>}</p>
+<p>impl&lt;T, U&gt; Point&lt;T, U&gt; {<br>    fn mixup&lt;V, W&gt;(self, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {<br>        Point {<br>            x: self.x,<br>            y: other.y,<br>        }<br>    }<br>}</p>
+<p>枚举泛型<br>option就是泛型的枚举类型，result也是<br>enum Option<t> {<br>    Some(T),<br>    None,<br>}</t></p>
+<p>rust编译器在编译时确定泛型的具体类型，类似于下面这种变化，将option泛型变为具体类型，减小了运行时开销，速度和手写的重复代码类似，运行时效率极高<br>enum Option_i32 {<br>    Some(i32),<br>    None,<br>}</p>
+<p>enum Option_f64 {<br>    Some(f64),<br>    None,<br>}</p>
+<p>fn main() {<br>    let integer = Option_i32::Some(5);<br>    let float = Option_f64::Some(5.0);<br>}</p>
+<p>trait<br>类似接口，规范泛型类的行为<br>use的引用规则和模块方法等类似</p>
+<p>定义trait<br>多个方法的trait，一行一个方法签名，并以分号结尾<br>    pub trait Summary {<br>        fn summarize(&amp;self) -&gt; String;<br>    }<br>指定默认方法的trait实现<br>    pub trait Summary {<br>        fn summarize(&amp;self) -&gt; String {<br>            String::from(“(Read more…)”)<br>        }<br>    }<br>trait中的默认方法可以调用没实现的其他trait方法<br>    pub trait Summary {<br>        fn summarize_author(&amp;self) -&gt; String;<br>        fn summarize(&amp;self) -&gt; String {<br>            format!(“(Read more from {}…)”, self.summarize_author())<br>        }<br>    }</p>
+<p>实现trait，或重载默认实现<br>    impl Summary for NewsArticle {<br>        fn summarize(&amp;self) -&gt; String {<br>            format!(“{}, by {} ({})”, self.headline, self.author, self.location)<br>        }<br>    }<br>使用默认方法实现trait，一个空的impl块<br>    impl Summary for NewsArticle {}</p>
+<p>以trait为参数<br>impl指定trait方式<br>    fn print_summary(&amp;item: impl Summary){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>泛型方式<br>    fn print_t_summary&lt;T:Summary&gt;(&amp;item: T){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>通过+指定多个trait<br>    fn print_summary(&amp;item: impl Summary + Display){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>    fn print_t_summary&lt;T:Summary + Display&gt;(&amp;item: T){<br>        println!(“Author:{}”,item.summarize());<br>    }</p>
+<p>通过where从句简化泛型函数的trait指定<br>    fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {<br>可以变为<br>    fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32<br>        where T: Display + Clone,<br>              U: Clone + Debug<br>    {</p>
+<p>函数以trait为返回值<br>impl形式<br>    fn returns_summarizable() -&gt; impl Summary {</p>
+<p>使用trait bound为限制为泛型的结构体添加方法<br>struct Pair<t> {<br>    x: T,<br>    y: T,<br>}</t></p>
+<p>impl<t> Pair<t> {<br>    fn new(x: T, y: T) -&gt; Self {<br>        Self {<br>            x,<br>            y,<br>        }<br>    }<br>}</t></t></p>
+<p>impl&lt;T: Display + PartialOrd&gt; Pair<t> {<br>    fn cmp_display(&amp;self) {<br>        if self.x &gt;= self.y {<br>            println!(“The largest member is x = {}”, self.x);<br>        } else {<br>            println!(“The largest member is y = {}”, self.y);<br>        }<br>    }<br>}</t></p>
+<p>也可以对任何实现了特定 trait 的类型有条件地实现 trait。对任何满足特定 trait bound 的类型实现 trait 被称为 blanket implementations，他们被广泛的用于 Rust 标准库中。例如，标准库为任何实现了 Display trait 的类型实现了 ToString trait。这个 impl 块看起来像这样：<br>impl&lt;T: Display&gt; ToString for T {<br>    // –snip–<br>}</p>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>大生命周期引用小生命周期编译会失败<br>{<br>    let r;               // ———+– ‘a<br>                          //               |<br>    {                     //               |<br>        let x = 5;    // -+– ‘b   |<br>        r = &amp;x;       //  |            |<br>    }                     // -+          |<br>                          //               |<br>    println!(“r: {}”, r); //          |<br>}                         // ———+</p>
+<p>小生命周期可以引用大生命周期</p>
+<p>#![allow(unused)]<br>fn main() {<br>{<br>    let x = 5;             // ———-+– ‘b<br>                               //                 |<br>    let r = &amp;x;           // –+– ‘a    |<br>                               //     |           |<br>    println!(“r: {}”, r); //     |           |<br>                               // –+           |<br>}                              //  ———-+</p>
+<p>泛型生命周期参数</p>
+<p>方法的泛型生命周期参数表明返回引用的生命周期和参数的关系，让编译器可以检查<br>函数或方法的参数的生命周期被称为 输入生命周期（input lifetimes），而返回值的生命周期被称为 输出生命周期（output lifetimes）。</p>
+<p>‘a代表的是string1和string2的重叠部分，返回参数的’a代表返回的引用生命周期等于string1和string2中短的那一个<br>    let string1=String::from(“this is longer”);<br>    let result;<br>    {<br>        let string2 = String::from(“this is shot”);<br>        result =longest_s(&amp;string1,&amp;string2);<br>        println!(“longer:{}”,result);</p>
+<pre><code>}
+
+fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp; 'a str)-&gt;&amp;'a str{
+    if string1.len()&gt;string2.len(){
+        string1
+    }else {
+        string2
+    }
+}</code></pre>
+<p>只在string1加’a就代表string1的生命周期，返回的引用也是string1的生命周期<br>    let string1=String::from(“this is longer”);<br>    let result;<br>    {<br>        let string2 = String::from(“this is shot”);<br>        result =longest_s(&amp;string1,&amp;string2);</p>
+<pre><code>}
+println!("longer:{}",result);
+
+fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp;str)-&gt;&amp;'a str{
+    if string1.len()&gt;string2.len(){
+        string1
+    }else {
+        string1
+    }
+}</code></pre>
+<p>结构体的参数意味着结构体实例不能比其字段中的引用存在的更久<br>    struct TestStruct&lt;’a&gt;{<br>        pub s: &amp;’a str,<br>    }</p>
+<pre><code>let s =String::from("asd");
+
+let mut test = TestStruct {
+    s:&amp;s,
+};</code></pre>
+<p>生命周期省略规则<br>符合特定模式时无需标注生命周期参数</p>
+<p>编译器根据三条规则计算生命周期，计算完后没有得出生命周期就会报错<br>规则：<br>    每一个输入的引用类型参数都有自己的生命周期参数<br>    如果只有一个输入生命周期参数，则把它赋给所有输出<br>    如果有多个输入，且其中一个是self，说明是一个对象的方法，所有输出生命周期参数被赋予self的生命周期</p>
+<p>对于函数<br>一个输入一个输出的方法会把输入的生命周期给输出</p>
+<p>对于方法<br>结构体字段的生命周期必须总是在 impl 关键字之后声明并在结构体名称之后被使用，<br>impl&lt;’a&gt; ImportantExcerpt&lt;’a&gt; {<br>    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {<br>        println!(“Attention please: {}”, announcement);<br>        self.part<br>    }<br>}</p>
+<p>静态生命周期<br>static，生命周期能够存活于整个程序期间<br>所有字符串字面值都有static生命周期，标注出来就是下面这样<br>let s: &amp;’static str = “I have a static lifetime.”;</p>
+<p>结合泛型，trait，生命周期的函数<br>fn longest_with_an_announcement&lt;’a, T&gt;(x: &amp;’a str, y: &amp;’a str, ann: T) -&gt; &amp;’a str<br>    where T: Display<br>{<br>    println!(“Announcement! {}”, ann);<br>    if x.len() &gt; y.len() {<br>        x<br>    } else {<br>        y<br>    }<br>}</p>
 
             </div>
             <hr/>
@@ -425,7 +450,7 @@ println!("{}", r3);</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/">http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/</a>
+                    <a href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/">http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -511,24 +536,24 @@ println!("{}", r3);</code></pre>
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/04/13/rust-xue-xi-ji-lu-2/">
+                <a href="/2021/04/28/rust-xue-xi-ji-lu-fan-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="rust学习记录2">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="rust学习记录-泛型">
                         
-                        <span class="card-title">rust学习记录2</span>
+                        <span class="card-title">rust学习记录-泛型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天晚上
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
                             </span>
                         <span class="publish-author">
                             
@@ -561,24 +586,24 @@ println!("{}", r3);</code></pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/13/rust-xue-xi-ji-lu-1/">
+                <a href="/2021/04/28/rust-xue-xi-ji-lu-cargo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="rust学习记录1">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="rust学习记录-cargo">
                         
-                        <span class="card-title">rust学习记录1</span>
+                        <span class="card-title">rust学习记录-cargo</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天晚上
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
                             </span>
                         <span class="publish-author">
                             

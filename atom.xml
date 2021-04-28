@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-04-13T12:29:54.040Z</updated>
+  <updated>2021-04-28T09:45:26.410Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,240 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>rust学习记录2</title>
-    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/"/>
-    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-2/</id>
+    <title>rust学习记录-泛型</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/</id>
+    <published>2021-04-28T09:42:33.000Z</published>
+    <updated>2021-04-28T09:45:26.410Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;定义泛型函数（不能编译）&lt;br&gt;fn largest&lt;t&gt;(list: &amp;amp;[T]) -&amp;gt; T {&lt;br&gt;    let mut largest = list[0];&lt;br&gt;    for &amp;amp;item in list.iter() {&lt;br&gt;     </summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-cargo</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-cargo/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-cargo/</id>
+    <published>2021-04-28T09:42:15.000Z</published>
+    <updated>2021-04-28T09:52:17.282Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;编译配置&quot;&gt;&lt;a href=&quot;#编译配置&quot; class=&quot;headerlink&quot; title=&quot;编译配置&quot;&gt;&lt;/a&gt;编译配置&lt;/h3&gt;&lt;p&gt;cargo build&lt;br&gt;编译，dev模式&lt;br&gt;cargo build</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-迭代器</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-die-dai-qi/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-die-dai-qi/</id>
+    <published>2021-04-28T09:42:08.000Z</published>
+    <updated>2021-04-28T09:49:36.557Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;iterator&quot;&gt;&lt;a href=&quot;#iterator&quot; class=&quot;headerlink&quot; title=&quot;iterator&quot;&gt;&lt;/a&gt;iterator&lt;/h3&gt;&lt;p&gt;迭代器都实现了一个叫iterator的trait，定义类似这样&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-闭包</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-bi-bao/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-bi-bao/</id>
+    <published>2021-04-28T09:42:03.000Z</published>
+    <updated>2021-04-28T09:47:52.298Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;可以保存进变量或作为参数传递给其他&lt;br&gt;定义&lt;br&gt;    多个参数用逗号隔开&lt;br&gt;    let closure = |num| {&lt;br&gt;        println!(“calculating slowly…”);&lt;br&gt;       </summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-测试</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ce-shi/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ce-shi/</id>
+    <published>2021-04-28T09:41:27.000Z</published>
+    <updated>2021-04-28T09:46:26.660Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在函数前添加#[test]来将函数变为测试函数&lt;br&gt;    #[test]&lt;br&gt;    fn test_func() {&lt;/p&gt;
+&lt;p&gt;cargo test运行测试，Rust 会构建一个测试执行程序用来调用标记了 test</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-异常处理</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-yi-chang-chu-li/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-yi-chang-chu-li/</id>
+    <published>2021-04-28T09:26:42.000Z</published>
+    <updated>2021-04-28T09:40:50.881Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;panic&quot;&gt;&lt;a href=&quot;#panic&quot; class=&quot;headerlink&quot; title=&quot;panic!&quot;&gt;&lt;/a&gt;panic!&lt;/h2&gt;&lt;p&gt;不可恢复异常&lt;br&gt;触发异常panic!(“crash and burn”)&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-集合</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ji-he/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ji-he/</id>
+    <published>2021-04-28T09:26:39.000Z</published>
+    <updated>2021-04-28T09:39:08.348Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;vector&quot;&gt;&lt;a href=&quot;#vector&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-库与模块</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ku-yu-mo-kuai/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ku-yu-mo-kuai/</id>
+    <published>2021-04-28T09:26:35.000Z</published>
+    <updated>2021-04-28T09:37:23.179Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;crate&quot;&gt;&lt;a href=&quot;#crate&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-枚举</title>
+    <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-mei-ju/"/>
+    <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-mei-ju/</id>
+    <published>2021-04-28T09:26:21.000Z</published>
+    <updated>2021-04-28T09:31:11.733Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;声明枚举&lt;br&gt;enum IpAddrKind {&lt;br&gt;    V4,&lt;br&gt;    V6,&lt;br&gt;}&lt;/p&gt;
+&lt;p&gt;创建枚举类型变量&lt;br&gt;let four = IpAddrKind::V4;&lt;br&gt;let six =</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-所有权</title>
+    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/"/>
+    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/</id>
     <published>2021-04-13T12:24:13.000Z</published>
-    <updated>2021-04-13T12:29:54.040Z</updated>
+    <updated>2021-04-28T09:30:47.790Z</updated>
     
     
       
@@ -43,11 +272,11 @@
   </entry>
   
   <entry>
-    <title>rust学习记录1</title>
-    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-1/"/>
-    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-1/</id>
+    <title>rust学习记录-变量类型与控制流</title>
+    <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/"/>
+    <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/</id>
     <published>2021-04-13T12:24:09.000Z</published>
-    <updated>2021-04-13T12:29:55.794Z</updated>
+    <updated>2021-04-28T09:30:23.383Z</updated>
     
     
       
@@ -305,240 +534,6 @@
     <category term="端口转发" scheme="http://example.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
     
     <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何从内存中获取当前窗口界面</title>
-    <link href="http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/"/>
-    <id>http://example.com/2021/01/15/ru-he-cong-nei-cun-zhong-huo-qu-dang-qian-chuang-kou-jie-mian/</id>
-    <published>2021-01-15T13:37:59.000Z</published>
-    <updated>2021-01-15T14:26:09.180Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;我们都知道计算机运行时的数据都存在内存中，那么程序运行时的图形化界面的数据是不是也应该在内存中呢？&lt;/p&gt;
-&lt;h2 id=&quot;流程&quot;&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="杂" scheme="http://example.com/categories/%E6%9D%82/"/>
-    
-    
-    <category term="内存" scheme="http://example.com/tags/%E5%86%85%E5%AD%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>msf_meterpreter</title>
-    <link href="http://example.com/2021/01/15/msf-meterpreter/"/>
-    <id>http://example.com/2021/01/15/msf-meterpreter/</id>
-    <published>2021-01-15T13:35:33.000Z</published>
-    <updated>2021-01-15T15:59:24.780Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="msf" scheme="http://example.com/categories/msf/"/>
-    
-    
-    <category term="msf" scheme="http://example.com/tags/msf/"/>
-    
-    <category term="meterpreter" scheme="http://example.com/tags/meterpreter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>msfvenom生成木马</title>
-    <link href="http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/"/>
-    <id>http://example.com/2021/01/12/msfvenom-sheng-cheng-mu-ma/</id>
-    <published>2021-01-12T13:06:42.000Z</published>
-    <updated>2021-01-12T14:05:32.352Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;msfvenom&quot;&gt;&lt;a href=&quot;#msfvenom&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="msf" scheme="http://example.com/categories/msf/"/>
-    
-    
-    <category term="msf" scheme="http://example.com/tags/msf/"/>
-    
-    <category term="木马" scheme="http://example.com/tags/%E6%9C%A8%E9%A9%AC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>初识msf</title>
-    <link href="http://example.com/2021/01/12/chu-shi-msf/"/>
-    <id>http://example.com/2021/01/12/chu-shi-msf/</id>
-    <published>2021-01-12T10:17:43.000Z</published>
-    <updated>2021-01-12T12:50:46.479Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="msf" scheme="http://example.com/categories/msf/"/>
-    
-    
-    <category term="msf" scheme="http://example.com/tags/msf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>recon-ng</title>
-    <link href="http://example.com/2021/01/11/recon-ng/"/>
-    <id>http://example.com/2021/01/11/recon-ng/</id>
-    <published>2021-01-11T04:21:15.000Z</published>
-    <updated>2021-01-11T05:21:21.672Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="信息搜集" scheme="http://example.com/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
-    
-    
-    <category term="信息搜集" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>域名相关信息搜集</title>
-    <link href="http://example.com/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/"/>
-    <id>http://example.com/2020/12/30/yu-ming-xiang-guan-xin-xi-sou-ji/</id>
-    <published>2020-12-30T13:27:52.000Z</published>
-    <updated>2020-12-30T15:49:25.643Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;域名是什么&quot;&gt;&lt;a href=&quot;#域名是什么&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="信息搜集" scheme="http://example.com/categories/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
-    
-    
-    <category term="信息搜集" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"/>
-    
-    <category term="域名" scheme="http://example.com/tags/%E5%9F%9F%E5%90%8D/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wpa破解</title>
-    <link href="http://example.com/2020/12/07/wpa-po-jie/"/>
-    <id>http://example.com/2020/12/07/wpa-po-jie/</id>
-    <published>2020-12-07T11:50:53.000Z</published>
-    <updated>2020-12-07T14:38:26.068Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="WiFi" scheme="http://example.com/categories/WiFi/"/>
-    
-    
-    <category term="wifi" scheme="http://example.com/tags/wifi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>流氓ap及用法</title>
-    <link href="http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/"/>
-    <id>http://example.com/2020/12/07/liu-mang-ap-ji-yong-fa/</id>
-    <published>2020-12-07T07:39:37.000Z</published>
-    <updated>2020-12-07T09:54:23.840Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;流氓ap（rogue ap），也叫邪恶双子星（evil</summary>
-        
-      
-    
-    
-    
-    <category term="WiFi" scheme="http://example.com/categories/WiFi/"/>
-    
-    
-    <category term="WiFi" scheme="http://example.com/tags/WiFi/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用JDBC的时候发现的一点小意外</title>
-    <link href="http://example.com/2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/"/>
-    <id>http://example.com/2020/12/04/shi-yong-jdbc-de-shi-hou-fa-xian-de-yi-dian-xiao-yi-wai/</id>
-    <published>2020-12-04T05:20:30.000Z</published>
-    <updated>2020-12-04T06:16:10.041Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;根据JDBC规范Java在连接数据库的时候需要导入对应数据库驱动，最近在写jsp的时候发现了一件很神奇的事，我用的是idea，正常导入jar包驱动的时候是File-&amp;gt;project</summary>
-        
-      
-    
-    
-    
-    <category term="java" scheme="http://example.com/categories/java/"/>
-    
-    
-    <category term="JDBC" scheme="http://example.com/tags/JDBC/"/>
-    
-    <category term="java" scheme="http://example.com/tags/java/"/>
     
   </entry>
   
