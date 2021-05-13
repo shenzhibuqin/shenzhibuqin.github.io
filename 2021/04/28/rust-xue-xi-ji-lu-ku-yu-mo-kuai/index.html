@@ -368,11 +368,23 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="crate"><a href="#crate" class="headerlink" title="crate"></a>crate</h2><p>二进制项或者库<br>与src同级<br>在cargo.toml中引用，[dependencies]词条，使用方法类似于第三方库<br>tensorflow-sys = { version = “0.19.0”, path = “tensorflow-sys” }</p>
-<h3 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h3><p>cargo.toml中dependencies添加<br>rand = “0.7.0”<br>该模块会在全局可用<br>    let secret_number:u32 = rand.random();<br>    println!(“{}”,secret_number);<br>或<br>    use rand::random<br>    let secret_number:u32 = random();<br>    println!(“{}”,secret_number);</p>
+<h3 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h3><p>cargo.toml中dependencies添加<br>rand = “0.7.0”<br>该模块会在全局可用</p>
+<pre class="line-numbers language-none"><code class="language-none">	let secret_number:u32 = rand.random();
+	println!("{}",secret_number);
+或
+	use rand::random
+	let secret_number:u32 = random();
+	println!("{}",secret_number);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="导入自己写的crate库"><a href="#导入自己写的crate库" class="headerlink" title="导入自己写的crate库"></a>导入自己写的crate库</h3><p>cargo.toml中dependencies添加<br>cratelib = { version = “0.1.0”, path = “cratelib” }//path是crate文件夹的相对路径<br>在项目中直接use [cargo.toml中定义的名字]::[lib.rs中定义的名字]::[子模块]</p>
 <p>最好和工作空间一起学习，方便理解</p>
 <h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>main.rs和lib.rs是crate根节点<br>模块与文件目录结构是解耦的，没有关系，多层目录需要mod一层层引用</p>
-<p>mod导入优先级：<br>优先查找xxx.rs 文件<br>    main.rs、lib.rs、mod.rs中的mod xxx; 默认优先查找同级目录下的 xxx.rs 文件；<br>    其他文件yyy.rs中的mod xxx;默认优先查找同级目录的yyy目录下的 xxx.rs 文件；<br>如果 xxx.rs 不存在，则查找 xxx/mod.rs 文件，即 xxx 目录下的 mod.rs 文件</p>
+<p>mod导入优先级：</p>
+<pre class="line-numbers language-none"><code class="language-none">优先查找xxx.rs 文件
+	main.rs、lib.rs、mod.rs中的mod xxx; 默认优先查找同级目录下的 xxx.rs 文件；
+	其他文件yyy.rs中的mod xxx;默认优先查找同级目录的yyy目录下的 xxx.rs 文件；
+如果 xxx.rs 不存在，则查找 xxx/mod.rs 文件，即 xxx 目录下的 mod.rs 文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>use<br>use crate::asd::{<em>}<br>use crate::asd::</em><br>导入该路径下的元素，函数可以直接使用，模块需要<br>use structopt::{clap::arg_enum, StructOpt}<br>导入多个元素<br>use std::io::{self, Write};<br>导入模块和他的子模块<br>use super::super::asdout:<span class="github-emoji"><span>🅰</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f170.png?v8" aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span>:printasdout;<br>导入上级目录<br>use std::io::Result as IoResult;<br>创建别名</p>
 <p><img src="1.png" alt="路径"></p>
 <pre class="line-numbers language-rust" data-language="rust"><code class="language-rust">main

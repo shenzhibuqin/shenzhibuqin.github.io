@@ -367,14 +367,61 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>可以保存进变量或作为参数传递给其他<br>定义<br>    多个参数用逗号隔开<br>    let closure = |num| {<br>        println!(“calculating slowly…”);<br>        thread::sleep(Duration::from_secs(2));<br>        num<br>    };<br>调用<br>    跟调用普通函数相同<br>    closure(6);</p>
-<p>闭包参数一般不需要标注类型，编译器会自动推断类型，所以用不同类型调用闭包会报错<br>也可以标注<br>    let expensive_closure = |num: u32| -&gt; u32 {<br>        println!(“calculating slowly…”);<br>        thread::sleep(Duration::from_secs(2));<br>        num<br>    };</p>
-<p>定义闭包的不同方法：<br>let add_one_v2 = |x: u32| -&gt; u32 { x + 1 };<br>let add_one_v3 = |x|             { x + 1 };<br>let add_one_v4 = |x|               x + 1  ;</p>
+                <p>可以保存进变量或作为参数传递给其他<br>定义</p>
+<pre class="line-numbers language-none"><code class="language-none">多个参数用逗号隔开
+let closure = |num| {
+    println!("calculating slowly...");
+    thread::sleep(Duration::from_secs(2));
+    num
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用</p>
+<pre class="line-numbers language-none"><code class="language-none">跟调用普通函数相同
+closure(6);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>闭包参数一般不需要标注类型，编译器会自动推断类型，所以用不同类型调用闭包会报错<br>也可以标注</p>
+<pre class="line-numbers language-none"><code class="language-none">let expensive_closure = |num: u32| -&gt; u32 {
+    println!("calculating slowly...");
+    thread::sleep(Duration::from_secs(2));
+    num
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义闭包的不同方法</p>
+<pre class="line-numbers language-none"><code class="language-none">let add_one_v2 = |x: u32| -&gt; u32 { x + 1 };
+let add_one_v3 = |x|             { x + 1 };
+let add_one_v4 = |x|               x + 1  ;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>每一个闭包实例有其自己独有的匿名类型：也就是说，即便两个闭包有着相同的签名，他们的类型仍然可以被认为是不同<br>要让结构体，枚举，函数使用闭包作为参数或成员就要使用trait<br>fnonce，fnmut，fn加参数和输出类型就可以代表闭包类型</p>
-<h3 id="定义存放闭包的结构体"><a href="#定义存放闭包的结构体" class="headerlink" title="定义存放闭包的结构体"></a>定义存放闭包的结构体</h3><p>​    泛型实现<br>​    struct Cacher<t><br>​        where T: Fn(u32) -&gt; u32<br>​    {<br>​        calculation: T,<br>​        value: Option<u32>,<br>​    }<br>​    直接定义<br>​    struct Calculate {<br>​        calc:fn(u32)-&gt;u32,<br>​        value:Option<u32>,<br>​    }</u32></u32></t></p>
-<p>调用闭包<br>    (self.calc)(arg)</p>
-<h3 id="捕获环境"><a href="#捕获环境" class="headerlink" title="捕获环境"></a>捕获环境</h3><p>闭包可以访问同作用域的变量，<br>    fn main() {<br>        let x = 4;<br>        let equal_to_x = |z| z == x;<br>        let y = 4;<br>        assert!(equal_to_x(y));<br>    }</p>
-<p>闭包由三种获取参数的方式，所有权，可变借用，不可变借用<br>    FnOnce<br>    消费从周围作用域捕获的变量，闭包周围的作用域被称为其 环境，environment。为了消费捕获到的变量，闭包必须获取其所有权并在定义闭包时将其移动进闭包。其名称的 Once 部分代表了闭包不能多次获取相同变量的所有权的事实，所以它只能被调用一次。<br>    FnMut<br>    获取可变的借用值所以可以改变其环境<br>    Fn<br>    从其环境获取不可变的借用值<br>一般不需要借用环境，所以使用fn比较多，最节省资源<br>当创建一个闭包时，Rust 根据其如何使用环境中变量来推断我们希望如何引用环境<br>如果需要强制获取所有参数所有权可以在闭包定义时加move，定义闭包以后参数所有权就会被转移进闭包<br>    let equal_to_x = move |z| z == x;</p>
+<h3 id="定义存放闭包的结构体"><a href="#定义存放闭包的结构体" class="headerlink" title="定义存放闭包的结构体"></a>定义存放闭包的结构体</h3><pre class="line-numbers language-none"><code class="language-none">​	泛型实现
+​	struct Cacher&lt;T&gt;
+​	    where T: Fn(u32) -&gt; u32
+​	{
+​	    calculation: T,
+​	    value: Option&lt;u32&gt;,
+​	}
+​	直接定义
+​	struct Calculate {
+​	    calc:fn(u32)-&gt;u32,
+​	    value:Option&lt;u32&gt;,
+​	}
+
+调用闭包
+	(self.calc)(arg)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="捕获环境"><a href="#捕获环境" class="headerlink" title="捕获环境"></a>捕获环境</h3><p>闭包可以访问同作用域的变量</p>
+<pre class="line-numbers language-none"><code class="language-none">fn main() {
+    let x = 4;
+    let equal_to_x = |z| z == x;
+    let y = 4;
+    assert!(equal_to_x(y));
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>闭包由三种获取参数的方式，所有权，可变借用，不可变借用</p>
+<pre class="line-numbers language-none"><code class="language-none">FnOnce 
+消费从周围作用域捕获的变量，闭包周围的作用域被称为其 环境，environment。为了消费捕获到的变量，闭包必须获取其所有权并在定义闭包时将其移动进闭包。其名称的 Once 部分代表了闭包不能多次获取相同变量的所有权的事实，所以它只能被调用一次。
+FnMut 
+获取可变的借用值所以可以改变其环境
+Fn 
+从其环境获取不可变的借用值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>一般不需要借用环境，所以使用fn比较多，最节省资源<br>当创建一个闭包时，Rust 根据其如何使用环境中变量来推断我们希望如何引用环境<br>如果需要强制获取所有参数所有权可以在闭包定义时加move，定义闭包以后参数所有权就会被转移进闭包<br>    let equal_to_x = move |z| z == x;</p>
 <p>​    </p>
 
             </div>

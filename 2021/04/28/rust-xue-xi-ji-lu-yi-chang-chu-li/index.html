@@ -368,12 +368,68 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h2 id="panic"><a href="#panic" class="headerlink" title="panic!"></a>panic!</h2><p>不可恢复异常<br>触发异常panic!(“crash and burn”)</p>
-<h2 id="result"><a href="#result" class="headerlink" title="result"></a>result</h2><p>可恢复异常，与option类似的一个枚举类型<br>enum Result&lt;T, E&gt; {<br>    Ok(T),<br>    Err(E),<br>}</p>
-<p>读文件会返回一个result，通过match匹配，处理结果<br>    let f=File::open(“a.txt”);<br>    let f=match f{<br>        Ok(file)=&gt;file,<br>        Err(error)=&gt;{<br>            panic!(“problem opening the file: {:?}”,error);<br>        }<br>    };</p>
-<p>可以根据错误做不同处理，error.kind()返回错误类型<br>    let f = File::open(“hello.txt”);<br>    let f = match f {<br>        Ok(file) =&gt; file,<br>        Err(error) =&gt; match error.kind() {<br>            ErrorKind::NotFound =&gt; match File::create(“hello.txt”) {<br>                Ok(fc) =&gt; fc,<br>                Err(e) =&gt; panic!(“Problem creating the file: {:?}”, e),<br>            },<br>            other_errorasd =&gt; panic!(“Problem opening the file: {:?}”, other_errorasd),<br>        },<br>    };</p>
+<h2 id="result"><a href="#result" class="headerlink" title="result"></a>result</h2><p>可恢复异常，与option类似的一个枚举类型</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>读文件会返回一个result，通过match匹配，处理结果</p>
+<pre class="line-numbers language-none"><code class="language-none">let f=File::open("a.txt");
+let f=match f{
+    Ok(file)=&gt;file,
+    Err(error)=&gt;{
+        panic!("problem opening the file: {:?}",error);
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以根据错误做不同处理，error.kind()返回错误类型</p>
+<pre class="line-numbers language-none"><code class="language-none">let f = File::open("hello.txt");
+let f = match f {
+    Ok(file) =&gt; file,
+    Err(error) =&gt; match error.kind() {
+        ErrorKind::NotFound =&gt; match File::create("hello.txt") {
+            Ok(fc) =&gt; fc,
+            Err(e) =&gt; panic!("Problem creating the file: {:?}", e),
+        },
+        other_errorasd =&gt; panic!("Problem opening the file: {:?}", other_errorasd),
+    },
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>直接解包result结果<br>unwrap()<br>OK返回结果，Err直接panic<br>expect(“file not found”)<br>OK返回结果，Err直接panic，会显示我们输入的字符产，更容易定位问题</p>
-<p>向上层（函数调用者）传递错误<br>match匹配，手动返回错误<br>    fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {<br>        let f = File::open(“hello.txt”);<br>        let mut f = match f {<br>            Ok(file) =&gt; file,<br>            Err(e) =&gt; return Err(e),<br>        };<br>        let mut s = String::new();<br>        match f.read_to_string(&amp;mut s) {<br>            Ok(_) =&gt; Ok(s),<br>            Err(e) =&gt; Err(e),<br>        }<br>    }<br>通过?运算符返回，?运算符用在返回result类型的函数中<br>    fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {<br>        let mut f = File::open(“hello.txt”)?;<br>        let mut s = String::new();<br>        f.read_to_string(&amp;mut s)?;<br>        Ok(s)<br>    }<br>    result值之后的?运算符会把Err作为函数的返回值，OK则正常往下执行<br>    更短的链式方法<br>    fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {<br>        let mut s = String::new();<br>        File::open(“hello.txt”)?.read_to_string(&amp;mut s)?;<br>        Ok(s)<br>    }</p>
-<p>rust提供的读取文件到字符串的方法<br>fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {<br>    fs::read_to_string(“hello.txt”)<br>}</p>
+<p>向上层（函数调用者）传递错误</p>
+<pre class="line-numbers language-none"><code class="language-none">match匹配，手动返回错误
+	fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+	    let f = File::open("hello.txt");
+	    let mut f = match f {
+	        Ok(file) =&gt; file,
+	        Err(e) =&gt; return Err(e),
+	    };
+	    let mut s = String::new();
+	    match f.read_to_string(&amp;mut s) {
+	        Ok(_) =&gt; Ok(s),
+	        Err(e) =&gt; Err(e),
+	    }
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过?运算符返回，?运算符用在返回result类型的函数中</p>
+<pre class="line-numbers language-none"><code class="language-none">fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut f = File::open("hello.txt")?;
+    let mut s = String::new();
+    f.read_to_string(&amp;mut s)?;
+    Ok(s)
+}
+result值之后的?运算符会把Err作为函数的返回值，OK则正常往下执行
+更短的链式方法
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut s = String::new();
+    File::open("hello.txt")?.read_to_string(&amp;mut s)?;
+    Ok(s)
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>rust提供的读取文件到字符串的方法</p>
+<pre class="line-numbers language-none"><code class="language-none">fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    fs::read_to_string("hello.txt")
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

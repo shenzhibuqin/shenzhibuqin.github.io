@@ -367,22 +367,90 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>在函数前添加#[test]来将函数变为测试函数<br>    #[test]<br>    fn test_func() {</p>
+                <p>在函数前添加#[test]来将函数变为测试函数</p>
+<pre class="line-numbers language-none"><code class="language-none">#[test]
+fn test_func() {<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>cargo test运行测试，Rust 会构建一个测试执行程序用来调用标记了 test 属性的函数，并报告每一个测试是通过还是失败</p>
-<p>assert!可用于检查值是否为true<br>    assert!(larger.can_hold(&amp;smaller));<br>    larger.can_hold(&amp;smaller)返回true测试正常，false则测试失败，可以用来检查程序中的流程或结果是否符合预期<br>assert_eq! 和 assert_ne!<br>    用于检查相等或不相等，并返回相比的两个参数的信息<br>    assert_eq!(4, add_two(2));<br>自定义错误信息，后两个参数会被传给format!宏，可以自定义输出<br>    assert!(<br>        result.contains(“Carol”),<br>        “Greeting did not contain name, value was <code>{}</code>“, result<br>    );</p>
-<p>should_panic<br>    检查panic，有panic通过，没有则失败<br>        #[test]<br>        #[should_panic]<br>        fn greater_than_100() {<br>            Guess::new(200);<br>        }<br>    自定义错误信息<br>    #[should_panic(expected = “Guess value must be less than or equal to 100”)]</p>
-<p>返回result的测试<br>        #[test]<br>        fn it_works() -&gt; Result&lt;(), String&gt; {<br>            if 2 + 2 == 4 {<br>                Ok(())<br>            } else {<br>                Err(String::from(“two plus two does not equal four”))<br>            }<br>        }<br>    正常返回ok(())<br>    异常返回带字符串的result</p>
-<h3 id="测试命令相关"><a href="#测试命令相关" class="headerlink" title="测试命令相关"></a>测试命令相关</h3><p>cargo test和run类似，也会编译二进制文件并运行，测试时可以给测试的二进制文件传递参数<br>cargo test [options] – [options]<br>参数以–分割，前面的是正常的cargo test的参数，例如–help<br>后面的参数是给测试二进制文件的参数<br>–test-threads=1<br>    测试的方法以进程方式并行运行，如果有干扰可以设置进程数为零<br>–nocapture<br>    不捕获打印的值<br>    默认测试会捕获println打印的值，通过就显示通过，失败会显示打印输出</p>
+<p>assert!可用于检查值是否为true</p>
+<pre class="line-numbers language-none"><code class="language-none">assert!(larger.can_hold(&amp;smaller));
+larger.can_hold(&amp;smaller)返回true测试正常，false则测试失败，可以用来检查程序中的流程或结果是否符合预期<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>assert_eq! 和 assert_ne!</p>
+<pre class="line-numbers language-none"><code class="language-none">用于检查相等或不相等，并返回相比的两个参数的信息
+assert_eq!(4, add_two(2));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>自定义错误信息，后两个参数会被传给format!宏，可以自定义输出</p>
+<pre class="line-numbers language-none"><code class="language-none">assert!(
+    result.contains("Carol"),
+    "Greeting did not contain name, value was `{}`", result
+);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>should_panic</p>
+<pre class="line-numbers language-none"><code class="language-none">检查panic，有panic通过，没有则失败
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+自定义错误信息
+#[should_panic(expected = "Guess value must be less than or equal to 100")]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>返回result的测试</p>
+<pre class="line-numbers language-none"><code class="language-none">    #[test]
+    fn it_works() -&gt; Result&lt;(), String&gt; {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four"))
+        }
+    }
+正常返回ok(())
+异常返回带字符串的result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="测试命令相关"><a href="#测试命令相关" class="headerlink" title="测试命令相关"></a>测试命令相关</h3><p>cargo test和run类似，也会编译二进制文件并运行，测试时可以给测试的二进制文件传递参数<br>cargo test [options] – [options]<br>参数以–分割，前面的是正常的cargo test的参数，例如–help<br>后面的参数是给测试二进制文件的参数</p>
+<pre class="line-numbers language-none"><code class="language-none">--test-threads=1
+	测试的方法以进程方式并行运行，如果有干扰可以设置进程数为零
+--nocapture
+	不捕获打印的值
+	默认测试会捕获println打印的值，通过就显示通过，失败会显示打印输出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>cargo test func_name<br>    测试单个函数<br>cargo test add<br>    可以指定部分函数名，例子会运行名字带有add的所有测试函数<br>    指定模块名则运行模块中的所有测试函数</p>
-<p>对于要忽略的测试可以加#[ignore]<br>    #[test]<br>    #[ignore]<br>    fn expensive_test() {<br>        // 需要运行一个小时的代码<br>    }</p>
+<p>对于要忽略的测试可以加#[ignore]</p>
+<pre class="line-numbers language-none"><code class="language-none">#[test]
+#[ignore]
+fn expensive_test() {
+    // 需要运行一个小时的代码
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>cargo test – –ignore<br>    运行ignore标注的测试</p>
-<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><p>单元测试<br>    在与其他部分隔离的环境中测试每一个单元的代码，以便于快速而准确的某个单元的代码功能是否符合预期<br>测试模块的#[cfg(test)]告诉rust只在测试时编译运行这个模块<br>集成测试则应该在另一个文件夹，所以不需要标注</p>
+<h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><p>单元测试</p>
+<pre class="line-numbers language-none"><code class="language-none">在与其他部分隔离的环境中测试每一个单元的代码，以便于快速而准确的某个单元的代码功能是否符合预期<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>测试模块的#[cfg(test)]告诉rust只在测试时编译运行这个模块<br>集成测试则应该在另一个文件夹，所以不需要标注</p>
 <p>rust支持测试私有函数，可以调用没有pub标记的函数</p>
-<p>集成测试<br>    在 Rust 中，集成测试对于你需要测试的库来说完全是外部的。同其他使用库的代码一样使用库文件，也就是说它们只能调用一部分库中的公有 API 。集成测试的目的是测试库的多个部分能否一起正常工作。一些单独能正确运行的代码单元集成在一起也可能会出现问题，所以集成测试的覆盖率也是很重要的</p>
+<p>集成测试</p>
+<pre class="line-numbers language-none"><code class="language-none">在 Rust 中，集成测试对于你需要测试的库来说完全是外部的。同其他使用库的代码一样使用库文件，也就是说它们只能调用一部分库中的公有 API 。集成测试的目的是测试库的多个部分能否一起正常工作。一些单独能正确运行的代码单元集成在一起也可能会出现问题，所以集成测试的覆盖率也是很重要的<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>集成测试需要创建一个与src同级的tests目录，在这个目录中可以创建任意多的测试文件，cargo会将每个文件当作单独的crate来编译</p>
-<p>测试文件可以直接导入外部库，进行测试，不需要标注#[cfg(test)]<br>    use adder;<br>    #[test]<br>    fn it_adds_two() {<br>        assert_eq!(4, adder::add_two(2));<br>    }</p>
-<p>cargo test会测试集成测试和代码中的单元测试，输出单元测试，集成测试，文档测试<br>和单元测试一样可以指定函数名称运行特定集成测试函数<br>也可以指定测试文件名测试文件中所有测试函数<br>    cargo test –test file_name<br>    测试file_name.rs中的函数</p>
-<p>集成测试的模块<br>需要创建二级目录，tests目录的子目录不会被编译成crate<br>    /tests/common/mod.rs<br>    在mod.rs中写模块内容<br>在测试文件中隐痛模块<br>    mod common;<br>    #[test]<br>    fn it_adds_two() {<br>        common::setup();<br>        assert_eq!(4, adder::add_two(2));<br>    }</p>
+<p>测试文件可以直接导入外部库，进行测试，不需要标注#[cfg(test)]</p>
+<pre class="line-numbers language-none"><code class="language-none">use adder;
+#[test]
+fn it_adds_two() {
+    assert_eq!(4, adder::add_two(2));
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>cargo test会测试集成测试和代码中的单元测试，输出单元测试，集成测试，文档测试<br>和单元测试一样可以指定函数名称运行特定集成测试函数<br>也可以指定测试文件名测试文件中所有测试函数</p>
+<pre class="line-numbers language-none"><code class="language-none">cargo test --test file_name
+测试file_name.rs中的函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>集成测试的模块<br>需要创建二级目录，tests目录的子目录不会被编译成crate</p>
+<pre class="line-numbers language-none"><code class="language-none">	/tests/common/mod.rs
+	在mod.rs中写模块内容
+在测试文件中隐痛模块
+	mod common;
+	#[test]
+	fn it_adds_two() {
+	    common::setup();
+	    assert_eq!(4, adder::add_two(2));
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

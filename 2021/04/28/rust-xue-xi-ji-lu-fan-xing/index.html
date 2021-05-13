@@ -367,33 +367,197 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>定义泛型函数（不能编译）<br>fn largest<t>(list: &amp;[T]) -&gt; T {<br>    let mut largest = list[0];<br>    for &amp;item in list.iter() {<br>        if item &gt; largest {<br>            largest = item;<br>        }<br>    }<br>    largest<br>}</t></p>
-<p>定义泛型结构体<br>struct Point<t>{<br>    x: T,<br>    y: T,<br>}<br>let integer = Point { x: 5, y: 10 };</t></p>
-<p>定义泛型方法<br>impl<t> Point<t> {<br>    fn x(&amp;self) -&gt; &amp;T {<br>        &amp;self.x<br>    }<br>}</t></t></p>
-<p>为特定类型定义方法<br>impl Point<f32> {<br>    fn distance_from_origin(&amp;self) -&gt; f32 {<br>        (self.x.powi(2) + self.y.powi(2)).sqrt()<br>    }<br>}</f32></p>
-<p>定义方法时泛型可以有impl声明也可以由方法声明，T，U与本身结构体定义对应，V，W是方法定义的泛型<br>struct Point&lt;T, U&gt; {<br>    x: T,<br>    y: U,<br>}</p>
-<p>impl&lt;T, U&gt; Point&lt;T, U&gt; {<br>    fn mixup&lt;V, W&gt;(self, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {<br>        Point {<br>            x: self.x,<br>            y: other.y,<br>        }<br>    }<br>}</p>
-<p>枚举泛型<br>option就是泛型的枚举类型，result也是<br>enum Option<t> {<br>    Some(T),<br>    None,<br>}</t></p>
-<p>rust编译器在编译时确定泛型的具体类型，类似于下面这种变化，将option泛型变为具体类型，减小了运行时开销，速度和手写的重复代码类似，运行时效率极高<br>enum Option_i32 {<br>    Some(i32),<br>    None,<br>}</p>
-<p>enum Option_f64 {<br>    Some(f64),<br>    None,<br>}</p>
-<p>fn main() {<br>    let integer = Option_i32::Some(5);<br>    let float = Option_f64::Some(5.0);<br>}</p>
+                <p>定义泛型函数（不能编译）</p>
+<pre class="line-numbers language-none"><code class="language-none">fn largest&lt;T&gt;(list: &amp;[T]) -&gt; T {
+    let mut largest = list[0];
+    for &amp;item in list.iter() {
+        if item &gt; largest {
+            largest = item;
+        }
+    }
+    largest
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义泛型结构体</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Point&lt;T&gt;{
+    x: T,
+    y: T,
+}
+let integer = Point { x: 5, y: 10 };<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义泛型方法</p>
+<pre class="line-numbers language-none"><code class="language-none">impl&lt;T&gt; Point&lt;T&gt; {
+    fn x(&amp;self) -&gt; &amp;T {
+        &amp;self.x
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>为特定类型定义方法</p>
+<pre class="line-numbers language-none"><code class="language-none">impl Point&lt;f32&gt; {
+    fn distance_from_origin(&amp;self) -&gt; f32 {
+        (self.x.powi(2) + self.y.powi(2)).sqrt()
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>定义方法时泛型可以有impl声明也可以由方法声明，T，U与本身结构体定义对应，V，W是方法定义的泛型</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Point&lt;T, U&gt; {
+    x: T,
+    y: U,
+}
+
+impl&lt;T, U&gt; Point&lt;T, U&gt; {
+    fn mixup&lt;V, W&gt;(self, other: Point&lt;V, W&gt;) -&gt; Point&lt;T, W&gt; {
+        Point {
+            x: self.x,
+            y: other.y,
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>枚举泛型<br>option就是泛型的枚举类型，result也是</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Option&lt;T&gt; {
+    Some(T),
+    None,
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>rust编译器在编译时确定泛型的具体类型，类似于下面这种变化，将option泛型变为具体类型，减小了运行时开销，速度和手写的重复代码类似，运行时效率极高</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Option_i32 {
+    Some(i32),
+    None,
+}
+
+enum Option_f64 {
+    Some(f64),
+    None,
+}
+
+fn main() {
+    let integer = Option_i32::Some(5);
+    let float = Option_f64::Some(5.0);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>trait<br>类似接口，规范泛型类的行为<br>use的引用规则和模块方法等类似</p>
-<p>定义trait<br>多个方法的trait，一行一个方法签名，并以分号结尾<br>    pub trait Summary {<br>        fn summarize(&amp;self) -&gt; String;<br>    }<br>指定默认方法的trait实现<br>    pub trait Summary {<br>        fn summarize(&amp;self) -&gt; String {<br>            String::from(“(Read more…)”)<br>        }<br>    }<br>trait中的默认方法可以调用没实现的其他trait方法<br>    pub trait Summary {<br>        fn summarize_author(&amp;self) -&gt; String;<br>        fn summarize(&amp;self) -&gt; String {<br>            format!(“(Read more from {}…)”, self.summarize_author())<br>        }<br>    }</p>
-<p>实现trait，或重载默认实现<br>    impl Summary for NewsArticle {<br>        fn summarize(&amp;self) -&gt; String {<br>            format!(“{}, by {} ({})”, self.headline, self.author, self.location)<br>        }<br>    }<br>使用默认方法实现trait，一个空的impl块<br>    impl Summary for NewsArticle {}</p>
-<p>以trait为参数<br>impl指定trait方式<br>    fn print_summary(&amp;item: impl Summary){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>泛型方式<br>    fn print_t_summary&lt;T:Summary&gt;(&amp;item: T){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>通过+指定多个trait<br>    fn print_summary(&amp;item: impl Summary + Display){<br>        println!(“Author:{}”,item.summarize());<br>    }<br>    fn print_t_summary&lt;T:Summary + Display&gt;(&amp;item: T){<br>        println!(“Author:{}”,item.summarize());<br>    }</p>
-<p>通过where从句简化泛型函数的trait指定<br>    fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {<br>可以变为<br>    fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32<br>        where T: Display + Clone,<br>              U: Clone + Debug<br>    {</p>
-<p>函数以trait为返回值<br>impl形式<br>    fn returns_summarizable() -&gt; impl Summary {</p>
-<p>使用trait bound为限制为泛型的结构体添加方法<br>struct Pair<t> {<br>    x: T,<br>    y: T,<br>}</t></p>
-<p>impl<t> Pair<t> {<br>    fn new(x: T, y: T) -&gt; Self {<br>        Self {<br>            x,<br>            y,<br>        }<br>    }<br>}</t></t></p>
-<p>impl&lt;T: Display + PartialOrd&gt; Pair<t> {<br>    fn cmp_display(&amp;self) {<br>        if self.x &gt;= self.y {<br>            println!(“The largest member is x = {}”, self.x);<br>        } else {<br>            println!(“The largest member is y = {}”, self.y);<br>        }<br>    }<br>}</t></p>
-<p>也可以对任何实现了特定 trait 的类型有条件地实现 trait。对任何满足特定 trait bound 的类型实现 trait 被称为 blanket implementations，他们被广泛的用于 Rust 标准库中。例如，标准库为任何实现了 Display trait 的类型实现了 ToString trait。这个 impl 块看起来像这样：<br>impl&lt;T: Display&gt; ToString for T {<br>    // –snip–<br>}</p>
-<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>大生命周期引用小生命周期编译会失败<br>{<br>    let r;               // ———+– ‘a<br>                          //               |<br>    {                     //               |<br>        let x = 5;    // -+– ‘b   |<br>        r = &amp;x;       //  |            |<br>    }                     // -+          |<br>                          //               |<br>    println!(“r: {}”, r); //          |<br>}                         // ———+</p>
+<p>定义trait<br>多个方法的trait，一行一个方法签名，并以分号结尾</p>
+<pre class="line-numbers language-none"><code class="language-none">pub trait Summary {
+    fn summarize(&amp;self) -&gt; String;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>指定默认方法的trait实现</p>
+<pre class="line-numbers language-none"><code class="language-none">pub trait Summary {
+    fn summarize(&amp;self) -&gt; String {
+        String::from("(Read more...)")
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>trait中的默认方法可以调用没实现的其他trait方法</p>
+<pre class="line-numbers language-none"><code class="language-none">pub trait Summary {
+    fn summarize_author(&amp;self) -&gt; String;
+    fn summarize(&amp;self) -&gt; String {
+        format!("(Read more from {}...)", self.summarize_author())
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>实现trait，或重载默认实现</p>
+<pre class="line-numbers language-none"><code class="language-none">impl Summary for NewsArticle {
+    fn summarize(&amp;self) -&gt; String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用默认方法实现trait，一个空的impl块<br>    impl Summary for NewsArticle {}</p>
+<p>以trait为参数<br>impl指定trait方式</p>
+<pre class="line-numbers language-none"><code class="language-none">fn print_summary(&amp;item: impl Summary){
+    println!("Author:{}",item.summarize());
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>泛型方式</p>
+<pre class="line-numbers language-none"><code class="language-none">fn print_t_summary&lt;T:Summary&gt;(&amp;item: T){
+    println!("Author:{}",item.summarize());
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过+指定多个trait</p>
+<pre class="line-numbers language-none"><code class="language-none">fn print_summary(&amp;item: impl Summary + Display){
+    println!("Author:{}",item.summarize());
+}
+fn print_t_summary&lt;T:Summary + Display&gt;(&amp;item: T){
+    println!("Author:{}",item.summarize());
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过where从句简化泛型函数的trait指定</p>
+<pre class="line-numbers language-none"><code class="language-none">fn some_function&lt;T: Display + Clone, U: Clone + Debug&gt;(t: T, u: U) -&gt; i32 {<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以变为</p>
+<pre class="line-numbers language-none"><code class="language-none">fn some_function&lt;T, U&gt;(t: T, u: U) -&gt; i32
+    where T: Display + Clone,
+          U: Clone + Debug
+{<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>函数以trait为返回值</p>
+<pre class="line-numbers language-none"><code class="language-none">impl形式
+	fn returns_summarizable() -&gt; impl Summary {<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
+<p>使用trait bound为限制为泛型的结构体添加方法</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Pair&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+impl&lt;T&gt; Pair&lt;T&gt; {
+    fn new(x: T, y: T) -&gt; Self {
+        Self {
+            x,
+            y,
+        }
+    }
+}
+
+impl&lt;T: Display + PartialOrd&gt; Pair&lt;T&gt; {
+    fn cmp_display(&amp;self) {
+        if self.x &gt;= self.y {
+            println!("The largest member is x = {}", self.x);
+        } else {
+            println!("The largest member is y = {}", self.y);
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>也可以对任何实现了特定 trait 的类型有条件地实现 trait。对任何满足特定 trait bound 的类型实现 trait 被称为 blanket implementations，他们被广泛的用于 Rust 标准库中。例如，标准库为任何实现了 Display trait 的类型实现了 ToString trait。这个 impl 块看起来像这样：</p>
+<pre class="line-numbers language-none"><code class="language-none">impl&lt;T: Display&gt; ToString for T {
+    // --snip--
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>大生命周期引用小生命周期编译会失败</p>
+<pre class="line-numbers language-none"><code class="language-none">{
+    let r;               // ---------+-- 'a
+                          //               |
+    {                     //               |
+        let x = 5;    // -+-- 'b   |
+        r = &amp;x;       //  |            |
+    }                     // -+          |
+                          //               |
+    println!("r: {}", r); //          |
+}                         // ---------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>小生命周期可以引用大生命周期</p>
-<p>#![allow(unused)]<br>fn main() {<br>{<br>    let x = 5;             // ———-+– ‘b<br>                               //                 |<br>    let r = &amp;x;           // –+– ‘a    |<br>                               //     |           |<br>    println!(“r: {}”, r); //     |           |<br>                               // –+           |<br>}                              //  ———-+</p>
+<pre class="line-numbers language-none"><code class="language-none">#![allow(unused)]
+fn main() {
+{
+    let x = 5;             // ----------+-- 'b
+                               //                 |
+    let r = &amp;x;           // --+-- 'a    |
+                               //     |           |
+    println!("r: {}", r); //     |           |
+                               // --+           |
+}                              //  ----------+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>泛型生命周期参数</p>
 <p>方法的泛型生命周期参数表明返回引用的生命周期和参数的关系，让编译器可以检查<br>函数或方法的参数的生命周期被称为 输入生命周期（input lifetimes），而返回值的生命周期被称为 输出生命周期（output lifetimes）。</p>
-<p>‘a代表的是string1和string2的重叠部分，返回参数的’a代表返回的引用生命周期等于string1和string2中短的那一个<br>    let string1=String::from(“this is longer”);<br>    let result;<br>    {<br>        let string2 = String::from(“this is shot”);<br>        result =longest_s(&amp;string1,&amp;string2);<br>        println!(“longer:{}”,result);</p>
-<pre><code>}
+<p>‘a代表的是string1和string2的重叠部分，返回参数的’a代表返回的引用生命周期等于string1和string2中短的那一个</p>
+<pre class="line-numbers language-none"><code class="language-none">let string1=String::from("this is longer");
+let result;
+{
+    let string2 = String::from("this is shot");
+    result =longest_s(&amp;string1,&amp;string2);
+    println!("longer:{}",result);
+
+}
 
 fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp; 'a str)-&gt;&amp;'a str{
     if string1.len()&gt;string2.len(){
@@ -401,9 +565,16 @@ fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp; 'a str)-&gt;&amp;'a st
     }else {
         string2
     }
-}</code></pre>
-<p>只在string1加’a就代表string1的生命周期，返回的引用也是string1的生命周期<br>    let string1=String::from(“this is longer”);<br>    let result;<br>    {<br>        let string2 = String::from(“this is shot”);<br>        result =longest_s(&amp;string1,&amp;string2);</p>
-<pre><code>}
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>只在string1加’a就代表string1的生命周期，返回的引用也是string1的生命周期</p>
+<pre class="line-numbers language-none"><code class="language-none">let string1=String::from("this is longer");
+let result;
+{
+    let string2 = String::from("this is shot");
+    result =longest_s(&amp;string1,&amp;string2);
+
+}
 println!("longer:{}",result);
 
 fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp;str)-&gt;&amp;'a str{
@@ -412,19 +583,41 @@ fn longest_s&lt;'a&gt;(string1:&amp; 'a str,string2:&amp;str)-&gt;&amp;'a str{
     }else {
         string1
     }
-}</code></pre>
-<p>结构体的参数意味着结构体实例不能比其字段中的引用存在的更久<br>    struct TestStruct&lt;’a&gt;{<br>        pub s: &amp;’a str,<br>    }</p>
-<pre><code>let s =String::from("asd");
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>结构体的参数意味着结构体实例不能比其字段中的引用存在的更久</p>
+<pre class="line-numbers language-none"><code class="language-none">struct TestStruct&lt;'a&gt;{
+    pub s: &amp;'a str,
+}
+
+let s =String::from("asd");
 
 let mut test = TestStruct {
     s:&amp;s,
-};</code></pre>
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>生命周期省略规则<br>符合特定模式时无需标注生命周期参数</p>
-<p>编译器根据三条规则计算生命周期，计算完后没有得出生命周期就会报错<br>规则：<br>    每一个输入的引用类型参数都有自己的生命周期参数<br>    如果只有一个输入生命周期参数，则把它赋给所有输出<br>    如果有多个输入，且其中一个是self，说明是一个对象的方法，所有输出生命周期参数被赋予self的生命周期</p>
-<p>对于函数<br>一个输入一个输出的方法会把输入的生命周期给输出</p>
-<p>对于方法<br>结构体字段的生命周期必须总是在 impl 关键字之后声明并在结构体名称之后被使用，<br>impl&lt;’a&gt; ImportantExcerpt&lt;’a&gt; {<br>    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {<br>        println!(“Attention please: {}”, announcement);<br>        self.part<br>    }<br>}</p>
-<p>静态生命周期<br>static，生命周期能够存活于整个程序期间<br>所有字符串字面值都有static生命周期，标注出来就是下面这样<br>let s: &amp;’static str = “I have a static lifetime.”;</p>
-<p>结合泛型，trait，生命周期的函数<br>fn longest_with_an_announcement&lt;’a, T&gt;(x: &amp;’a str, y: &amp;’a str, ann: T) -&gt; &amp;’a str<br>    where T: Display<br>{<br>    println!(“Announcement! {}”, ann);<br>    if x.len() &gt; y.len() {<br>        x<br>    } else {<br>        y<br>    }<br>}</p>
+<p>编译器根据三条规则计算生命周期，计算完后没有得出生命周期就会报错<br>规则：</p>
+<pre class="line-numbers language-none"><code class="language-none">	每一个输入的引用类型参数都有自己的生命周期参数
+	如果只有一个输入生命周期参数，则把它赋给所有输出
+	如果有多个输入，且其中一个是self，说明是一个对象的方法，所有输出生命周期参数被赋予self的生命周期
+```	
+对于函数
+一个输入一个输出的方法会把输入的生命周期给输出
+
+对于方法
+结构体字段的生命周期必须总是在 impl 关键字之后声明并在结构体名称之后被使用，<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>impl&lt;’a&gt; ImportantExcerpt&lt;’a&gt; {<br>    fn announce_and_return_part(&amp;self, announcement: &amp;str) -&gt; &amp;str {<br>        println!(“Attention please: {}”, announcement);<br>        self.part<br>    }<br>}</p>
+<pre class="line-numbers language-none"><code class="language-none">
+静态生命周期
+static，生命周期能够存活于整个程序期间
+所有字符串字面值都有static生命周期，标注出来就是下面这样
+let s: &amp;'static str = "I have a static lifetime.";
+
+
+结合泛型，trait，生命周期的函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>fn longest_with_an_announcement&lt;’a, T&gt;(x: &amp;’a str, y: &amp;’a str, ann: T) -&gt; &amp;’a str<br>    where T: Display<br>{<br>    println!(“Announcement! {}”, ann);<br>    if x.len() &gt; y.len() {<br>        x<br>    } else {<br>        y<br>    }<br>}</p>
+<pre><code></code></pre>
 
             </div>
             <hr/>
@@ -531,18 +724,17 @@ let mut test = TestStruct {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/28/rust-xue-xi-ji-lu-fan-xing/">
+                <a href="/2021/05/13/rust-xue-xi-ji-lu-bing-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="rust学习记录-泛型">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="rust学习记录-并发">
                         
-                        <span class="card-title">rust学习记录-泛型</span>
+                        <span class="card-title">rust学习记录-并发</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -552,9 +744,9 @@ let mut test = TestStruct {
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-13
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -567,7 +759,6 @@ let mut test = TestStruct {
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     

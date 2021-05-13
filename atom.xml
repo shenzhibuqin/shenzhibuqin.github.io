@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-04-28T09:45:26.410Z</updated>
+  <updated>2021-05-13T10:11:51.570Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,18 +17,72 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>rust学习记录-模式匹配</title>
+    <link href="http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/"/>
+    <id>http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/</id>
+    <published>2021-05-13T09:21:18.000Z</published>
+    <updated>2021-05-13T10:11:51.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;使用模式匹配的位置&quot;&gt;&lt;a href=&quot;#使用模式匹配的位置&quot; class=&quot;headerlink&quot; title=&quot;使用模式匹配的位置&quot;&gt;&lt;/a&gt;使用模式匹配的位置&lt;/h2&gt;&lt;p&gt;最常用的位置就是match表达式，值，匹配的模式，要运行的表达式&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>rust学习记录-并发</title>
+    <link href="http://example.com/2021/05/13/rust-xue-xi-ji-lu-bing-fa/"/>
+    <id>http://example.com/2021/05/13/rust-xue-xi-ji-lu-bing-fa/</id>
+    <published>2021-05-13T09:21:12.000Z</published>
+    <updated>2021-05-13T10:03:42.572Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;rust实现的是一个语言线程对应一个OS线程的1:1模型&lt;br&gt;m个程序线程对应n个OS线程的模式叫绿色线程模式或m:n模式，程序线程叫绿色线程&lt;br&gt;可以通过使用实现了m:n模式的crate来使用m:n模型，牺牲一部分性能换取更好的控制&lt;/p&gt;
+&lt;h3</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
+  
+  <entry>
     <title>rust学习记录-泛型</title>
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-fan-xing/</id>
     <published>2021-04-28T09:42:33.000Z</published>
-    <updated>2021-04-28T09:45:26.410Z</updated>
+    <updated>2021-05-07T15:57:58.439Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;定义泛型函数（不能编译）&lt;br&gt;fn largest&lt;t&gt;(list: &amp;amp;[T]) -&amp;gt; T {&lt;br&gt;    let mut largest = list[0];&lt;br&gt;    for &amp;amp;item in list.iter() {&lt;br&gt;     </summary>
+    <summary type="html">&lt;p&gt;定义泛型函数（不能编译）&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;fn largest&amp;lt;T&amp;gt;(list: &amp;amp;[T]) -&amp;gt; T {
+   </summary>
         
       
     
@@ -46,7 +100,7 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-cargo/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-cargo/</id>
     <published>2021-04-28T09:42:15.000Z</published>
-    <updated>2021-04-28T09:52:17.282Z</updated>
+    <updated>2021-05-07T15:35:06.733Z</updated>
     
     
       
@@ -97,14 +151,17 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-bi-bao/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-bi-bao/</id>
     <published>2021-04-28T09:42:03.000Z</published>
-    <updated>2021-04-28T09:47:52.298Z</updated>
+    <updated>2021-05-07T15:37:34.973Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;可以保存进变量或作为参数传递给其他&lt;br&gt;定义&lt;br&gt;    多个参数用逗号隔开&lt;br&gt;    let closure = |num| {&lt;br&gt;        println!(“calculating slowly…”);&lt;br&gt;       </summary>
+    <summary type="html">&lt;p&gt;可以保存进变量或作为参数传递给其他&lt;br&gt;定义&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;多个参数用逗号隔开
+let closure = |num| {
+   </summary>
         
       
     
@@ -122,15 +179,16 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ce-shi/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ce-shi/</id>
     <published>2021-04-28T09:41:27.000Z</published>
-    <updated>2021-04-28T09:46:26.660Z</updated>
+    <updated>2021-05-07T16:00:03.538Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;在函数前添加#[test]来将函数变为测试函数&lt;br&gt;    #[test]&lt;br&gt;    fn test_func() {&lt;/p&gt;
-&lt;p&gt;cargo test运行测试，Rust 会构建一个测试执行程序用来调用标记了 test</summary>
+    <summary type="html">&lt;p&gt;在函数前添加#[test]来将函数变为测试函数&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;#[test]
+fn test_func() {&lt;span</summary>
         
       
     
@@ -148,7 +206,7 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-yi-chang-chu-li/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-yi-chang-chu-li/</id>
     <published>2021-04-28T09:26:42.000Z</published>
-    <updated>2021-04-28T09:40:50.881Z</updated>
+    <updated>2021-05-07T15:39:20.355Z</updated>
     
     
       
@@ -174,7 +232,7 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ji-he/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ji-he/</id>
     <published>2021-04-28T09:26:39.000Z</published>
-    <updated>2021-04-28T09:39:08.348Z</updated>
+    <updated>2021-05-07T15:54:30.391Z</updated>
     
     
       
@@ -199,7 +257,7 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-ku-yu-mo-kuai/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-ku-yu-mo-kuai/</id>
     <published>2021-04-28T09:26:35.000Z</published>
-    <updated>2021-04-28T09:37:23.179Z</updated>
+    <updated>2021-05-07T15:52:50.159Z</updated>
     
     
       
@@ -224,15 +282,18 @@
     <link href="http://example.com/2021/04/28/rust-xue-xi-ji-lu-mei-ju/"/>
     <id>http://example.com/2021/04/28/rust-xue-xi-ji-lu-mei-ju/</id>
     <published>2021-04-28T09:26:21.000Z</published>
-    <updated>2021-04-28T09:31:11.733Z</updated>
+    <updated>2021-05-07T15:51:43.203Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;声明枚举&lt;br&gt;enum IpAddrKind {&lt;br&gt;    V4,&lt;br&gt;    V6,&lt;br&gt;}&lt;/p&gt;
-&lt;p&gt;创建枚举类型变量&lt;br&gt;let four = IpAddrKind::V4;&lt;br&gt;let six =</summary>
+    <summary type="html">&lt;p&gt;声明枚举&lt;/p&gt;
+&lt;pre class=&quot;line-numbers language-none&quot;&gt;&lt;code class=&quot;language-none&quot;&gt;enum IpAddrKind {
+    V4,
+    V6,
+}&lt;span aria-hidden=&quot;true&quot;</summary>
         
       
     
@@ -250,7 +311,7 @@
     <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/"/>
     <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/</id>
     <published>2021-04-13T12:24:13.000Z</published>
-    <updated>2021-04-28T09:30:47.790Z</updated>
+    <updated>2021-05-07T15:47:08.403Z</updated>
     
     
       
@@ -276,7 +337,7 @@
     <link href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/"/>
     <id>http://example.com/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/</id>
     <published>2021-04-13T12:24:09.000Z</published>
-    <updated>2021-04-28T09:30:23.383Z</updated>
+    <updated>2021-05-07T16:01:29.250Z</updated>
     
     
       
@@ -481,59 +542,6 @@
     <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
     
     <category term="dns隧道" scheme="http://example.com/tags/dns%E9%9A%A7%E9%81%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssh隧道</title>
-    <link href="http://example.com/2021/01/22/ssh-sui-dao/"/>
-    <id>http://example.com/2021/01/22/ssh-sui-dao/</id>
-    <published>2021-01-22T09:51:09.000Z</published>
-    <updated>2021-01-22T13:42:15.494Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;我们都知道ssh可以用来远程管理服务器，但ssh的功能远不止管理服务器这么简单，我们还可以用它来建立网络隧道&lt;/p&gt;
-&lt;h2</summary>
-        
-      
-    
-    
-    
-    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
-    
-    
-    <category term="ssh隧道" scheme="http://example.com/tags/ssh%E9%9A%A7%E9%81%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用rinetd进行端口转发及流量分析</title>
-    <link href="http://example.com/2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/"/>
-    <id>http://example.com/2021/01/22/shi-yong-rinetd-jin-xing-duan-kou-zhuan-fa-ji-liu-liang-fen-xi/</id>
-    <published>2021-01-22T03:50:09.000Z</published>
-    <updated>2021-01-22T04:51:28.529Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
-    
-    
-    <category term="端口转发" scheme="http://example.com/tags/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/"/>
-    
-    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
     
   </entry>
   

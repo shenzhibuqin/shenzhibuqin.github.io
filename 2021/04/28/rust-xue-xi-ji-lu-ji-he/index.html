@@ -370,22 +370,108 @@
                 <h2 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h2><p>Vec<t><br>储存元素的集合，内存在vector离开作用域时被释放</t></p>
 <p>新建<br>let v:Vec<i32>=Vec::new()<br>new创建对象时需要在类型声明里声明类型<br>let v = vec![1,2,3];<br>根据值新建，rust会自动识别类型</i32></p>
 <p>添加元素<br>v2.push(4);</p>
-<p>读取<br>默认获取引用<br>索引，从零开始，或get方法，get返回一个option&lt;&amp;T&gt;<br>    let v = vec![1, 2, 3, 4, 5];<br>    let third: &amp;i32 = &amp;v[2];<br>    println!(“The third element is {}”, third);<br>    match v.get(2) {<br>        Some(third) =&gt; println!(“The third element is {}”, third),<br>        None =&gt; println!(“There is no third element.”),<br>    }<br>索引读取超出元素个数会panic，get则会返回none</p>
+<p>读取<br>默认获取引用<br>索引，从零开始，或get方法，get返回一个option&lt;&amp;T&gt;</p>
+<pre class="line-numbers language-none"><code class="language-none">let v = vec![1, 2, 3, 4, 5];
+let third: &amp;i32 = &amp;v[2];
+println!("The third element is {}", third);
+match v.get(2) {
+    Some(third) =&gt; println!("The third element is {}", third),
+    None =&gt; println!("There is no third element."),
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>索引读取超出元素个数会panic，get则会返回none</p>
 <p>let mut third1 = v[2];<br>索引方式读取，不加&amp;符号时，实现了copy或clone trait的会调用对应方法<br>没有实现trait会报错建议使用引用<br><em>third1=33;<br>索引获得引用再使用</em>解引用，可以改vec中元素的值</p>
 <p>在拥有vec中元素引用的时候添加一个元素是非法的<br>添加新元素的时候内存空间可能不够，会申请新内存并拷贝元素到新空间，旧的引用会指向被释放的地址，所以不允许添加元素<br>编译时报错是在push方法是建立了可变引用，与之前的引用冲突</p>
-<p>遍历<br>for 循环遍历<br>let v = vec![100, 32, 57];<br>for i in &amp;v {<br>    println!(“{}”, i);<br>}<br>通过解引用改变值<br>for i in &amp;mut v {<br>    *i += 50;<br>}</p>
-<p>可以通过定义存储不同类型数据的枚举类型，通过存储枚举类型的vec来存储不同类型数据<br>enum SpreadsheetCell {<br>    Int(i32),<br>    Float(f64),<br>    Text(String),<br>}</p>
-<p>let row = vec![<br>    SpreadsheetCell::Int(3),<br>    SpreadsheetCell::Text(String::from(“blue”)),<br>    SpreadsheetCell::Float(10.12),<br>];</p>
+<p>遍历<br>for 循环遍历</p>
+<pre class="line-numbers language-none"><code class="language-none">let v = vec![100, 32, 57];
+for i in &amp;v {
+    println!("{}", i);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过解引用改变值</p>
+<pre class="line-numbers language-none"><code class="language-none">for i in &amp;mut v {
+    *i += 50;
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>可以通过定义存储不同类型数据的枚举类型，通过存储枚举类型的vec来存储不同类型数据</p>
+<pre class="line-numbers language-none"><code class="language-none">enum SpreadsheetCell {
+    Int(i32),
+    Float(f64),
+    Text(String),
+}
+
+let row = vec![
+    SpreadsheetCell::Int(3),
+    SpreadsheetCell::Text(String::from("blue")),
+    SpreadsheetCell::Float(10.12),
+];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>String由标准库提供，没有写进核心语言部分，核心语言中只有一种字符串：str<br>库提供的字符串还有OsString，OsStr，CString，CStr等</p>
 <p>新建<br>let mut s = String::new()<br>新建空字符串<br>let mut s3=String::from(“asd”);<br>let mut s2 = “asd”.to_string();<br>从字符串字面量创建字符串，to_String可以让实现了Display trait的类型生成字符串</p>
-<p>拼接<br>用+运算符拼接<br>    let s1 = String::from(“Hello, “);<br>    let s2 = String::from(“world!”);<br>    let s3 = s1 + &amp;s2; // 注意 s1 被移动了，不能继续使用<br>    加运算符调用了add函数，fn add(self, s: &amp;str) -&gt; String {<br>    所以s1被转移了，s2用的引用<br>使用format!连接字符串<br>    let s1 = String::from(“tic”);<br>    let s2 = String::from(“tac”);<br>    let s3 = String::from(“toe”);<br>    let s = format!(“{}-{}-{}”, s1, s2, s3);<br>    类似println!</p>
+<p>拼接<br>用+运算符拼接</p>
+<pre class="line-numbers language-none"><code class="language-none">let s1 = String::from("Hello, ");
+let s2 = String::from("world!");
+let s3 = s1 + &amp;s2; // 注意 s1 被移动了，不能继续使用
+加运算符调用了add函数，fn add(self, s: &amp;str) -&gt; String {
+所以s1被转移了，s2用的引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用format!连接字符串</p>
+<pre class="line-numbers language-none"><code class="language-none">let s1 = String::from("tic");
+let s2 = String::from("tac");
+let s3 = String::from("toe");
+let s = format!("{}-{}-{}", s1, s2, s3);
+类似println!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>不支持索引获取字符<br>String 是一个 Vec<u8> 的封装<br>有的字符不止一个字节，使用索引可能会有歧义</u8></p>
 <p>字符串slice<br>按字节获取字符串，方括号中的范围是字节范围<br>有的Unicode字符是两个字节，[0..4]获取的是两个字符<br>println!(“{}”,&amp;”hello”[0..1])会打印’h’<br>println!(“{}”,&amp;”Здравствуйте”[0..1])会报错，第一个字节不是char</p>
-<p>遍历字符串<br>如果你需要操作单独的 Unicode 标量值，最好的选择是使用 chars 方法<br>按Unicode字符遍历字符串<br>    for c in “真的aassdd”.chars(){<br>        println!(“{}”,c);<br>    }//挨个输出字符<br>按字节遍历，用u8格式输出<br>    for b in “नमस्ते”.bytes() {<br>        println!(“{}”, b);<br>    }//输出十八个字节的u8格式值</p>
+<p>遍历字符串<br>如果你需要操作单独的 Unicode 标量值，最好的选择是使用 chars 方法<br>按Unicode字符遍历字符串</p>
+<pre class="line-numbers language-none"><code class="language-none">for c in "真的aassdd".chars(){
+    println!("{}",c);
+}//挨个输出字符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>按字节遍历，用u8格式输出</p>
+<pre class="line-numbers language-none"><code class="language-none">for b in "नमस्ते".bytes() {
+    println!("{}", b);
+}//输出十八个字节的u8格式值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>键值对映射<br>HashMap&lt;K, V&gt;<br>储存了一个键类型 K 对应一个值类型 V 的映射，类型确定之后不能变化<br>因为没有String和vec用的频繁，需要手动导入use std::collections::HashMap;</p>
-<p>新建<br>直接创建<br>    let mut scores = HashMap::new();<br>    scores.insert(String::from(“Blue”), 10);//插入值<br>    scores.insert(String::from(“Yellow”), 50);<br>由vec的collect方法创建，zip函数将两个vec打包成由元组组成的vec<br>    let teams  = vec![String::from(“Blue”), String::from(“Yellow”)];<br>    let initial_scores = vec![10, 50];<br>    let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collect();<br>    hashmap中的值是指向vec的引用<br>    HashMap的类型注解是必须的，collect可以生成很多种集合，需要指明集合类型<br>    hashmap中的详细类型可以用下划线占位符替代，rust会自动分析hashmap中的类型</p>
-<p>访问<br>通过get方法访问<br>    参数接受字符串引用，返回option<br>    let team=”Blue”.to_string();<br>    let score =scores.get(&amp;team);<br>    if let Some(num)=score{<br>        println!(“{}”,num);<br>    }<br>for循环<br>    获取值的指针<br>    for (key,value)in &amp;scores{<br>        println!(“{}:{}”,key,value);<br>    }</p>
-<p>更新<br>覆盖旧值 insert<br>    scores.insert(String::from(“Blue”), 10);<br>    scores.insert(String::from(“Blue”), 25);<br>没有对应的键时插入<br>    scores.entry(String::from(“Yellow”)).or_insert(50);<br>    scores.entry(String::from(“Blue”)).or_insert(50);<br>根据旧值刷新<br>    let count = scores.entry(String::from(“Yellow”)).or_insert(50);<br>    *count += 1;<br>    没有这个键值就插入键值，有就返回值的可变引用</p>
+<p>新建<br>直接创建</p>
+<pre class="line-numbers language-none"><code class="language-none">let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);//插入值
+scores.insert(String::from("Yellow"), 50);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>由vec的collect方法创建，zip函数将两个vec打包成由元组组成的vec</p>
+<pre class="line-numbers language-none"><code class="language-none">let teams  = vec![String::from("Blue"), String::from("Yellow")];
+let initial_scores = vec![10, 50];
+let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collect();
+hashmap中的值是指向vec的引用
+HashMap的类型注解是必须的，collect可以生成很多种集合，需要指明集合类型
+hashmap中的详细类型可以用下划线占位符替代，rust会自动分析hashmap中的类型<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>访问<br>通过get方法访问</p>
+<pre class="line-numbers language-none"><code class="language-none">参数接受字符串引用，返回option
+let team="Blue".to_string();
+let score =scores.get(&amp;team);
+if let Some(num)=score{
+    println!("{}",num);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>for循环</p>
+<pre class="line-numbers language-none"><code class="language-none">获取值的指针
+for (key,value)in &amp;scores{
+    println!("{}:{}",key,value);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>更新<br>覆盖旧值 insert</p>
+<pre class="line-numbers language-none"><code class="language-none">scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Blue"), 25);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>没有对应的键时插入</p>
+<pre class="line-numbers language-none"><code class="language-none">scores.entry(String::from("Yellow")).or_insert(50);
+scores.entry(String::from("Blue")).or_insert(50);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>根据旧值刷新</p>
+<pre class="line-numbers language-none"><code class="language-none">let count = scores.entry(String::from("Yellow")).or_insert(50);
+*count += 1;
+没有这个键值就插入键值，有就返回值的可变引用<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+
+
 
             </div>
             <hr/>

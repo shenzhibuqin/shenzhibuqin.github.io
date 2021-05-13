@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="rust学习记录-所有权, Nbb&#39;s Blog">
+    <meta name="keywords" content="rust学习记录-模式匹配, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>rust学习记录-所有权 | Nbb&#39;s Blog</title>
+    <title>rust学习记录-模式匹配 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">rust学习记录-所有权</h1>
+                    <h1 class="description center-align post-title">rust学习记录-模式匹配</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-13
+                    2021-05-13
                 </div>
                 
 
@@ -367,137 +367,219 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><p>管理堆上的数据，清理不再使用的垃圾</p>
-<p>规则：<br>Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。<br>值在任一时刻有且只有一个所有者。<br>当所有者（变量）离开作用域，这个值将被丢弃。</p>
-<p>基础类型存储在栈上并且在离开作用域时被移出栈<br>String存储在堆上，可以由from函数创建<br>let s = String::from(“hello”)</p>
-<p>移动</p>
-<pre class="line-numbers language-none"><code class="language-none">let s1 = String::from("hello")
-let s2 = s1
-s1赋给s2并不会有两个值一样的变量，s1会被认为不再有效，s1在栈上的数据传递给了s2
-println!("{}",s1)会报错<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>克隆</p>
-<pre class="line-numbers language-none"><code class="language-none">需要复制堆上的数据，可以使用clone方法
-let s1 = String::from("hello");
-let s2 = s1.clone();
-println!("s1 = {}, s2 = {}", s1, s2);
-
-let x = 5;
-let y = x;
-println!("x = {}, y = {}", x, y);
-整形这样存储在栈上的数据可以被快速复制，不需要clone<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>所有权与方法<br>变量传入函数时与变量赋值类似，也有移动，基础类型会被复制<br>函数返回值也会有移动，和传入类似</p>
-<p>引用<br>为了避免所有权转移到函数里，可以使用引用来调用参数，也被称作借用</p>
-<pre class="line-numbers language-none"><code class="language-none">&amp;String和&amp;s1表示变量的引用，可以使用变量值，但是没有所有权
-let len = calculate_length(&amp;s1)
-fn calculate_length(s: &amp;String) -&gt; usize {
-    s.len()
+                <h2 id="使用模式匹配的位置"><a href="#使用模式匹配的位置" class="headerlink" title="使用模式匹配的位置"></a>使用模式匹配的位置</h2><p>最常用的位置就是match表达式，值，匹配的模式，要运行的表达式</p>
+<pre class="line-numbers language-none"><code class="language-none">match VALUE {
+    PATTERN =&gt; EXPRESSION,
+    PATTERN =&gt; EXPRESSION,
+    PATTERN =&gt; EXPRESSION,
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>可变引用</p>
-<pre class="line-numbers language-none"><code class="language-none">引用默认不能修改值，需要改变值就要使用可变引用
-fn main() {
-    let mut s = String::from("hello");
+<h3 id="for循环也可以使用模式"><a href="#for循环也可以使用模式" class="headerlink" title="for循环也可以使用模式"></a>for循环也可以使用模式</h3><p>在 for 循环中，模式是 for 关键字直接跟随的值，正如 for x in y 中的 x<br>通过for解构元组</p>
+<pre class="line-numbers language-none"><code class="language-none">let v = vec!['a', 'b', 'c'];
+	
+	for (index, value) in v.iter().enumerate() {
+	    println!("{} is at index {}", value, index);
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    change(&amp;mut s);
+<h3 id="let也使用模式"><a href="#let也使用模式" class="headerlink" title="let也使用模式"></a>let也使用模式</h3><p>let PATTERN = EXPRESSION;<br>类似于let x =5；<br>变量名只不过是一个特别朴素的模式<br>我们将表达式与模式比较，并未任何找到的名称赋值<br>所以let可以使用模式解构元组</p>
+<pre class="line-numbers language-none"><code class="language-none">let (x, y, z) = (1, 2, 3);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>如果模式不匹配会得到一个编译时错误</p>
+<pre class="line-numbers language-none"><code class="language-none">let (x, y) = (1, 2, 3);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以考虑使用占位符_或..</p>
+<pre class="line-numbers language-none"><code class="language-none">let (x, y, _) = (1, 2, 3);
+let(x,..)=(1,2,3);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="函数参数也是模式"><a href="#函数参数也是模式" class="headerlink" title="函数参数也是模式"></a>函数参数也是模式</h3><pre class="line-numbers language-none"><code class="language-none">fn foo(x: i32){
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>x就是一个模式，类似let<br>在函数参数中用模式结构元组的例子</p>
+<pre class="line-numbers language-none"><code class="language-none">fn print_coordinates(&amp;(x, y): &amp;(i32, i32)) {
+	    println!("Current location: ({}, {})", x, y);
+	}
+	
+	fn main() {
+	    let point = (3, 5);
+	    print_coordinates(&amp;point);
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>类似于函数，闭包的参数也是模式匹配</p>
+<h2 id="可反驳与不可反驳"><a href="#可反驳与不可反驳" class="headerlink" title="可反驳与不可反驳"></a>可反驳与不可反驳</h2><p>不可反驳：<br>    能匹配任何传递的可能值的模式<br>    如let x = 5<br>    x可以匹配任何值<br>可反驳：<br>    对可能的值进行匹配会失败的模式<br>    如let Some(x) = a_value<br>    如果a_value是None匹配会失败</p>
+<p>函数参数、let语句、for循环只接受不可反驳的匹配，因为不匹配程序无法继续执行<br>if let和while let需要可反驳模式，不可反驳也能运行，编译器会警告但不会报错</p>
+<h2 id="匹配语法或用法"><a href="#匹配语法或用法" class="headerlink" title="匹配语法或用法"></a>匹配语法或用法</h2><h3 id="匹配多个模式"><a href="#匹配多个模式" class="headerlink" title="匹配多个模式"></a>匹配多个模式</h3><p>|可以用来匹配多个模式，相当于或操作</p>
+<pre class="line-numbers language-none"><code class="language-none">let x = 1;
+	match x {
+	    1 | 2 =&gt; println!("one or two"),
+	    3 =&gt; println!("three"),
+	    _ =&gt; println!("anything"),
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="匹配范围"><a href="#匹配范围" class="headerlink" title="匹配范围"></a>匹配范围</h3><p>..=可以用来匹配一个数字或char范围<br>数字的例子</p>
+<pre class="line-numbers language-none"><code class="language-none">let x = 5;
+	match x {
+	    1..=5 =&gt; println!("one through five"),
+	    _ =&gt; println!("something else"),
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>char的例子</p>
+<pre class="line-numbers language-none"><code class="language-none">let x = 'c';
+match x {
+    'a'..='j' =&gt; println!("early ASCII letter"),
+    'k'..='z' =&gt; println!("late ASCII letter"),
+    _ =&gt; println!("something else"),
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="在匹配模式中创建值时检查值的匹配模式"><a href="#在匹配模式中创建值时检查值的匹配模式" class="headerlink" title="在匹配模式中创建值时检查值的匹配模式"></a>在匹配模式中创建值时检查值的匹配模式</h3><p>@运算符可以检查在匹配模式中创建的值是否符合@符后跟着的匹配模式<br>以下例子先创建变量id_variable并用@来检查该变量是否符合一个匹配模式<br>再用..=直接匹配枚举的字段值<br>最后匹配枚举类型并用变量获取字段值</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Message {
+    Hello { id: i32 },
 }
 
-fn change(some_string: &amp;mut String) {
-    some_string.push_str(", world");
+let msg = Message::Hello { id: 5 };
+
+match msg {
+    Message::Hello { id: id_variable @ 3..=7 } =&gt; {
+        println!("Found an id in range: {}", id_variable)
+    },
+    Message::Hello { id: 10..=12 } =&gt; {
+        println!("Found an id in another range")
+    },
+    Message::Hello { id } =&gt; {
+        println!("Found some other id: {}", id)
+    },
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="忽略模式中的值"><a href="#忽略模式中的值" class="headerlink" title="忽略模式中的值"></a>忽略模式中的值</h3><p>下划线_是匹配但不绑定任何值的通配符模式，可以用于match的最后一条来处理剩余情况<br>也可以在函数签名中使用，忽略不需要的参数</p>
+<pre class="line-numbers language-none"><code class="language-none">fn foo(_: i32, y: i32) {
+    println!("This code only uses the y parameter: {}", y);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>忽略模式中不需要的值</p>
+<pre class="line-numbers language-none"><code class="language-none">let mut setting_value = Some(5);
+let new_setting_value = Some(10);
+match (setting_value, new_setting_value) {
+    (Some(_), Some(_)) =&gt; {
+        println!("Can't overwrite an existing customized value");
+    }
+    _ =&gt; {
+        setting_value = new_setting_value;
+    }
 }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但是在特定作用域中的特定数据只能有一个可变引用，以下代码会编译出错，rust在编译阶段就避免了数据竞争<br>let r1 = &amp;mut s;<br>let r2 = &amp;mut s;</p>
-<p>引用与可变引用共存<br>引用的作用域是声明引用到最后一次使用之间，在最后一次使用之后声明使用可变引用是可以通过编译的，在引用作用域内声明可变引用会出错，可变引用可能会改变引用的值</p>
-<pre class="line-numbers language-none"><code class="language-none">let r1 = &amp;s; // 没问题
-let r2 = &amp;s; // 没问题
-let r3 = &amp;mut s; // 大问题
-println!("{}, {}, and {}", r1, r2, r3);
 
-let mut s = String::from("hello");
-let r1 = &amp;s; // 没问题
-let r2 = &amp;s; // 没问题
-println!("{} and {}", r1, r2);
-// 此位置之后 r1 和 r2 不再使用
-let r3 = &amp;mut s; // 没问题
-println!("{}", r3);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>..也可以忽略剩余值，用在忽略多个值的情况下，他会忽略剩余的没有显式匹配的值</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Point {
+    x: i32,
+    y: i32,
+    z: i32,
+}
+let origin = Point { x: 0, y: 0, z: 0 };
+match origin {
+    Point { x, .. } =&gt; println!("x is {}", x),
+}
+..忽略必须明确
+(first, .., last)
+上面这样不会报错
+(.., second, ..)
+上面这样不明确的忽略rust会报错<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>悬垂引用<br>内存在引用之前被释放，引用就会变成悬垂引用，编译器会在编译时避免这种错误，以下代码不会通过编译</p>
-<pre class="line-numbers language-none"><code class="language-none">fn dangle() -&gt; &amp;String {
-    let s = String::from("hello");
-    &amp;s
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>slice<br>通过中括号指定的范围[0..5]创建一个slice，从零开始，包括第一个不包括最后一个<br>不写第一个从头开始，不写后一个到最后一个，都不写获取整个引用<br>let s = String::from(“hello world”);<br>let hello = &amp;s[0..5];<br>let world = &amp;s[6..11];</p>
-<p>使用slice时更改字符串会报错，改变字符串会在底层使用可变引用，与不可变引用会冲突</p>
-<pre class="line-numbers language-none"><code class="language-none">let mut s = String::from("hello world");
-let word = first_word(&amp;s);
-s.clear(); // 错误!
-println!("the first word is: {}", word);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>slice是一个不可变引用，字符串字面量就是指向二进制文件特定位置的slice，所以字符串字面量不可变</p>
-<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>相当于别的语言里的类<br>声明一个结构体，结构体名，字段名，字段类型</p>
-<pre class="line-numbers language-none"><code class="language-none">struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
-    active: bool,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>创建一个结构体实例，如果需要可变需要加mut</p>
-<pre class="line-numbers language-none"><code class="language-none">let [mut] user1 = User {
-    email: String::from("someone@example.com"),
-    username: String::from("someusername123"),
-    active: true,
-    sign_in_count: 1,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>获取和修改结构体的值<br>let mail = user1.email<br>user1.email = String::from(“<a href="mailto:anotheremail@example.com">anotheremail@example.com</a>“)</p>
-<p>函数最后一行构造返回结构体</p>
-<pre class="line-numbers language-none"><code class="language-none">fn build_user(email: String, username: String) -&gt; User {
-    User {
-        email: email,
-        username: username,
-        active: true,
-        sign_in_count: 1,
+<h3 id="忽略对未使用变量的警告"><a href="#忽略对未使用变量的警告" class="headerlink" title="忽略对未使用变量的警告"></a>忽略对未使用变量的警告</h3><p>声明了变量但未使用的情况下会有一个警告，用下划线开头来告诉编译器去掉警告<br>在准备目前使用不到的变量时可以用下划线开头</p>
+<h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p>模式可以解构结构体，枚举，元组，引用</p>
+<h3 id="解构结构体"><a href="#解构结构体" class="headerlink" title="解构结构体"></a>解构结构体</h3><p>解构一个结构体的例子</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Point {
+    x: i32,
+    y: i32,
+}
+fn main() {
+    let p = Point { x: 0, y: 7 };
+    let Point { x: a, y: b } = p;
+    assert_eq!(0, a);
+    assert_eq!(7, b);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>因为变量名与字段名经常相同</p>
+<pre class="line-numbers language-none"><code class="language-none">let Point { x: x, y: y } = p;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>为了不重复可以简写</p>
+<pre class="line-numbers language-none"><code class="language-none">struct Point {
+    x: i32,
+    y: i32,
+}
+fn main() {
+    let p = Point { x: 0, y: 7 };
+    let Point { x, y } = p;
+    assert_eq!(0, x);
+    assert_eq!(7, y);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>也可以指定一部分来匹配特定情况</p>
+<pre class="line-numbers language-none"><code class="language-none">let p = Point { x: 0, y: 7 };
+    match p {
+        Point { x, y: 0 } =&gt; println!("On the x axis at {}", x),
+        Point { x: 0, y } =&gt; println!("On the y axis at {}", y),
+        Point { x, y } =&gt; println!("On neither axis: ({}, {})", x, y),
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="解构枚举"><a href="#解构枚举" class="headerlink" title="解构枚举"></a>解构枚举</h3><p>解构枚举需要对应枚举值存储的数据</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+fn main() {
+    let msg = Message::ChangeColor(0, 160, 255);
+    match msg {
+        Message::Quit =&gt; {
+            println!("The Quit variant has no data to destructure.")
+        }
+        Message::Move { x, y } =&gt; {
+            println!(
+                "Move in the x direction {} and in the y direction {}",
+                x,
+                y
+            );
+        }
+        Message::Write(text) =&gt; println!("Text message: {}", text),
+        Message::ChangeColor(r, g, b) =&gt; {
+            println!(
+                "Change the color to red {}, green {}, and blue {}",
+                r,
+                g,
+                b
+            )
+        }
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>变量名与字段名相同时可以简写，省略变量名</p>
-<pre class="line-numbers language-none"><code class="language-none">fn build_user(email: String, username: String) -&gt; User {
-    User {
-        email,
-        username,
-        active: true,
-        sign_in_count: 1,
+<h3 id="解构嵌套的复杂结构"><a href="#解构嵌套的复杂结构" class="headerlink" title="解构嵌套的复杂结构"></a>解构嵌套的复杂结构</h3><p>解构嵌套的元组</p>
+<pre class="line-numbers language-none"><code class="language-none">let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>解构嵌套的结构体和枚举</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Color {
+   Rgb(i32, i32, i32),
+   Hsv(i32, i32, i32),
+}
+
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(Color),
+}
+
+fn main() {
+    let msg = Message::ChangeColor(Color::Hsv(0, 160, 255));
+
+    match msg {
+        Message::ChangeColor(Color::Rgb(r, g, b)) =&gt; {
+            println!(
+                "Change the color to red {}, green {}, and blue {}",
+                r,
+                g,
+                b
+            )
+        }
+        Message::ChangeColor(Color::Hsv(h, s, v)) =&gt; {
+            println!(
+                "Change the color to hue {}, saturation {}, and value {}",
+                h,
+                s,
+                v
+            )
+        }
+        _ =&gt; ()
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>通过改变旧结构体创建新结构体，用user1的值填充为定义的字段</p>
-<pre class="line-numbers language-none"><code class="language-none">let user2 = User {
-    email: String::from("another@example.com"),
-    username: String::from("anotherusername567"),
-    ..user1
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="定义元组结构体"><a href="#定义元组结构体" class="headerlink" title="定义元组结构体"></a>定义元组结构体</h3><p>可以给一种元组取一个名字，成为一种特定类型<br>struct Point(i32, i32, i32)<br>let black = Color(0, 0, 0)<br>与元组类似，可以结构，可以加点和索引获取元素</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>声明结构体</p>
-<pre class="line-numbers language-none"><code class="language-none">struct rectangles {
-    width:u32,
-    height:u32,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>声明方法，多个方法在一个imp块中和多个impl块中效果相同</p>
-<pre class="line-numbers language-none"><code class="language-none">impl rectangles{
-    fn area(&amp;self) -&gt; u32{
-        self.height * self.width
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>调用方法</p>
-<pre class="line-numbers language-none"><code class="language-none">let rec = rectangles{
-    width:4,
-    height:5,
-};
-println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>关联函数<br>impl块中可以声明没有self参数的函数，作为这个结构体的关联函数，用::调用，常作为构造函数，例如String::from(“asd”)</p>
-
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
             </div>
             <hr/>
 
@@ -522,7 +604,7 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/">http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/</a>
+                    <a href="http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/">http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -603,17 +685,18 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/04/28/rust-xue-xi-ji-lu-mei-ju/">
+                <a href="/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="rust学习记录-枚举">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="rust学习记录-模式匹配">
                         
-                        <span class="card-title">rust学习记录-枚举</span>
+                        <span class="card-title">rust学习记录-模式匹配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -623,9 +706,9 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -638,6 +721,7 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -656,24 +740,24 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/">
+                <a href="/2021/05/13/rust-xue-xi-ji-lu-bing-fa/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="rust学习记录-变量类型与控制流">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="rust学习记录-并发">
                         
-                        <span class="card-title">rust学习记录-变量类型与控制流</span>
+                        <span class="card-title">rust学习记录-并发</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天晚上
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-13
                             </span>
                         <span class="publish-author">
                             

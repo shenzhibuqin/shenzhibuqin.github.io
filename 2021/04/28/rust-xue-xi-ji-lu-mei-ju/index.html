@@ -367,15 +367,50 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>声明枚举<br>enum IpAddrKind {<br>    V4,<br>    V6,<br>}</p>
-<p>创建枚举类型变量<br>let four = IpAddrKind::V4;<br>let six = IpAddrKind::V6;</p>
-<p>可以将数据放进枚举成员，每个成员可以有不通的数据类型<br>enum IpAddr {<br>    V4(u8, u8, u8, u8),<br>    V6(String),<br>}<br>let home = IpAddr::V4(127, 0, 0, 1)<br>或<br>enum Message {<br>    Quit, //无数据<br>    Move { x: i32, y: i32 }, //匿名结构体<br>    Write(String), //字符串<br>    ChangeColor(i32, i32, i32), //三个i32<br>}</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>可以像结构体一样给枚举定义方法<br>impl Message {<br>    fn call(&amp;self) {<br>        // 在这里定义方法体<br>    }<br>}</p>
-<h3 id="option枚举"><a href="#option枚举" class="headerlink" title="option枚举"></a>option枚举</h3><p>rust没有none值，option枚举类型包含了有值和没有值的两种可能<br>enum Option<t> {<br>    Some(T),<br>    None,<br>}</t></p>
-<p>可以不使用前缀直接使用some和none，使用none需要定义类型<br>let some_number = Some(5);<br>let some_string = Some(“a string”);<br>let absent_number: Option<i32> = None;</i32></p>
+                <p>声明枚举</p>
+<pre class="line-numbers language-none"><code class="language-none">enum IpAddrKind {
+    V4,
+    V6,
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>创建枚举类型变量</p>
+<pre class="line-numbers language-none"><code class="language-none">let four = IpAddrKind::V4;
+let six = IpAddrKind::V6;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>可以将数据放进枚举成员，每个成员可以有不通的数据类型</p>
+<pre class="line-numbers language-none"><code class="language-none">enum IpAddr {
+    V4(u8, u8, u8, u8),
+    V6(String),
+}
+let home = IpAddr::V4(127, 0, 0, 1)
+或
+enum Message {
+    Quit, //无数据
+    Move { x: i32, y: i32 }, //匿名结构体
+    Write(String), //字符串
+    ChangeColor(i32, i32, i32), //三个i32
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>可以像结构体一样给枚举定义方法</p>
+<pre class="line-numbers language-none"><code class="language-none">impl Message {
+    fn call(&amp;self) {
+        // 在这里定义方法体
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="option枚举"><a href="#option枚举" class="headerlink" title="option枚举"></a>option枚举</h3><p>rust没有none值，option枚举类型包含了有值和没有值的两种可能</p>
+<pre class="line-numbers language-none"><code class="language-none">enum Option&lt;T&gt; {
+    Some(T),
+    None,
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>可以不使用前缀直接使用some和none，使用none需要定义类型</p>
+<pre class="line-numbers language-none"><code class="language-none">let some_number = Some(5);
+let some_string = Some("a string");
+let absent_number: Option&lt;i32&gt; = None;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>pub const fn as_ref(&amp;self) -&gt; Option&lt;&amp;T&gt;<br>Converts from &amp;Option<t> to Option&lt;&amp;T&gt;<br>返回使用引用的option</t></p>
 <p>pub fn expect(self, msg: &amp;str) -&gt; T<br>Returns the contained Some value, consuming the self value<br>返回内容</p>
-<p>不变为引用取内容会转移<br>    let v6 = Some(String::from(“::1”));<br>    let v61=v6.as_ref();<br>    println!(“{}”,v61.expect(“asd”));<br>    println!(“{}”,v61.expect(“asd”));</p>
 
             </div>
             <hr/>

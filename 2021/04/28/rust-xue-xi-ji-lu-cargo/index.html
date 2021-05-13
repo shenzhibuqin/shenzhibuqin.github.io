@@ -392,7 +392,12 @@
 <span class="token comment">//! calculations more convenient.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>一般在包文件或lib等文件，为包或模块提供文档</p>
 <p>一般在模块文件里可以用pub use将函数等重新导出，避免使用复杂路径引用<br>重导出也会在文档中体现</p>
-<h3 id="发布crate包"><a href="#发布crate包" class="headerlink" title="发布crate包"></a>发布crate包</h3><p>cargo publish<br>发布包<br>发布前要在cargo.toml添加一些信息<br>    [package]<br>    name = “guessing_game”<br>    需要有一个和crate.io中已有的库不重名的名字<br>    license = “MIT”<br>    license标识符</p>
+<h3 id="发布crate包"><a href="#发布crate包" class="headerlink" title="发布crate包"></a>发布crate包</h3><p>cargo publish<br>发布包<br>发布前要在cargo.toml添加一些信息</p>
+<pre class="line-numbers language-none"><code class="language-none">[package]
+name = "guessing_game"
+需要有一个和crate.io中已有的库不重名的名字
+license = "MIT"
+license标识符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>发布的crate无法修改或删除<br>可以撤回，让新的项目不能引用你的库，撤回前已使用撤回库的老项目不影响使用<br>cargo yank –vers 1.0.1<br>撤销撤回<br>cargo yank –vers 1.0.1 –undo</p>
 <h3 id="工作空间"><a href="#工作空间" class="headerlink" title="工作空间"></a>工作空间</h3><p>可以整合多个crate共同开发<br>根目录有定义工作空间的toml文件</p>
 <pre class="line-numbers language-none"><code class="language-none">[workspace]

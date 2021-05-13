@@ -373,19 +373,84 @@
 <h3 id="浮点"><a href="#浮点" class="headerlink" title="浮点"></a>浮点</h3><p>f32，f64（默认）</p>
 <h3 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h3><p>true，false</p>
 <h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>char<br>大小为四个字节<br>单引号表示<br>let c =’z’<br>在 Rust 中，拼音字母，中文、日文、韩文等字符，emoji（绘文字）以及零长度的空白字符都是有效的 char 值</p>
-<h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>长度固定，一旦声明长度不会增大或减小<br>声明<br>    let tup: (i32, f64, u8) = (500, 6.4, 1)<br>    一个位置一个类型，不一定相同<br>获取<br>    可以使用模式匹配来解构元组值获取<br>    let tup = (500, 6.4, 1);<br>    let (x, y, z) = tup;<br>    println!(“The value of y is: {}”, y);<br>    跟索引获取<br>    let x: (i32, f64, u8) = (500, 6.4, 1);<br>    let five_hundred = x.0;</p>
-<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>长度固定，一旦声明长度不会增大或减小<br>类型需要相同<br>声明<br>    let a = [1, 2, 3, 4, 5]<br>    let a: [i32; 5] = [1, 2, 3, 4, 5]<br>    let a = [3; 5];<br>获取<br>    let a = [1, 2, 3, 4, 5];<br>    let first = a[0];<br>    let second = a[1];</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Rust 不关心函数定义于何处，只要定义了就行<br>参数格式<br>fn another_function(x: i32, y: i32) {<br>    println!(“The value of x is: {}”, x);<br>    println!(“The value of y is: {}”, y);<br>}<br>返回类型与值<br>在括号后定义返回类型<br>fn five() -&gt; i32 {<br>    5<br>}<br>fn plus_one(x: i32) -&gt; i32 {<br>    x + 1<br>}</p>
+<h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>长度固定，一旦声明长度不会增大或减小<br>声明</p>
+<pre class="line-numbers language-none"><code class="language-none">let tup: (i32, f64, u8) = (500, 6.4, 1)
+一个位置一个类型，不一定相同<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>获取</p>
+<pre class="line-numbers language-none"><code class="language-none">可以使用模式匹配来解构元组值获取
+let tup = (500, 6.4, 1);
+let (x, y, z) = tup;
+println!("The value of y is: {}", y);
+跟索引获取
+let x: (i32, f64, u8) = (500, 6.4, 1);
+let five_hundred = x.0;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>长度固定，一旦声明长度不会增大或减小<br>类型需要相同<br>声明</p>
+<pre class="line-numbers language-none"><code class="language-none">let a = [1, 2, 3, 4, 5]
+let a: [i32; 5] = [1, 2, 3, 4, 5]
+let a = [3; 5];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>获取</p>
+<pre class="line-numbers language-none"><code class="language-none">let a = [1, 2, 3, 4, 5];
+let first = a[0];
+let second = a[1];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Rust 不关心函数定义于何处，只要定义了就行<br>参数格式</p>
+<pre class="line-numbers language-none"><code class="language-none">fn another_function(x: i32, y: i32) {
+    println!("The value of x is: {}", x);
+    println!("The value of y is: {}", y);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>返回类型与值<br>在括号后定义返回类型</p>
+<pre class="line-numbers language-none"><code class="language-none">fn five() -&gt; i32 {
+    5
+}
+fn plus_one(x: i32) -&gt; i32 {
+    x + 1
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>函数的返回值等同于函数体最后一个表达式的值，表达式没有结尾的分号<br>使用 return 关键字和指定值，可从函数中提前返回</p>
-<h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>条件必须是bool<br>if number &lt; 5 {<br>    println!(“condition was true”);<br>} else if number &gt; 5 {<br>    println!(“condition was false”);<br>}else{<br>    println!(“something”);<br>}</p>
-<p>if是表达式，可以用于赋值，但是值的类型需要相同，因为rust的需要在编译时就知道返回类型<br>let condition = true;<br>let number = if condition {<br>    5<br>} else {<br>    6<br>};</p>
-<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>无限循环，break可以退出循环，并将值作为循环的返回值<br>    let mut i=0;<br>    let y = loop {<br>        i=i+1;<br>        if i==10 {<br>            break i*2<br>        }<br>    };<br>    println!(“{}”,y);</p>
-<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><pre><code>let mut i=0;</code></pre>
-<p>   while i&lt;9 {<br>        i=i+1;<br>        println!(“{}”,i);<br>    }<br>for<br>    let numbers:[i32;5]=[1,2,3,4,5];<br>    for number in numbers.iter(){<br>        println!(“{}”,number)<br>    }</p>
-<pre><code>可以使用(1..4)产生包含1不包含4的数字，rev可以让序列反转
-for num in (1..4).rev(){
-    println!("{}",num);
-}</code></pre>
+<h2 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><p>条件必须是bool</p>
+<pre class="line-numbers language-none"><code class="language-none">if number &lt; 5 {
+    println!("condition was true");
+} else if number &gt; 5 {
+    println!("condition was false");
+}else{
+    println!("something");
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>if是表达式，可以用于赋值，但是值的类型需要相同，因为rust的需要在编译时就知道返回类型</p>
+<pre class="line-numbers language-none"><code class="language-none">let condition = true;
+let number = if condition {
+    5
+} else {
+    6
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h3><p>无限循环，break可以退出循环，并将值作为循环的返回值</p>
+<pre class="line-numbers language-none"><code class="language-none">let mut i=0;
+let y = loop {
+    i=i+1;
+    if i==10 {
+        break i*2
+    }
+};
+println!("{}",y);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="while"><a href="#while" class="headerlink" title="while"></a>while</h3><pre class="line-numbers language-none"><code class="language-none">    let mut i=0;
+   while i&lt;9 {
+        i=i+1;
+        println!("{}",i);
+    }
+for
+    let numbers:[i32;5]=[1,2,3,4,5];
+    for number in numbers.iter(){
+        println!("{}",number)
+    }
+
+    可以使用(1..4)产生包含1不包含4的数字，rev可以让序列反转
+    for num in (1..4).rev(){
+        println!("{}",num);
+    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
 
             </div>
             <hr/>

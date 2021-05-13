@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="rust学习记录-所有权, Nbb&#39;s Blog">
+    <meta name="keywords" content="rust学习记录-并发, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>rust学习记录-所有权 | Nbb&#39;s Blog</title>
+    <title>rust学习记录-并发 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">rust学习记录-所有权</h1>
+                    <h1 class="description center-align post-title">rust学习记录-并发</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-13
+                    2021-05-13
                 </div>
                 
 
@@ -367,136 +367,198 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="所有权"><a href="#所有权" class="headerlink" title="所有权"></a>所有权</h2><p>管理堆上的数据，清理不再使用的垃圾</p>
-<p>规则：<br>Rust 中的每一个值都有一个被称为其 所有者（owner）的变量。<br>值在任一时刻有且只有一个所有者。<br>当所有者（变量）离开作用域，这个值将被丢弃。</p>
-<p>基础类型存储在栈上并且在离开作用域时被移出栈<br>String存储在堆上，可以由from函数创建<br>let s = String::from(“hello”)</p>
-<p>移动</p>
-<pre class="line-numbers language-none"><code class="language-none">let s1 = String::from("hello")
-let s2 = s1
-s1赋给s2并不会有两个值一样的变量，s1会被认为不再有效，s1在栈上的数据传递给了s2
-println!("{}",s1)会报错<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>克隆</p>
-<pre class="line-numbers language-none"><code class="language-none">需要复制堆上的数据，可以使用clone方法
-let s1 = String::from("hello");
-let s2 = s1.clone();
-println!("s1 = {}, s2 = {}", s1, s2);
-
-let x = 5;
-let y = x;
-println!("x = {}, y = {}", x, y);
-整形这样存储在栈上的数据可以被快速复制，不需要clone<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>所有权与方法<br>变量传入函数时与变量赋值类似，也有移动，基础类型会被复制<br>函数返回值也会有移动，和传入类似</p>
-<p>引用<br>为了避免所有权转移到函数里，可以使用引用来调用参数，也被称作借用</p>
-<pre class="line-numbers language-none"><code class="language-none">&amp;String和&amp;s1表示变量的引用，可以使用变量值，但是没有所有权
-let len = calculate_length(&amp;s1)
-fn calculate_length(s: &amp;String) -&gt; usize {
-    s.len()
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>可变引用</p>
-<pre class="line-numbers language-none"><code class="language-none">引用默认不能修改值，需要改变值就要使用可变引用
-fn main() {
-    let mut s = String::from("hello");
-
-    change(&amp;mut s);
+                <p>rust实现的是一个语言线程对应一个OS线程的1:1模型<br>m个程序线程对应n个OS线程的模式叫绿色线程模式或m:n模式，程序线程叫绿色线程<br>可以通过使用实现了m:n模式的crate来使用m:n模型，牺牲一部分性能换取更好的控制</p>
+<h3 id="创建新线程"><a href="#创建新线程" class="headerlink" title="创建新线程"></a>创建新线程</h3><p>thread::spawn函数创建新线程，参数传递一个闭包</p>
+<pre class="line-numbers language-none"><code class="language-none">thread::spawn(|| {
+    for i in 1..10 {
+        println!("hi number {} from the spawned thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+});
+	
+for i in 1..5 {
+    println!("hi number {} from the main thread!", i);
+    thread::sleep(Duration::from_millis(1));
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主线程结束时会停止新线程，无论新线程是否运行完毕<br>spawn函数的返回值是joinhandle类型，这是一个拥有所有权的值<br>调用join方法会等待线程结束再接着往下运行</p>
+<pre class="line-numbers language-none"><code class="language-none">let handle = thread::spawn(|| {
+    for i in 1..10 {
+        println!("hi number {} from the spawned thread!", i);
+        thread::sleep(Duration::from_millis(1));
+    }
+});
+	
+// handle.join().unwrap();
+// 写在这会运行完新建的线程再接着运行新进程
+	
+for i in 1..5 {
+    println!("hi number {} from the main thread!", i);
+    thread::sleep(Duration::from_millis(1));
 }
+	
+handle.join().unwrap();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-fn change(some_string: &amp;mut String) {
-    some_string.push_str(", world");
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但是在特定作用域中的特定数据只能有一个可变引用，以下代码会编译出错，rust在编译阶段就避免了数据竞争<br>let r1 = &amp;mut s;<br>let r2 = &amp;mut s;</p>
-<p>引用与可变引用共存<br>引用的作用域是声明引用到最后一次使用之间，在最后一次使用之后声明使用可变引用是可以通过编译的，在引用作用域内声明可变引用会出错，可变引用可能会改变引用的值</p>
-<pre class="line-numbers language-none"><code class="language-none">let r1 = &amp;s; // 没问题
-let r2 = &amp;s; // 没问题
-let r3 = &amp;mut s; // 大问题
-println!("{}, {}, and {}", r1, r2, r3);
+<p>通过move让新线程获取主线程变量所有权</p>
+<pre class="line-numbers language-none"><code class="language-none">let v = vec![1, 2, 3];
+	
+	    let handle = thread::spawn(move || {
+	        println!("Here's a vector: {:?}", v);
+	    });
+	
+	    handle.join().unwrap();
+	不加move的话rust没法判断新线程存在多长时间，可能引用v时v已经被释放<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-let mut s = String::from("hello");
-let r1 = &amp;s; // 没问题
-let r2 = &amp;s; // 没问题
-println!("{} and {}", r1, r2);
-// 此位置之后 r1 和 r2 不再使用
-let r3 = &amp;mut s; // 没问题
-println!("{}", r3);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="通道"><a href="#通道" class="headerlink" title="通道"></a>通道</h3><p>线程之间通过通道通信<br>mpsc的channel函数可以创建通道，返回一个元组，可以通过let解构<br>    let (tx, rx) = mpsc::channel();<br>一般用tx代表发送者，rx代表接收者<br>可以有多个发送者，但接收者只能有一个<br>tx的send方法发送数据，返回一个result，成功OK，通道关闭Err<br>sx的recv阻塞线程等待接收，返回result，接收到数据OK，通道关闭Err<br>sx的try_recv不阻塞线程接收，立刻返回result，有数据返回OK，没数据返回Err</p>
+<p>以下是一个新线程创建通道并发送，主线程接受的案例</p>
+<pre class="line-numbers language-none"><code class="language-none">let (tx, rx) = mpsc::channel();
+	
+	    thread::spawn(move || {
+	        let val = String::from("hi");
+	        tx.send(val).unwrap();
+	    });
+	
+	    let received = rx.recv().unwrap();
+	    println!("Got: {}", received);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>悬垂引用<br>内存在引用之前被释放，引用就会变成悬垂引用，编译器会在编译时避免这种错误，以下代码不会通过编译</p>
-<pre class="line-numbers language-none"><code class="language-none">fn dangle() -&gt; &amp;String {
-    let s = String::from("hello");
-    &amp;s
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>send会获取所有权并发送给接收者</p>
+<pre class="line-numbers language-none"><code class="language-none">let (tx, rx) = mpsc::channel();
+	
+	    thread::spawn(move || {
+	        let val = String::from("hi");
+	        tx.send(val).unwrap();
+	        println!("val is {}", val);//这里会报错，val已经转移
+	    });
+	
+	    let received = rx.recv().unwrap();
+	    println!("Got: {}", received);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>slice<br>通过中括号指定的范围[0..5]创建一个slice，从零开始，包括第一个不包括最后一个<br>不写第一个从头开始，不写后一个到最后一个，都不写获取整个引用<br>let s = String::from(“hello world”);<br>let hello = &amp;s[0..5];<br>let world = &amp;s[6..11];</p>
-<p>使用slice时更改字符串会报错，改变字符串会在底层使用可变引用，与不可变引用会冲突</p>
-<pre class="line-numbers language-none"><code class="language-none">let mut s = String::from("hello world");
-let word = first_word(&amp;s);
-s.clear(); // 错误!
-println!("the first word is: {}", word);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>slice是一个不可变引用，字符串字面量就是指向二进制文件特定位置的slice，所以字符串字面量不可变</p>
-<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>相当于别的语言里的类<br>声明一个结构体，结构体名，字段名，字段类型</p>
-<pre class="line-numbers language-none"><code class="language-none">struct User {
-    username: String,
-    email: String,
-    sign_in_count: u64,
-    active: bool,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>也可以将rx用作迭代器来接受数据</p>
+<pre class="line-numbers language-none"><code class="language-none">let (tx, rx) = mpsc::channel();
+	
+	    thread::spawn(move || {
+	        let vals = vec![
+	            String::from("hi"),
+	            String::from("from"),
+	            String::from("the"),
+	            String::from("thread"),
+	        ];
+	
+	        for val in vals {
+	            tx.send(val).unwrap();
+	            thread::sleep(Duration::from_secs(1));
+	        }
+	    });
+	
+	    for received in rx {
+	        println!("Got: {}", received);
+	    }
+	新线程结束后通道关闭，迭代器结束<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>创建一个结构体实例，如果需要可变需要加mut</p>
-<pre class="line-numbers language-none"><code class="language-none">let [mut] user1 = User {
-    email: String::from("someone@example.com"),
-    username: String::from("someusername123"),
-    active: true,
-    sign_in_count: 1,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通道的发送端可以被克隆，从而拥有多个发送者</p>
+<pre class="line-numbers language-none"><code class="language-none">let (tx, rx) = mpsc::channel();
+	
+	let tx1 = mpsc::Sender::clone(&amp;tx);
+	thread::spawn(move || {
+	    let vals = vec![
+	        String::from("hi"),
+	        String::from("from"),
+	        String::from("the"),
+	        String::from("thread"),
+	    ];
+	
+	    for val in vals {
+	        tx1.send(val).unwrap();
+	        thread::sleep(Duration::from_secs(1));
+	    }
+	});
+	
+	thread::spawn(move || {
+	    let vals = vec![
+	        String::from("more"),
+	        String::from("messages"),
+	        String::from("for"),
+	        String::from("you"),
+	    ];
+	
+	    for val in vals {
+	        tx.send(val).unwrap();
+	        thread::sleep(Duration::from_secs(1));
+	    }
+	});
+	
+	for received in rx {
+	    println!("Got: {}", received);
+	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>获取和修改结构体的值<br>let mail = user1.email<br>user1.email = String::from(“<a href="mailto:anotheremail@example.com">anotheremail@example.com</a>“)</p>
-<p>函数最后一行构造返回结构体</p>
-<pre class="line-numbers language-none"><code class="language-none">fn build_user(email: String, username: String) -&gt; User {
-    User {
-        email: email,
-        username: username,
-        active: true,
-        sign_in_count: 1,
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="互斥器"><a href="#互斥器" class="headerlink" title="互斥器"></a>互斥器</h3><p>创建互斥器<br>let m = Mutex::new(5);<br>获取锁以访问数据</p>
+<pre class="line-numbers language-none"><code class="language-none">let mut num = m.lock().unwrap();
+	lock会阻塞线程，直到获取锁为止，返回LockResult
+	如果另一个线程拥有锁并panic，lock调用会失败
+	unwrap返回MutexGuard类型的智能指针，实现了deref和drop，会在离开作用域时释放锁<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>变量名与字段名相同时可以简写，省略变量名</p>
-<pre class="line-numbers language-none"><code class="language-none">fn build_user(email: String, username: String) -&gt; User {
-    User {
-        email,
-        username,
-        active: true,
-        sign_in_count: 1,
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>单线程使用锁的例子</p>
+<pre class="line-numbers language-none"><code class="language-none">let m = Mutex::new(5);
+    {
+        let mut num = m.lock().unwrap();
+        *num =6;
+    }//锁在这里被释放
 
-<p>通过改变旧结构体创建新结构体，用user1的值填充为定义的字段</p>
-<pre class="line-numbers language-none"><code class="language-none">let user2 = User {
-    email: String::from("another@example.com"),
-    username: String::from("anotherusername567"),
-    ..user1
-};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    println!("m={:?}",m);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="定义元组结构体"><a href="#定义元组结构体" class="headerlink" title="定义元组结构体"></a>定义元组结构体</h3><p>可以给一种元组取一个名字，成为一种特定类型<br>struct Point(i32, i32, i32)<br>let black = Color(0, 0, 0)<br>与元组类似，可以结构，可以加点和索引获取元素</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>声明结构体</p>
-<pre class="line-numbers language-none"><code class="language-none">struct rectangles {
-    width:u32,
-    height:u32,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>声明方法，多个方法在一个imp块中和多个impl块中效果相同</p>
-<pre class="line-numbers language-none"><code class="language-none">impl rectangles{
-    fn area(&amp;self) -&gt; u32{
-        self.height * self.width
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>调用方法</p>
-<pre class="line-numbers language-none"><code class="language-none">let rec = rectangles{
-    width:4,
-    height:5,
-};
-println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>多线程使用锁<br>线程间共享互斥器需要使用类似Rc<t>的Arc<t>，原子引用计数<br>两者API相同<br>Arc可以在线程间安全的共享，Rc不行<br>Rc的运行性能比Arc更好</t></t></p>
+<p>多线程使用Arc共享互斥器的例子</p>
+<pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">let</span> counter <span class="token operator">=</span> <span class="token class-name">Arc</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token class-name">Mutex</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token keyword">let</span> <span class="token keyword">mut</span> handles <span class="token operator">=</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+	
+	    <span class="token keyword">for</span> _ <span class="token keyword">in</span> <span class="token number">0</span><span class="token punctuation">..</span><span class="token number">10</span> <span class="token punctuation">{</span>
+	        <span class="token keyword">let</span> counter <span class="token operator">=</span> <span class="token class-name">Arc</span><span class="token punctuation">::</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>counter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	        <span class="token keyword">let</span> handle <span class="token operator">=</span> <span class="token namespace">thread<span class="token punctuation">::</span></span><span class="token function">spawn</span><span class="token punctuation">(</span><span class="token keyword">move</span> <span class="token closure-params"><span class="token closure-punctuation punctuation">|</span><span class="token closure-punctuation punctuation">|</span></span> <span class="token punctuation">{</span>
+	            <span class="token keyword">let</span> <span class="token keyword">mut</span> num <span class="token operator">=</span> counter<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	            <span class="token operator">*</span>num <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+	        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	        handles<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>handle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token punctuation">}</span>
+	
+	    <span class="token keyword">for</span> handle <span class="token keyword">in</span> handles <span class="token punctuation">{</span>
+	        handle<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	    <span class="token punctuation">}</span>
+	
+	    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Result: {}"</span><span class="token punctuation">,</span> <span class="token operator">*</span>counter<span class="token punctuation">.</span><span class="token function">lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unwrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>关联函数<br>impl块中可以声明没有self参数的函数，作为这个结构体的关联函数，用::调用，常作为构造函数，例如String::from(“asd”)</p>
+<p>Mutex可能会出现死锁的情况，编译器并不检查死锁的情况</p>
+<pre class="line-numbers language-none"><code class="language-none">let mutex1 = Arc::new(Mutex::new(1));
+let mutex2 = Arc::new(Mutex::new(2));
+	
+{
+    let mutex1=Arc::clone(&amp;mutex1);
+    let mutex2=Arc::clone(&amp;mutex2);
+	
+    thread::spawn(move ||{
+        let num2 = mutex2.lock().unwrap();
+        println!("{}",num2);
+        thread::sleep(Duration::from_secs(1));
+        let num1 = mutex1.lock().unwrap();
+        println!("{}",num1);
+    });
+}
+	
+{
+    let mutex1=Arc::clone(&amp;mutex1);
+    let mutex2=Arc::clone(&amp;mutex2);
+	
+    let t= thread::spawn(move ||{
+        let num1 = mutex1.lock().unwrap();
+        println!("{}",num1);
+        thread::sleep(Duration::from_secs(1));
+        let num2 = mutex2.lock().unwrap();
+        println!("{}",num2);
+    });
+	
+    t.join().unwrap();
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="send-trait"><a href="#send-trait" class="headerlink" title="send trait"></a>send trait</h3><p>send表示类型的所有权可以在线程间转移，大部分rust类型实现了send<br>send可以保证类似Rc这类线程不安全的类不会被传递<br>任何完全由send类型组成的类型会被自动标注为send</p>
+<h3 id="Sync-trait"><a href="#Sync-trait" class="headerlink" title="Sync trait"></a>Sync trait</h3><p>Sync表示类型可以在多个线程中安全地被引用<br>对任意类型T，如果&amp;T是send的，T就是Sync的，T的引用可以安全的发送到另一个线程<br>完全由Sync的类型组成的类型也是Sync的<br>Mutex可以在线程间共享，所以是Sync，Rc和RefCell不能在线程间安全共享，所以不是Sync，RefCrll在运行时进行的借用检查不是线程安全的</p>
 
             </div>
             <hr/>
@@ -522,7 +584,7 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/">http://example.com/2021/04/13/rust-xue-xi-ji-lu-suo-you-quan/</a>
+                    <a href="http://example.com/2021/05/13/rust-xue-xi-ji-lu-bing-fa/">http://example.com/2021/05/13/rust-xue-xi-ji-lu-bing-fa/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -607,13 +669,13 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/28/rust-xue-xi-ji-lu-mei-ju/">
+                <a href="/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="rust学习记录-枚举">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="rust学习记录-模式匹配">
                         
-                        <span class="card-title">rust学习记录-枚举</span>
+                        <span class="card-title">rust学习记录-模式匹配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -624,7 +686,7 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-05-13
                         </span>
                         <span class="publish-author">
                             
@@ -656,24 +718,24 @@ println!("{}",rec.area());<span aria-hidden="true" class="line-numbers-rows"><sp
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/04/13/rust-xue-xi-ji-lu-bian-liang-lei-xing-yu-kong-zhi-liu/">
+                <a href="/2021/04/28/rust-xue-xi-ji-lu-fan-xing/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="rust学习记录-变量类型与控制流">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="rust学习记录-泛型">
                         
-                        <span class="card-title">rust学习记录-变量类型与控制流</span>
+                        <span class="card-title">rust学习记录-泛型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            某一天晚上
+                            某一天下午
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-28
                             </span>
                         <span class="publish-author">
                             
