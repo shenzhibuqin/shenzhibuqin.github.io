@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>文件批量改名</title>
+      <link href="2021/08/19/wen-jian-pi-liang-gai-ming/"/>
+      <url>2021/08/19/wen-jian-pi-liang-gai-ming/</url>
+      
+        <content type="html"><![CDATA[<p>今天遇到了一个问题，需要批量修改文件名，替换其中的字符，相当于文档的全局替换，但是手动改很麻烦，就想着写个小工具，以后也能用，主要用了std::fs模块的两个函数，read_dir，rename，很明显一个读目录一个改名字，代码如下</p><pre class="line-numbers language-none"><code class="language-none">use std::{fs, env};use std::path::Path;use std::error::Error;fn main() {    let args: Vec&lt;String&gt; = env::args().collect();    let path = Path::new("./");    let mut entrys = Vec::new();    for entry in  fs::read_dir(path).expect("读取目录失败") {        if let Ok(entry) = entry {            let fname = entry.file_name();            let filename = fname.to_str().unwrap().to_string();            entrys.push(filename);        }    }    for filename in &amp;entrys{        let new_filename = filename.clone();        let new_filename = new_filename.replace(&amp;args[1],&amp;args[2]);        match fs::rename(&amp;filename, &amp;new_filename) {            Err(why) =&gt; panic!("{} =&gt; {}: {}", filename, new_filename, why.to_string()),            Ok(_) =&gt; println!("{} =&gt; {}", filename, new_filename),        }    }}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>写的时候也遇到了一点小问题，read_dir函数会返回一个迭代器，根据官方文档的说法，这个迭代器是每次读取的时候向系统获取一个文件名</p><pre class="line-numbers language-none"><code class="language-none">Platform-specific behaviorThis function currently corresponds to the opendir function on Unix and the FindFirstFile function on Windows. Advancing the iterator currently corresponds to readdir on Unix and FindNextFile on Windows. Note that, this may change in the future.The order in which this iterator returns entries is platform and filesystem dependent.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>于是在第一个版本发现改文件名进行了两次，上面给出的写法是把文件名读取到一个Vec里，再遍历Vec改文件名的，刚开始不是读到Vec里的，是在第一个for循环里直接改的，从read_dir返回的迭代器中读取一个文件名就改一个，改完名的文件就相当于是新文件了，会再次被迭代器获取到，所以一个文件会被检查替换两遍，同时需要注意改名会直接覆盖同名文件。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>rust学习记录-模式匹配</title>
       <link href="2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/"/>
       <url>2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/</url>

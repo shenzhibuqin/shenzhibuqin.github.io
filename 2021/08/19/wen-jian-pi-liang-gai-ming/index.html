@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="rust学习记录-模式匹配, Nbb&#39;s Blog">
+    <meta name="keywords" content="文件批量改名, Nbb&#39;s Blog">
     <meta name="description" content="It&#39;s Nbb&#39;s Blog">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>rust学习记录-模式匹配 | Nbb&#39;s Blog</title>
+    <title>文件批量改名 | Nbb&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -204,12 +204,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">rust学习记录-模式匹配</h1>
+                    <h1 class="description center-align post-title">文件批量改名</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-13
+                    2021-08-19
                 </div>
                 
 
@@ -367,219 +367,40 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="使用模式匹配的位置"><a href="#使用模式匹配的位置" class="headerlink" title="使用模式匹配的位置"></a>使用模式匹配的位置</h2><p>最常用的位置就是match表达式，值，匹配的模式，要运行的表达式</p>
-<pre class="line-numbers language-none"><code class="language-none">match VALUE {
-    PATTERN =&gt; EXPRESSION,
-    PATTERN =&gt; EXPRESSION,
-    PATTERN =&gt; EXPRESSION,
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="for循环也可以使用模式"><a href="#for循环也可以使用模式" class="headerlink" title="for循环也可以使用模式"></a>for循环也可以使用模式</h3><p>在 for 循环中，模式是 for 关键字直接跟随的值，正如 for x in y 中的 x<br>通过for解构元组</p>
-<pre class="line-numbers language-none"><code class="language-none">let v = vec!['a', 'b', 'c'];
-	
-	for (index, value) in v.iter().enumerate() {
-	    println!("{} is at index {}", value, index);
-	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="let也使用模式"><a href="#let也使用模式" class="headerlink" title="let也使用模式"></a>let也使用模式</h3><p>let PATTERN = EXPRESSION;<br>类似于let x =5；<br>变量名只不过是一个特别朴素的模式<br>我们将表达式与模式比较，并未任何找到的名称赋值<br>所以let可以使用模式解构元组</p>
-<pre class="line-numbers language-none"><code class="language-none">let (x, y, z) = (1, 2, 3);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>如果模式不匹配会得到一个编译时错误</p>
-<pre class="line-numbers language-none"><code class="language-none">let (x, y) = (1, 2, 3);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>可以考虑使用占位符_或..</p>
-<pre class="line-numbers language-none"><code class="language-none">let (x, y, _) = (1, 2, 3);
-let(x,..)=(1,2,3);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<h3 id="函数参数也是模式"><a href="#函数参数也是模式" class="headerlink" title="函数参数也是模式"></a>函数参数也是模式</h3><pre class="line-numbers language-none"><code class="language-none">fn foo(x: i32){
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>x就是一个模式，类似let<br>在函数参数中用模式结构元组的例子</p>
-<pre class="line-numbers language-none"><code class="language-none">fn print_coordinates(&amp;(x, y): &amp;(i32, i32)) {
-	    println!("Current location: ({}, {})", x, y);
-	}
-	
-	fn main() {
-	    let point = (3, 5);
-	    print_coordinates(&amp;point);
-	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>类似于函数，闭包的参数也是模式匹配</p>
-<h2 id="可反驳与不可反驳"><a href="#可反驳与不可反驳" class="headerlink" title="可反驳与不可反驳"></a>可反驳与不可反驳</h2><p>不可反驳：<br>    能匹配任何传递的可能值的模式<br>    如let x = 5<br>    x可以匹配任何值<br>可反驳：<br>    对可能的值进行匹配会失败的模式<br>    如let Some(x) = a_value<br>    如果a_value是None匹配会失败</p>
-<p>函数参数、let语句、for循环只接受不可反驳的匹配，因为不匹配程序无法继续执行<br>if let和while let需要可反驳模式，不可反驳也能运行，编译器会警告但不会报错</p>
-<h2 id="匹配语法或用法"><a href="#匹配语法或用法" class="headerlink" title="匹配语法或用法"></a>匹配语法或用法</h2><h3 id="匹配多个模式"><a href="#匹配多个模式" class="headerlink" title="匹配多个模式"></a>匹配多个模式</h3><p>|可以用来匹配多个模式，相当于或操作</p>
-<pre class="line-numbers language-none"><code class="language-none">let x = 1;
-	match x {
-	    1 | 2 =&gt; println!("one or two"),
-	    3 =&gt; println!("three"),
-	    _ =&gt; println!("anything"),
-	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="匹配范围"><a href="#匹配范围" class="headerlink" title="匹配范围"></a>匹配范围</h3><p>..=可以用来匹配一个数字或char范围<br>数字的例子</p>
-<pre class="line-numbers language-none"><code class="language-none">let x = 5;
-	match x {
-	    1..=5 =&gt; println!("one through five"),
-	    _ =&gt; println!("something else"),
-	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>char的例子</p>
-<pre class="line-numbers language-none"><code class="language-none">let x = 'c';
-match x {
-    'a'..='j' =&gt; println!("early ASCII letter"),
-    'k'..='z' =&gt; println!("late ASCII letter"),
-    _ =&gt; println!("something else"),
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="在匹配模式中创建值时检查值的匹配模式"><a href="#在匹配模式中创建值时检查值的匹配模式" class="headerlink" title="在匹配模式中创建值时检查值的匹配模式"></a>在匹配模式中创建值时检查值的匹配模式</h3><p>@运算符可以检查在匹配模式中创建的值是否符合@符后跟着的匹配模式<br>以下例子先创建变量id_variable并用@来检查该变量是否符合一个匹配模式<br>再用..=直接匹配枚举的字段值<br>最后匹配枚举类型并用变量获取字段值</p>
-<pre class="line-numbers language-none"><code class="language-none">enum Message {
-    Hello { id: i32 },
-}
-
-let msg = Message::Hello { id: 5 };
-
-match msg {
-    Message::Hello { id: id_variable @ 3..=7 } =&gt; {
-        println!("Found an id in range: {}", id_variable)
-    },
-    Message::Hello { id: 10..=12 } =&gt; {
-        println!("Found an id in another range")
-    },
-    Message::Hello { id } =&gt; {
-        println!("Found some other id: {}", id)
-    },
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="忽略模式中的值"><a href="#忽略模式中的值" class="headerlink" title="忽略模式中的值"></a>忽略模式中的值</h3><p>下划线_是匹配但不绑定任何值的通配符模式，可以用于match的最后一条来处理剩余情况<br>也可以在函数签名中使用，忽略不需要的参数</p>
-<pre class="line-numbers language-none"><code class="language-none">fn foo(_: i32, y: i32) {
-    println!("This code only uses the y parameter: {}", y);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>忽略模式中不需要的值</p>
-<pre class="line-numbers language-none"><code class="language-none">let mut setting_value = Some(5);
-let new_setting_value = Some(10);
-match (setting_value, new_setting_value) {
-    (Some(_), Some(_)) =&gt; {
-        println!("Can't overwrite an existing customized value");
-    }
-    _ =&gt; {
-        setting_value = new_setting_value;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>..也可以忽略剩余值，用在忽略多个值的情况下，他会忽略剩余的没有显式匹配的值</p>
-<pre class="line-numbers language-none"><code class="language-none">struct Point {
-    x: i32,
-    y: i32,
-    z: i32,
-}
-let origin = Point { x: 0, y: 0, z: 0 };
-match origin {
-    Point { x, .. } =&gt; println!("x is {}", x),
-}
-..忽略必须明确
-(first, .., last)
-上面这样不会报错
-(.., second, ..)
-上面这样不明确的忽略rust会报错<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="忽略对未使用变量的警告"><a href="#忽略对未使用变量的警告" class="headerlink" title="忽略对未使用变量的警告"></a>忽略对未使用变量的警告</h3><p>声明了变量但未使用的情况下会有一个警告，用下划线开头来告诉编译器去掉警告<br>在准备目前使用不到的变量时可以用下划线开头</p>
-<h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p>模式可以解构结构体，枚举，元组，引用</p>
-<h3 id="解构结构体"><a href="#解构结构体" class="headerlink" title="解构结构体"></a>解构结构体</h3><p>解构一个结构体的例子</p>
-<pre class="line-numbers language-none"><code class="language-none">struct Point {
-    x: i32,
-    y: i32,
-}
-fn main() {
-    let p = Point { x: 0, y: 7 };
-    let Point { x: a, y: b } = p;
-    assert_eq!(0, a);
-    assert_eq!(7, b);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>因为变量名与字段名经常相同</p>
-<pre class="line-numbers language-none"><code class="language-none">let Point { x: x, y: y } = p;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>为了不重复可以简写</p>
-<pre class="line-numbers language-none"><code class="language-none">struct Point {
-    x: i32,
-    y: i32,
-}
-fn main() {
-    let p = Point { x: 0, y: 7 };
-    let Point { x, y } = p;
-    assert_eq!(0, x);
-    assert_eq!(7, y);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>也可以指定一部分来匹配特定情况</p>
-<pre class="line-numbers language-none"><code class="language-none">let p = Point { x: 0, y: 7 };
-    match p {
-        Point { x, y: 0 } =&gt; println!("On the x axis at {}", x),
-        Point { x: 0, y } =&gt; println!("On the y axis at {}", y),
-        Point { x, y } =&gt; println!("On neither axis: ({}, {})", x, y),
-    }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="解构枚举"><a href="#解构枚举" class="headerlink" title="解构枚举"></a>解构枚举</h3><p>解构枚举需要对应枚举值存储的数据</p>
-<pre class="line-numbers language-none"><code class="language-none">enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(i32, i32, i32),
-}
-fn main() {
-    let msg = Message::ChangeColor(0, 160, 255);
-    match msg {
-        Message::Quit =&gt; {
-            println!("The Quit variant has no data to destructure.")
-        }
-        Message::Move { x, y } =&gt; {
-            println!(
-                "Move in the x direction {} and in the y direction {}",
-                x,
-                y
-            );
-        }
-        Message::Write(text) =&gt; println!("Text message: {}", text),
-        Message::ChangeColor(r, g, b) =&gt; {
-            println!(
-                "Change the color to red {}, green {}, and blue {}",
-                r,
-                g,
-                b
-            )
-        }
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="解构嵌套的复杂结构"><a href="#解构嵌套的复杂结构" class="headerlink" title="解构嵌套的复杂结构"></a>解构嵌套的复杂结构</h3><p>解构嵌套的元组</p>
-<pre class="line-numbers language-none"><code class="language-none">let ((feet, inches), Point {x, y}) = ((3, 10), Point { x: 3, y: -10 });<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p>解构嵌套的结构体和枚举</p>
-<pre class="line-numbers language-none"><code class="language-none">enum Color {
-   Rgb(i32, i32, i32),
-   Hsv(i32, i32, i32),
-}
-
-enum Message {
-    Quit,
-    Move { x: i32, y: i32 },
-    Write(String),
-    ChangeColor(Color),
-}
+                <p>今天遇到了一个问题，需要批量修改文件名，替换其中的字符，相当于文档的全局替换，但是手动改很麻烦，就想着写个小工具，以后也能用，主要用了std::fs模块的两个函数，read_dir，rename，很明显一个读目录一个改名字，代码如下</p>
+<pre class="line-numbers language-none"><code class="language-none">use std::{fs, env};
+use std::path::Path;
+use std::error::Error;
 
 fn main() {
-    let msg = Message::ChangeColor(Color::Hsv(0, 160, 255));
+    let args: Vec&lt;String&gt; = env::args().collect();
+    let path = Path::new("./");
+    let mut entrys = Vec::new();
 
-    match msg {
-        Message::ChangeColor(Color::Rgb(r, g, b)) =&gt; {
-            println!(
-                "Change the color to red {}, green {}, and blue {}",
-                r,
-                g,
-                b
-            )
+    for entry in  fs::read_dir(path).expect("读取目录失败") {
+        if let Ok(entry) = entry {
+            let fname = entry.file_name();
+            let filename = fname.to_str().unwrap().to_string();
+            entrys.push(filename);
         }
-        Message::ChangeColor(Color::Hsv(h, s, v)) =&gt; {
-            println!(
-                "Change the color to hue {}, saturation {}, and value {}",
-                h,
-                s,
-                v
-            )
-        }
-        _ =&gt; ()
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    for filename in &amp;entrys{
+        let new_filename = filename.clone();
+        let new_filename = new_filename.replace(&amp;args[1],&amp;args[2]);
+        match fs::rename(&amp;filename, &amp;new_filename) {
+            Err(why) =&gt; panic!("{} =&gt; {}: {}", filename, new_filename, why.to_string()),
+            Ok(_) =&gt; println!("{} =&gt; {}", filename, new_filename),
+        }
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>写的时候也遇到了一点小问题，read_dir函数会返回一个迭代器，根据官方文档的说法，这个迭代器是每次读取的时候向系统获取一个文件名</p>
+<pre class="line-numbers language-none"><code class="language-none">Platform-specific behavior
+This function currently corresponds to the opendir function on Unix and the FindFirstFile function on Windows. Advancing the iterator currently corresponds to readdir on Unix and FindNextFile on Windows. Note that, this may change in the future.
+
+The order in which this iterator returns entries is platform and filesystem dependent.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>于是在第一个版本发现改文件名进行了两次，上面给出的写法是把文件名读取到一个Vec里，再遍历Vec改文件名的，刚开始不是读到Vec里的，是在第一个for循环里直接改的，从read_dir返回的迭代器中读取一个文件名就改一个，改完名的文件就相当于是新文件了，会再次被迭代器获取到，所以一个文件会被检查替换两遍，同时需要注意改名会直接覆盖同名文件。</p>
+
             </div>
             <hr/>
 
@@ -604,7 +425,7 @@ fn main() {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/">http://example.com/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/</a>
+                    <a href="http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/">http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -685,9 +506,10 @@ fn main() {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/08/19/wen-jian-pi-liang-gai-ming/">
                     <div class="card-image">
@@ -705,9 +527,9 @@ fn main() {
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -720,6 +542,7 @@ fn main() {
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -738,13 +561,13 @@ fn main() {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/05/13/rust-xue-xi-ji-lu-bing-fa/">
+                <a href="/2021/05/13/rust-xue-xi-ji-lu-mo-shi-pi-pei/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="rust学习记录-并发">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="rust学习记录-模式匹配">
                         
-                        <span class="card-title">rust学习记录-并发</span>
+                        <span class="card-title">rust学习记录-模式匹配</span>
                     </div>
                 </a>
                 <div class="card-content article-content">

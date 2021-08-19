@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-05-13T10:11:51.570Z</updated>
+  <updated>2021-08-19T12:50:55.657Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件批量改名</title>
+    <link href="http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/"/>
+    <id>http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/</id>
+    <published>2021-08-19T12:22:06.000Z</published>
+    <updated>2021-08-19T12:50:55.657Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天遇到了一个问题，需要批量修改文件名，替换其中的字符，相当于文档的全局替换，但是手动改很麻烦，就想着写个小工具，以后也能用，主要用了std::fs模块的两个函数，read_dir，rename，很明显一个读目录一个改名字，代码如下&lt;/p&gt;
+&lt;pre</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+  </entry>
   
   <entry>
     <title>rust学习记录-模式匹配</title>
@@ -515,33 +541,6 @@ fn test_func() {&lt;span</summary>
     <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
     
     <category term="隧道" scheme="http://example.com/tags/%E9%9A%A7%E9%81%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dns隧道及流量分析</title>
-    <link href="http://example.com/2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/"/>
-    <id>http://example.com/2021/01/25/dns-sui-dao-ji-liu-liang-fen-xi/</id>
-    <published>2021-01-25T15:33:23.000Z</published>
-    <updated>2021-01-26T15:59:20.112Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
-    
-    
-    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
-    
-    <category term="dns隧道" scheme="http://example.com/tags/dns%E9%9A%A7%E9%81%93/"/>
     
   </entry>
   
