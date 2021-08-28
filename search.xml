@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>rust中的Pin类型</title>
+      <link href="2021/08/28/rust-zhong-de-pin-lei-xing/"/>
+      <url>2021/08/28/rust-zhong-de-pin-lei-xing/</url>
+      
+        <content type="html"><![CDATA[<p>刚开始学rust异步的时候总遇到一个叫Pin的类型，当然rust里准确的说是结构体，只知道可以将内容固定在内存上，但深入的原因一直不是很明白，偶然的学习了下面这篇文章之后明白了一些浅显的原理</p><p><a href="https://blog.adamchalmers.com/pin-unpin/">https://blog.adamchalmers.com/pin-unpin/</a></p><h2 id="为什么要有Pin"><a href="#为什么要有Pin" class="headerlink" title="为什么要有Pin"></a>为什么要有Pin</h2><p>Pin的目的是把数据固定在内存中，但是问什么需要他把数据固定在内存中呢？Pin使用的一个典型场景就是future，他的poll方法的参数就是一个Pin结构体</p><pre class="line-numbers language-none"><code class="language-none">fn poll(self: Pin&lt;&amp;mut Self&gt;, _cx: &amp;mut Context) -&gt; Poll&lt;Self::Output&gt; {    // do something}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>一般的方法第一个参数都是&amp;self或&amp;mut self，而poll却使用了Pin，原因就是引用自身是不安全的，我们先来看下面这张图</p><p><img src="1.png"></p><p>内存地址0xA1是一个变量val，值是1，内存地址0xA2是一个指针，指向0xA1，也就是指向了变量val，假如这块数据在内存中移动了，就会变成下面这张图</p><p><img src="2.png"></p><p>值移到了新的内存空间，但问题就在于指针仍指向val以前的内存地址，这就出现了空指针的情况，这是问题存在的根源，Pin的存在就是为了在类似情况下把val固定在内存上，保持val的内存地址不变</p><p>这也是future的poll使用Pin的原因，poll需要引用自身，但是因为异步的调度，future很可能会在多个线程之间切换，这就导致第二张图的情况出现，future可能会在内存中移动，那对自身的引用就会失效，所以需要使用Pin</p><h2 id="unpin和-unpin"><a href="#unpin和-unpin" class="headerlink" title="unpin和!unpin"></a>unpin和!unpin</h2><p>这是两个trait，叫法比较变扭，尤其是!unpin，先看unpin，这个是rust自动实现的一个trait，大部分类型在内存中的移动是安全的，像String，number这种基本类型，rust会自动给他们实现unpin这个trait，大概意思可能是不需要pin，代表可以安全的在内存中移动，和send trait类似，由unpin组成的结构体等也会被自动实现trait，也是安全的。</p><p>然后就到了!unpin，!的意思是没有实现unpin，这些就是不能在内存间安全移动的了，需要使用pin来保证自引用的安全，future就是其中之一</p><p>通过rust的文档我们可以发现Pin的使用也很明确</p><pre class="line-numbers language-none"><code class="language-none">// Putting data into Pinpub        fn new          &lt;P: Deref&lt;Target:Unpin&gt;&gt;(pointer: P) -&gt; Pin&lt;P&gt;;pub unsafe fn new_unchecked&lt;P&gt;                     (pointer: P) -&gt; Pin&lt;P&gt;;// Getting data from Pinpub        fn into_inner          &lt;P: Deref&lt;Target: Unpin&gt;&gt;(pin: Pin&lt;P&gt;) -&gt; P;pub unsafe fn into_inner_unchecked&lt;P&gt;                      (pin: Pin&lt;P&gt;) -&gt; P;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>两个方法创建Pin，两个方法获取值，根据文档描述，对于unpin的数据可以使用安全的new和into_inner，对于不安全的数据则需要使用不安全的方法，可能是里面对内存进行了一些rust无法判定是否安全的操作</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+            <tag> 异步 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>文件批量改名</title>
       <link href="2021/08/19/wen-jian-pi-liang-gai-ming/"/>
       <url>2021/08/19/wen-jian-pi-liang-gai-ming/</url>

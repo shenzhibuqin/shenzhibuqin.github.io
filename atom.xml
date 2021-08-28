@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-08-19T12:50:55.657Z</updated>
+  <updated>2021-08-28T05:22:46.676Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>rust中的Pin类型</title>
+    <link href="http://example.com/2021/08/28/rust-zhong-de-pin-lei-xing/"/>
+    <id>http://example.com/2021/08/28/rust-zhong-de-pin-lei-xing/</id>
+    <published>2021-08-28T04:34:58.000Z</published>
+    <updated>2021-08-28T05:22:46.676Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;刚开始学rust异步的时候总遇到一个叫Pin的类型，当然rust里准确的说是结构体，只知道可以将内容固定在内存上，但深入的原因一直不是很明白，偶然的学习了下面这篇文章之后明白了一些浅显的原理&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="rust" scheme="http://example.com/categories/rust/"/>
+    
+    
+    <category term="rust" scheme="http://example.com/tags/rust/"/>
+    
+    <category term="异步" scheme="http://example.com/tags/%E5%BC%82%E6%AD%A5/"/>
+    
+  </entry>
   
   <entry>
     <title>文件批量改名</title>
@@ -514,33 +542,6 @@ fn test_func() {&lt;span</summary>
     <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
     
     <category term="http隧道" scheme="http://example.com/tags/http%E9%9A%A7%E9%81%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ICMP隧道及流量分析</title>
-    <link href="http://example.com/2021/01/26/icmp-sui-dao-ji-liu-liang-fen-xi/"/>
-    <id>http://example.com/2021/01/26/icmp-sui-dao-ji-liu-liang-fen-xi/</id>
-    <published>2021-01-26T08:18:15.000Z</published>
-    <updated>2021-01-26T09:21:37.869Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
-    
-    
-    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
-    
-    <category term="隧道" scheme="http://example.com/tags/%E9%9A%A7%E9%81%93/"/>
     
   </entry>
   
