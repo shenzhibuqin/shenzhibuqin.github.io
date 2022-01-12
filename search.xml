@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>解决华硕机器升级win11出错的问题</title>
+      <link href="2022/01/12/jie-jue-hua-shuo-ji-qi-sheng-ji-win11-chu-cuo-de-wen-ti/"/>
+      <url>2022/01/12/jie-jue-hua-shuo-ji-qi-sheng-ji-win11-chu-cuo-de-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>之前好奇新的win11，一时没忍住就升级了内测版，是尝了鲜，但是bug也是多到飞起，直到Windows 11 Insider Preview 22526.1000 (rs_prerelease)这个版本，升级都升不了，升一半就失败</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>直接上文章，我用的是这个文章的解决办法，但也不完全一致</p><p><a href="https://answers.microsoft.com/en-us/insider/forum/all/cant-update-to-build-22523-install-error/b90777c7-e364-48b1-9985-5602dd5059f0?auth=1">https://answers.microsoft.com/en-us/insider/forum/all/cant-update-to-build-22523-install-error/b90777c7-e364-48b1-9985-5602dd5059f0?auth=1</a></p><p>文章主要是两点</p><ol><li>卸载myasus</li><li>删除两个文件夹，里面是华硕预置的软件</li></ol><pre class="line-numbers language-none"><code class="language-none">路径：C:\Windows\System32\DriverStore\FileRepository文件夹名asussci2.inf_amd64_91393079eeadb8f1asussci2.inf_amd64_f73c42a7ee5021d4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>主要原因应该是华硕的预置软件和win11的冲突，首先myasus是肯定要卸载的，但是那两个文件夹一般没权限删，只能是pe启动去系统里删或是别的特殊办法</p><p>我嫌麻烦就没去删，而是把华硕的armoury crate等软件全卸载了，但是fn键和又不能正常用了，而且win11还更新不成功，本来想着不更了，去官网下自己机型的软件，再重装一遍，有的软件华硕下载中心没有，还是找客服要的，装完之后莫名其妙又能更新了，但是armoury crate反应很慢，跟原来的效果不一样，调风扇本来桌面会跳个框提示现在是几档，现在也没了，估计是和win11冲突的部分没重装上，导致win11能更新，华硕软件勉强能用</p><p>一直觉得华硕自带的这些软件做的不太靠谱，加上现在win11也不靠谱，终究是被坑了一把，win11这贼船还能上不能下，真是自作孽。。。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> win11 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>rust中的Pin类型</title>
       <link href="2021/08/28/rust-zhong-de-pin-lei-xing/"/>
       <url>2021/08/28/rust-zhong-de-pin-lei-xing/</url>

@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-08-28T05:22:46.676Z</updated>
+  <updated>2022-01-12T09:11:39.486Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>解决华硕机器升级win11出错的问题</title>
+    <link href="http://example.com/2022/01/12/jie-jue-hua-shuo-ji-qi-sheng-ji-win11-chu-cuo-de-wen-ti/"/>
+    <id>http://example.com/2022/01/12/jie-jue-hua-shuo-ji-qi-sheng-ji-win11-chu-cuo-de-wen-ti/</id>
+    <published>2022-01-12T08:50:57.000Z</published>
+    <updated>2022-01-12T09:11:39.486Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;起因&quot;&gt;&lt;a href=&quot;#起因&quot; class=&quot;headerlink&quot; title=&quot;起因&quot;&gt;&lt;/a&gt;起因&lt;/h2&gt;&lt;p&gt;之前好奇新的win11，一时没忍住就升级了内测版，是尝了鲜，但是bug也是多到飞起，直到Windows 11 Insider</summary>
+        
+      
+    
+    
+    
+    <category term="杂" scheme="http://example.com/categories/%E6%9D%82/"/>
+    
+    
+    <category term="win11" scheme="http://example.com/tags/win11/"/>
+    
+  </entry>
   
   <entry>
     <title>rust中的Pin类型</title>
@@ -49,7 +74,7 @@
     <link href="http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/"/>
     <id>http://example.com/2021/08/19/wen-jian-pi-liang-gai-ming/</id>
     <published>2021-08-19T12:22:06.000Z</published>
-    <updated>2021-08-19T12:50:55.657Z</updated>
+    <updated>2022-01-12T08:45:31.341Z</updated>
     
     
       
@@ -468,7 +493,7 @@ fn test_func() {&lt;span</summary>
     <link href="http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/"/>
     <id>http://example.com/2021/02/04/jie-jue-kali-an-zhuang-vsftpd-wu-fa-xian-zhi-gen-mu-lu/</id>
     <published>2021-02-04T07:45:23.000Z</published>
-    <updated>2021-02-04T08:12:02.128Z</updated>
+    <updated>2022-01-12T08:46:18.968Z</updated>
     
     
       
@@ -514,34 +539,6 @@ fn test_func() {&lt;span</summary>
     <category term="端口复用" scheme="http://example.com/tags/%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/"/>
     
     <category term="sslh" scheme="http://example.com/tags/sslh/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>http隧道及流量分析</title>
-    <link href="http://example.com/2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/"/>
-    <id>http://example.com/2021/01/26/http-sui-dao-ji-liu-liang-fen-xi/</id>
-    <published>2021-01-26T14:14:58.000Z</published>
-    <updated>2021-01-26T16:56:05.877Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;http隧道利用的是http代理的转发功能，在一种特殊情境下达到出网的目的&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;21.jpg&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="隧道" scheme="http://example.com/categories/%E9%9A%A7%E9%81%93/"/>
-    
-    
-    <category term="流量分析" scheme="http://example.com/tags/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
-    
-    <category term="http隧道" scheme="http://example.com/tags/http%E9%9A%A7%E9%81%93/"/>
     
   </entry>
   
